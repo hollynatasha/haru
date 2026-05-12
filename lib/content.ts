@@ -85,6 +85,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "claude-full-setup",
+    category: "SETUP GUIDE",
+    title: "FULL SETUP: CHAT, COWORK, CODE & DESIGN",
+    description:
+      "Ini guide yang aku kirim buat kamu yang udah comment 'CLAUDE' di video. Breakdown lengkap 4 produk Claude: setup dari mana, buat apa, dan cara aku pake di Haru.",
+    readMinutes: 12,
+    publishedAt: "2026-05-12",
+  },
+  {
     slug: "claude-memory",
     category: "NEW FEATURE",
     title: "CLAUDE'S NEW MEMORY FEATURE",

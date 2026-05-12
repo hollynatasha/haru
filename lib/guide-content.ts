@@ -1,6 +1,70 @@
 type Section = { heading?: string; paragraphs: string[] };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "claude-full-setup": [
+    {
+      paragraphs: [
+        "Ini guide yang aku kirim buat kamu yang udah comment 'CLAUDE' di video.",
+        "Jadi kamu udah tau Claude itu ada 4 produk berbeda. Sekarang pertanyaannya, mulai dari mana dan gimana caranya? Aku breakdown satu per satu, mulai dari yang paling gampang sampe yang paling powerful.",
+      ],
+    },
+    {
+      heading: "1. Claude Chat",
+      paragraphs: [
+        "Ini titik awal kamu. Claude Chat itu versi Claude yang bisa diakses gratis lewat browser di claude.ai. Ga perlu install apapun, tinggal buka, daftar pakai email, dan langsung bisa dipake.",
+        "Setup (literally 2 menit): buka claude.ai → daftar pakai email atau Google account → pilih plan Free → mulai chat.",
+        "Buat apa aja: summarize artikel, jurnal, atau dokumen panjang; brainstorm ide konten, bisnis, atau essay; draft email atau caption yang kamu stuck nulisinnya; jelasin konsep yang kamu ga ngerti dari Google.",
+        "Cara aku pake di Haru: legal docs yang dulu butuh 2 jam baca sendiri sekarang cuma 10 menit karena aku paste ke Claude dan minta dia rangkum poin-poin utamanya plus flag bagian yang perlu aku perhatiin.",
+        "Tips buat pemula: jangan terlalu singkat waktu ngetik prompt. Kasih konteks. Contohnya jangan cuma 'summarize ini' tapi 'summarize ini dan highlight 3 poin yang paling penting buat founder yang lagi fundraising.'",
+      ],
+    },
+    {
+      heading: "2. Claude Cowork",
+      paragraphs: [
+        "Ini versi Claude yang beneran kerjain task buat kamu, bukan cuma jawab pertanyaan. Claude Cowork itu agentic, artinya dia bisa baca file di desktop kamu, sortir folder, draft dan kirim email, sampe browsing web atas nama kamu. Ini beda banget dari Chat yang cuma teks-ke-teks.",
+        "Setup: butuh Claude Pro atau Team plan (sekitar $20/bulan) → download aplikasi Claude desktop → di settings, aktifkan Computer Use atau Cowork features → grant permission ke folder atau app yang mau dia akses.",
+        "Buat apa aja: sortir ratusan email berdasarkan kategori atau urgency; rapiin struktur folder project kamu; research dan compile informasi dari beberapa sumber sekaligus; otomatisin task berulang yang selama ini kamu lakuin manual.",
+        "Cara aku pake di Haru: 500 email per minggu yang dulu makan 2 jam sekarang cuma 5 menit karena Cowork yang sortirin, flag yang urgent, dan draft reply template buat yang standar.",
+        "Tips buat pemula: mulai dari task kecil dulu, kayak minta dia sortir satu folder atau summarize isi beberapa file. Jangan langsung kasih akses ke semua sistem kamu sebelum kamu ngerti cara kerjanya.",
+      ],
+    },
+    {
+      heading: "3. Claude Code",
+      paragraphs: [
+        "Ini buat kamu yang ngoding, tapi juga buat kamu yang ga ngoding sama sekali. Claude Code itu tools yang jalan di terminal dan bisa akses langsung ke codebase kamu. Dia bisa refactor kode, debug error, nulis test, dan handle Git workflow. Yang underrated, non-coder sekarang juga mulai pake ini buat hal-hal kayak bikin macro Excel atau automasi Notion.",
+        "Setup buat non-coder: install Node.js di nodejs.org, buka Terminal (Mac) atau Command Prompt (Windows), ketik 'npm install -g @anthropic-ai/claude-code' terus enter, dan login dengan Claude account kamu. Kalau kamu udah ngoding, jalanin langsung dari folder project kamu dan dia bakal baca seluruh codebase-nya otomatis.",
+        "Buat non-coder: minta dia bikin macro Excel buat automasi hal tertentu; bikin script sederhana buat rename file massal; setup automasi Notion atau Google Sheets tanpa coding manual.",
+        "Buat yang ngoding: refactor kode lama yang messy; debug error yang udah bikin pusing berjam-jam; nulis unit test otomatis.",
+        "Tips buat pemula: kalau kamu non-coder, cukup deskripsiin apa yang mau kamu automasi dalam bahasa biasa. Contohnya 'bikin script Excel yang highlight semua cell di kolom Revenue yang nilainya di bawah 5 juta jadi merah.' Dia yang handle sisanya.",
+      ],
+    },
+    {
+      heading: "4. Claude Design",
+      paragraphs: [
+        "Ini yang paling baru dan paling visual. Claude Design itu tool buat ngebuat mockup, slide, dan desain produk berdasarkan deskripsi teks kamu. Kamu tinggal jelasin apa yang mau kamu buat dan dia generate tampilan visualnya.",
+        "Setup: butuh Claude Pro plan → buka claude.ai dan pilih menu Design → mulai dengan ngedeskripsi apa yang mau kamu buat.",
+        "Buat apa aja: pitch deck untuk presentasi atau fundraising; mockup tampilan app atau website; template visual buat konten atau dokumen; wireframe produk yang mau kamu develop.",
+        "Cara aku pake: pitch deck yang dulu butuh 8 jam kerja plus bayar designer external sekarang jadi 20 menit dan aku kerjain sendiri karena aku tinggal deskripsiin tone, warna, dan struktur slide-nya.",
+        "Tips buat pemula: makin detail deskripsi kamu, makin bagus hasilnya. Sebutin warna, tone (minimalist, bold, corporate, dll), jumlah slide atau halaman, dan tujuan dokumennya. Jangan cuma 'bikin pitch deck' tapi 'bikin pitch deck 5 slide buat B2B SaaS startup, minimalist, warna navy dan cream, target audience investor Series A.'",
+      ],
+    },
+    {
+      heading: "Mulai dari Mana?",
+      paragraphs: [
+        "Kalau kamu baru pertama kali, urutannya simpel: Chat dulu. Kenali cara Claude mikir dan cara ngeprompt yang efektif. Kalau udah ngerasa terbiasa dan mau leverage lebih banyak, baru naik ke Cowork buat task otomasi. Code dan Design itu optional tergantung kebutuhan kamu, bukan wajib.",
+        "Yang paling penting, kamu ga harus pake semuanya. Aku sendiri masih pake Chat buat 80 persen kerjaan harian aku. Tiga produk lainnya itu power-up, bukan requirement.",
+      ],
+    },
+    {
+      heading: "Quick Reference",
+      paragraphs: [
+        "Chat — akses via browser di claude.ai, tersedia gratis maupun Pro, paling cocok buat daily tasks, brainstorm, dan summarize.",
+        "Cowork — desktop app, butuh Claude Pro atau Team, paling cocok buat automasi, sortir file, dan manage inbox.",
+        "Code — jalan di terminal, butuh Claude Pro, paling cocok buat coding, scripting, dan automasi teknis.",
+        "Design — akses via claude.ai, butuh Claude Pro, paling cocok buat mockup, slide, dan wireframe.",
+      ],
+    },
+  ],
   "claude-memory": [
     {
       paragraphs: [
