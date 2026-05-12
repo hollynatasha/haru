@@ -25,7 +25,7 @@ function BrandLogo({ brand }: { brand: Brand }) {
   }
 
   return (
-    <p className="font-serif italic text-base sm:text-lg text-black-coffee/85 whitespace-nowrap">
+    <p className="font-times text-base sm:text-lg text-black-coffee/85 whitespace-nowrap">
       {brand.name}
     </p>
   );

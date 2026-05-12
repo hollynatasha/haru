@@ -15,6 +15,7 @@
   --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
   --font-display: "Helvetica Neue", "Helvetica", var(--font-archivo-black),
     "Inter", sans-serif;
+  --font-times: "Times New Roman", Times, "Tinos", serif;
 }
 
 html,

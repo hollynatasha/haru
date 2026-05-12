@@ -14,11 +14,11 @@ export function VideoPortfolio({ videos }: { videos: readonly Video[] }) {
         <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
           portfolio
         </p>
-        <h2 className="mt-4 font-serif italic text-4xl sm:text-5xl lg:text-6xl text-black-coffee leading-[1.05]">
-          My video <span className="not-italic font-display text-jacarta tracking-[-0.02em]">portfolio</span>
+        <h2 className="mt-4 font-times text-4xl sm:text-5xl lg:text-6xl text-black-coffee leading-[1.05]">
+          My video <span className="font-display text-jacarta tracking-[-0.02em]">portfolio</span>
           <span className="text-jacarta">.</span>
         </h2>
-        <p className="mt-4 max-w-md font-serif italic text-sm sm:text-base text-black-coffee/65">
+        <p className="mt-4 max-w-md font-times text-sm sm:text-base text-black-coffee/65">
           Each tile opens the reel on Instagram. Tap through for live view counts and saves.
         </p>
       </div>
@@ -43,7 +43,7 @@ export function VideoPortfolio({ videos }: { videos: readonly Video[] }) {
                 <p className="font-display text-3xl sm:text-4xl uppercase leading-[0.95] text-black-coffee group-hover:text-cream transition-colors">
                   {video.tag}
                 </p>
-                <p className="mt-3 font-serif italic text-xs text-black-coffee/60 group-hover:text-cream/70 transition-colors">
+                <p className="mt-3 font-times text-xs text-black-coffee/60 group-hover:text-cream/70 transition-colors">
                   watch on Instagram
                 </p>
               </div>

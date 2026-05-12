@@ -59,7 +59,7 @@ export default function WorkWithMePage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
               {BRAND_KIT.hero.label}
             </p>
-            <h1 className="mt-6 font-serif italic text-6xl sm:text-8xl lg:text-[9rem] text-black-coffee leading-[0.95]">
+            <h1 className="mt-6 font-times text-6xl sm:text-8xl lg:text-[9rem] text-black-coffee leading-[0.95]">
               {BRAND_KIT.hero.title}
             </h1>
             <p className="mt-10 max-w-2xl text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
@@ -89,7 +89,7 @@ export default function WorkWithMePage() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
                 the stats
               </p>
-              <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
+              <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
                 {BRAND_KIT.funnel.headline}
               </h2>
             </div>
@@ -112,7 +112,7 @@ export default function WorkWithMePage() {
                   <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
                     {s.label}
                   </p>
-                  <p className="mt-3 font-serif italic text-sm text-black-coffee/65">
+                  <p className="mt-3 font-times text-sm text-black-coffee/65">
                     {s.note}
                   </p>
                 </div>
@@ -142,7 +142,7 @@ export default function WorkWithMePage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             audience
           </p>
-          <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
+          <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
             Who you&apos;ll be reaching<span className="text-jacarta">.</span>
           </h2>
 
@@ -212,7 +212,7 @@ export default function WorkWithMePage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             content i make
           </p>
-          <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
+          <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
             Next-level content for your brand<span className="text-jacarta">.</span>
           </h2>
 
@@ -222,7 +222,7 @@ export default function WorkWithMePage() {
                 key={c.tag}
                 className="border-t border-line pt-6 flex items-start gap-6"
               >
-                <p className="font-serif italic text-sm text-jacarta shrink-0 w-8">
+                <p className="font-times text-sm text-jacarta shrink-0 w-8">
                   0{i + 1}
                 </p>
                 <div>
@@ -244,7 +244,7 @@ export default function WorkWithMePage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             collaborate
           </p>
-          <h2 className="mt-6 font-serif italic text-4xl sm:text-6xl lg:text-7xl text-black-coffee leading-[1.05]">
+          <h2 className="mt-6 font-times text-4xl sm:text-6xl lg:text-7xl text-black-coffee leading-[1.05]">
             {BRAND_KIT.cta.headline}
           </h2>
           <p className="mt-8 text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
@@ -268,7 +268,7 @@ export default function WorkWithMePage() {
             {WHATSAPP.raw}
           </p>
 
-          <p className="mt-10 font-serif italic text-sm text-black-coffee/55">
+          <p className="mt-10 font-times text-sm text-black-coffee/55">
             Prefer email?{" "}
             <Link
               href="mailto:hollysinq@gmail.com"

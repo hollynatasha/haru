@@ -198,8 +198,8 @@ export const BRAND_KIT = {
       logoSrc: "/brands/western-sydney.png",
     },
     {
-      name: "Cleo Magazine",
-      logoSrc: "/brands/cleo.png",
+      name: "Gauth AI",
+      logoSrc: "/brands/gauth.png",
     },
   ],
 
@@ -259,14 +259,10 @@ export const BRAND_KIT = {
   },
 
   videoPortfolio: [
-    { tag: "SKINCARE", href: INSTAGRAM_URL },
-    { tag: "LIFESTYLE", href: INSTAGRAM_URL },
-    { tag: "HOME", href: INSTAGRAM_URL },
-    { tag: "FOOD", href: INSTAGRAM_URL },
-    { tag: "FASHION", href: INSTAGRAM_URL },
-    { tag: "BEAUTY", href: INSTAGRAM_URL },
-    { tag: "LIFESTYLE", href: INSTAGRAM_URL },
-    { tag: "BODYCARE", href: INSTAGRAM_URL },
+    { tag: "GAUTH AI", href: INSTAGRAM_URL },
+    { tag: "ICAN EDUCATION", href: INSTAGRAM_URL },
+    { tag: "WESTERN SYDNEY UNI", href: INSTAGRAM_URL },
+    { tag: "MANDARIN MASTERY CIRCLE", href: INSTAGRAM_URL },
   ],
 
   contentTypes: [
