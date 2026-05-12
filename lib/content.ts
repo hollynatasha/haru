@@ -108,6 +108,11 @@ export const ABOUT_ME = {
   ] as const,
   experience: [
     {
+      role: "CEO & Lead Developer",
+      org: "HeaRing (言戒)",
+      dates: "Nov 2025 – Present",
+    },
+    {
       role: "Founder",
       org: "hanzhi.id",
       dates: "2024 – Present",
@@ -121,6 +126,28 @@ export const ABOUT_ME = {
       role: "Founder",
       org: "Haru Studio (self-photobooth)",
       dates: "2025 – Present",
+    },
+  ] as const,
+  leadership: [
+    {
+      role: "Deputy of Administration",
+      org: "Zijing Association of Science & Technology",
+      dates: "Aug 2025 – Present",
+    },
+    {
+      role: "Core Member, International Relations",
+      org: "Tsinghua University Student Union",
+      dates: "Aug 2025 – Present",
+    },
+    {
+      role: "Core Member",
+      org: "Tsinghua Cheerleading / Dance Team",
+      dates: "Aug 2025 – Present",
+    },
+    {
+      role: "Founder & President",
+      org: "Eclipse Learns",
+      dates: "May 2024 – Present",
     },
   ] as const,
 };

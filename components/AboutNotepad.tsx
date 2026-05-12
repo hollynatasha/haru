@@ -61,6 +61,19 @@ export function AboutNotepad() {
                 <p className="mt-3 pl-6 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
                   {ABOUT_ME.languages.join(", ")}
                 </p>
+
+                <p className="mt-8 font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
+                  LEADERSHIP &amp; VOLUNTEERING:
+                </p>
+                <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-3">
+                  {ABOUT_ME.leadership.map((l, i) => (
+                    <li key={i}>
+                      <div>{l.role}</div>
+                      <div className="text-black-coffee/75">{l.org}</div>
+                      <div className="text-black-coffee/55">{l.dates}</div>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div>

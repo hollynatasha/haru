@@ -27,16 +27,7 @@ export function Hero() {
         AI resources
       </Link>
 
-      <motion.span
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="inline-block rounded-full bg-jacarta/10 px-3 py-1 font-serif italic text-[12px] text-jacarta"
-      >
-        {HERO.location}
-      </motion.span>
-
-      <h1 className="mt-8 font-display text-center tracking-[-0.04em] leading-[0.88] text-jacarta uppercase text-[4.5rem] sm:text-[7.5rem] lg:text-[11rem]">
+      <h1 className="font-display text-center tracking-[-0.04em] leading-[0.88] text-jacarta uppercase text-[4.5rem] sm:text-[7.5rem] lg:text-[11rem]">
         {HERO.name.map((line, i) => (
           <motion.span
             key={line}
