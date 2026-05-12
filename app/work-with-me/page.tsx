@@ -102,39 +102,37 @@ export default function WorkWithMePage() {
             {BRAND_KIT.funnel.body}
           </p>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {BRAND_KIT.funnelStats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl bg-white border border-line p-8"
-              >
-                <p className="font-black tracking-[-0.03em] text-black-coffee text-4xl sm:text-5xl">
-                  {s.value}
-                </p>
-                <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
-                  {s.label}
-                </p>
-                <p className="mt-3 font-serif italic text-sm text-black-coffee/65">
-                  {s.note}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {BRAND_KIT.topStats.map((s) => (
-              <div
-                key={s.label}
-                className="border-t border-line pt-5 flex items-baseline justify-between gap-4"
-              >
-                <p className="font-mono text-sm text-black-coffee/65">
-                  {s.label}
-                </p>
-                <p className="font-display text-2xl sm:text-3xl text-jacarta tracking-tight">
-                  {s.value}
-                </p>
-              </div>
-            ))}
+          <div className="mt-12 rounded-2xl bg-white border border-line overflow-hidden">
+            <div className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line">
+              {BRAND_KIT.funnelStats.map((s) => (
+                <div key={s.label} className="p-8">
+                  <p className="font-black tracking-[-0.03em] text-black-coffee text-4xl sm:text-5xl">
+                    {s.value}
+                  </p>
+                  <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
+                    {s.label}
+                  </p>
+                  <p className="mt-3 font-serif italic text-sm text-black-coffee/65">
+                    {s.note}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-line grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line bg-cream/50">
+              {BRAND_KIT.topStats.map((s) => (
+                <div
+                  key={s.label}
+                  className="px-8 py-5 flex items-baseline justify-between gap-4"
+                >
+                  <p className="font-mono text-xs sm:text-sm text-black-coffee/70">
+                    {s.label}
+                  </p>
+                  <p className="font-display text-xl sm:text-2xl text-jacarta tracking-tight">
+                    {s.value}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
