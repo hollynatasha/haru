@@ -12,7 +12,7 @@ export function BusinessShowcase() {
           Things I&apos;m building<span className="text-jacarta">.</span>
         </h2>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+        <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {VENTURES.map((v, i) => (
             <BusinessCard
               key={v.name}
@@ -20,6 +20,8 @@ export function BusinessShowcase() {
               name={v.name}
               tagline={v.tagline}
               href={v.href}
+              logoSrc={v.logoSrc}
+              accent={v.accent}
             />
           ))}
         </div>

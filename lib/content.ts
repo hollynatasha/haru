@@ -3,6 +3,9 @@ export const WHATSAPP = {
   href: "https://wa.me/6282123498761?text=Hi%20Holly%2C%20I%27d%20love%20to%20talk%20about%20a%20collaboration.",
 };
 
+export const INSTAGRAM_URL = "https://instagram.com/hollynst";
+export const TIKTOK_URL = "https://www.tiktok.com/@hollynst";
+
 export const HERO = {
   name: ["HOLLY", "NATASHA"] as const,
   location: "beijing",
@@ -13,14 +16,25 @@ export const HERO = {
 
 export const VENTURES = [
   {
-    name: "HANZHI.ID",
-    tagline: "CSCA prep platform with a red panda mascot.",
+    name: "hanzhi.id",
+    tagline: "Study-in-China prep platform, partnered with universities across SEA.",
     href: "https://hanzhi.id",
+    logoSrc: "/ventures/hanzhi.png",
+    accent: "default" as const,
   },
   {
-    name: "CSCA.ID",
+    name: "csca.id",
     tagline: "Tools and resources for Chinese Scholarship Council applicants.",
     href: "https://csca.id",
+    logoSrc: "/ventures/csca.png",
+    accent: "default" as const,
+  },
+  {
+    name: "Haru Studio",
+    tagline: "Self-photobooth business with combo packages, Indonesia.",
+    href: "https://instagram.com/harustudio.idn",
+    logoSrc: "/ventures/haru.png",
+    accent: "blush" as const,
   },
 ] as const;
 
@@ -88,12 +102,12 @@ export const ABOUT_ME = {
   experience: [
     {
       role: "Founder",
-      org: "HANZHI.ID",
+      org: "hanzhi.id",
       dates: "2024–present",
     },
     {
       role: "Founder",
-      org: "CSCA.ID",
+      org: "csca.id",
       dates: "2024–present",
     },
     {
@@ -169,26 +183,97 @@ export const GUIDES = [
 export type Guide = (typeof GUIDES)[number];
 
 export const BRAND_KIT = {
+  statsDate: "May 2026",
+
   hero: {
     label: "for brands",
-    title: "Let's work together.",
+    title: "Let's work together.",
     intro:
-      "I'm Holly, a Tsinghua mech eng student making short-form video about AI, campus life, and self-development from Beijing. If your brand fits the audience, I'd love to talk.",
+      "I'm Holly, a Tsinghua mech eng student making short-form video about AI, tech, self-development, and student life from Beijing. If your brand fits the audience, I'd love to talk.",
   },
-  stats: [
-    { value: "XXk+", label: "FOLLOWERS" },
-    { value: "X.X%", label: "ENGAGEMENT RATE" },
-    { value: "XXk+", label: "AVG WEEKLY VIEWS" },
-    { value: "XX%", label: "AVG VIEW COMPLETION" },
-    { value: "XX%", label: "WOMEN, AGES 18–29" },
-    { value: "XX%", label: "AUDIENCE IN APAC" },
+
+  workedWith: [
+    {
+      name: "Western Sydney University",
+      logoSrc: "/brands/western-sydney.png",
+    },
+    {
+      name: "Cleo Magazine",
+      logoSrc: "/brands/cleo.png",
+    },
   ],
-  notes:
-    "Stats refreshed monthly. Ask for the latest one-pager with platform breakdowns and recent campaign results.",
+
+  funnel: {
+    headline: "Saves and shares > follower count.",
+    body: "I optimize for content that gets passed around, not just liked. The interaction numbers below are what actually move product for sponsors, because they signal real intent and word-of-mouth reach.",
+  },
+
+  funnelStats: [
+    {
+      value: "487,190",
+      label: "Accounts reached",
+      note: "+13.6% month over month",
+    },
+    {
+      value: "72,975",
+      label: "Interactions",
+      note: "likes, comments, shares, saves",
+    },
+    {
+      value: "62,578",
+      label: "Accounts engaged",
+      note: "real humans, not impressions",
+    },
+  ],
+
+  topStats: [
+    { value: "24K", label: "Followers" },
+    { value: "1.59M", label: "Views" },
+    { value: "85%", label: "Reach from non-followers" },
+  ],
+
+  demographics: {
+    gender: { women: 55.4, men: 44.6 },
+    age: [
+      { range: "13–17", pct: 7.8 },
+      { range: "18–24", pct: 26.8 },
+      { range: "25–34", pct: 38.4 },
+      { range: "35–44", pct: 19.0 },
+      { range: "45–54", pct: 6.0 },
+      { range: "55–64", pct: 1.1 },
+      { range: "65+", pct: 0.8 },
+    ],
+    countries: [
+      { name: "Indonesia", pct: 80.6 },
+      { name: "United States", pct: 5.2 },
+      { name: "Australia", pct: 1.6 },
+      { name: "China", pct: 1.6 },
+    ],
+    cities: [
+      { name: "Surabaya", pct: 17.0 },
+      { name: "Jakarta", pct: 14.7 },
+      { name: "Tangerang", pct: 4.0 },
+      { name: "Medan", pct: 2.6 },
+      { name: "Semarang", pct: 1.6 },
+    ],
+  },
+
+  videoPortfolio: [
+    { tag: "SKINCARE", href: INSTAGRAM_URL },
+    { tag: "LIFESTYLE", href: INSTAGRAM_URL },
+    { tag: "HOME", href: INSTAGRAM_URL },
+    { tag: "FOOD", href: INSTAGRAM_URL },
+    { tag: "FASHION", href: INSTAGRAM_URL },
+    { tag: "BEAUTY", href: INSTAGRAM_URL },
+    { tag: "LIFESTYLE", href: INSTAGRAM_URL },
+    { tag: "BODYCARE", href: INSTAGRAM_URL },
+  ],
+
   contentTypes: [
     {
       tag: "BRAND LIFESTYLE",
-      blurb: "Day-in-the-life storytelling that integrates your product into a real routine.",
+      blurb:
+        "Day-in-the-life storytelling that integrates your product into a real routine.",
     },
     {
       tag: "BRAND DEMONSTRATION",
@@ -196,31 +281,26 @@ export const BRAND_KIT = {
     },
     {
       tag: "BRAND PAID AD",
-      blurb: "Hook-first, native-feeling ads built for the FYP, not the brief deck.",
+      blurb:
+        "Hook-first, native-feeling ads built for the FYP, not the brief deck.",
     },
     {
       tag: "TUTORIAL FEATURE",
-      blurb: "Long-form tutorials with your product as the supporting tool, not the topic.",
+      blurb:
+        "Long-form tutorials with your product as the supporting tool, not the topic.",
     },
     {
       tag: "AI / TECH REVIEW",
-      blurb: "Honest first-impressions of AI tools and tech products from a student-builder POV.",
+      blurb:
+        "Honest first-impressions of AI tools and tech products from a student-builder POV.",
     },
     {
       tag: "CAMPUS / TRAVEL FEATURE",
-      blurb: "On-location features in Beijing, Tsinghua, or anywhere I'm filming next.",
+      blurb:
+        "On-location features in Beijing, Tsinghua, or anywhere I'm filming next.",
     },
   ],
-  audience: [
-    { line: "Beijing-based, Indonesian, multilingual (EN / ID / Mandarin)." },
-    { line: "Audience: students and young professionals interested in AI, tech, study, and self-development." },
-    { line: "Geo skews: SEA (Indonesia, Singapore, Malaysia), Greater China, the US." },
-  ],
-  pastWork: [
-    "Worked with Anthropic's Claude features in tutorial content.",
-    "Founder of HANZHI.ID and CSCA.ID, used by Chinese scholarship applicants across SEA.",
-    "Speaking engagements on AI and student entrepreneurship at Tsinghua and partner universities.",
-  ],
+
   cta: {
     headline: "Let's work together in content creating.",
     body: "Send a quick note over WhatsApp. Tell me your brand, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
@@ -234,12 +314,12 @@ export const FOOTER = {
     {
       kind: "instagram" as const,
       label: "@hollynst",
-      href: "https://instagram.com/hollynst",
+      href: INSTAGRAM_URL,
     },
     {
       kind: "tiktok" as const,
       label: "@hollynst",
-      href: "https://www.tiktok.com/@hollynst",
+      href: TIKTOK_URL,
     },
     {
       kind: "mail" as const,
