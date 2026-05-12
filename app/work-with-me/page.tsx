@@ -2,73 +2,210 @@ import Link from "next/link";
 import { BRAND_KIT, WHATSAPP } from "@/lib/content";
 import { BackToHome } from "@/components/BackToHome";
 import { WhatsAppIcon } from "@/components/Icons";
+import { WorkedWith } from "@/components/WorkedWith";
+import { VideoPortfolio } from "@/components/VideoPortfolio";
 
 export const metadata = {
   title: "Work with me, Holly Natasha",
   description:
-    "Brand collaborations with Holly Natasha. Short-form video, demos, paid ads, and tutorials from a Tsinghua student-builder in Beijing.",
+    "Brand collaborations with Holly Natasha. Short-form video that gets shared and saved, made from Beijing.",
 };
 
+function Bar({
+  label,
+  pct,
+  emphasis,
+}: {
+  label: string;
+  pct: number;
+  emphasis?: boolean;
+}) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-3">
+        <p
+          className={`text-sm sm:text-base ${
+            emphasis ? "font-bold text-black-coffee" : "text-black-coffee/85"
+          }`}
+        >
+          {label}
+        </p>
+        <p className="font-mono text-sm text-black-coffee/85">{pct}%</p>
+      </div>
+      <div className="mt-2 h-1.5 w-full rounded-full bg-line/80 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-jacarta"
+          style={{ width: `${Math.min(pct, 100)}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function WorkWithMePage() {
+  const { demographics } = BRAND_KIT;
+
   return (
     <>
-      <section className="relative bg-cream px-6 pt-10 pb-20 sm:pt-12 sm:pb-28">
+      <section className="relative bg-cream px-6 pt-10 pb-20 sm:pt-12 sm:pb-24">
         <div className="mx-auto max-w-5xl">
           <BackToHome variant="light" />
 
-          <p className="mt-20 sm:mt-28 text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-            {BRAND_KIT.hero.label}
-          </p>
-          <h1 className="mt-6 font-serif italic text-6xl sm:text-8xl lg:text-[9rem] text-black-coffee leading-[0.95]">
-            {BRAND_KIT.hero.title}
-          </h1>
-          <p className="mt-10 max-w-2xl text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
-            {BRAND_KIT.hero.intro}
-          </p>
+          <div className="mt-16 sm:mt-20">
+            <WorkedWith brands={[...BRAND_KIT.workedWith]} />
+          </div>
 
-          <a
-            href={WHATSAPP.href}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="group mt-12 inline-flex items-center gap-3 rounded-full bg-jacarta px-7 py-4 text-cream text-sm font-semibold uppercase tracking-[0.2em] hover:bg-black-coffee transition-colors"
-          >
-            <WhatsAppIcon size={18} />
-            Message on WhatsApp
-            <span className="inline-block transition-transform group-hover:translate-x-1">
-              →
-            </span>
-          </a>
+          <div className="mt-20 sm:mt-28">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+              {BRAND_KIT.hero.label}
+            </p>
+            <h1 className="mt-6 font-serif italic text-6xl sm:text-8xl lg:text-[9rem] text-black-coffee leading-[0.95]">
+              {BRAND_KIT.hero.title}
+            </h1>
+            <p className="mt-10 max-w-2xl text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
+              {BRAND_KIT.hero.intro}
+            </p>
+
+            <a
+              href={WHATSAPP.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="group mt-12 inline-flex items-center gap-3 rounded-full bg-jacarta px-7 py-4 text-cream text-sm font-semibold uppercase tracking-[0.2em] hover:bg-black-coffee transition-colors"
+            >
+              <WhatsAppIcon size={18} />
+              Message on WhatsApp
+              <span className="inline-block transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </div>
         </div>
       </section>
 
       <section className="bg-cream-deep px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-            the stats
-          </p>
-          <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
-            Reach, by the numbers<span className="text-jacarta">.</span>
-          </h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+                the stats
+              </p>
+              <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
+                {BRAND_KIT.funnel.headline}
+              </h2>
+            </div>
+            <p className="font-mono text-xs sm:text-sm text-black-coffee/70">
+              data per {BRAND_KIT.statsDate}
+            </p>
+          </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {BRAND_KIT.stats.map((s) => (
+          <p className="mt-6 max-w-2xl text-base sm:text-lg font-normal leading-[1.7] text-black-coffee/85">
+            {BRAND_KIT.funnel.body}
+          </p>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            {BRAND_KIT.funnelStats.map((s) => (
               <div
                 key={s.label}
                 className="rounded-2xl bg-white border border-line p-8"
               >
-                <p className="font-black tracking-[-0.03em] text-black-coffee text-5xl sm:text-6xl">
+                <p className="font-black tracking-[-0.03em] text-black-coffee text-4xl sm:text-5xl">
                   {s.value}
                 </p>
                 <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
                   {s.label}
                 </p>
+                <p className="mt-3 font-serif italic text-sm text-black-coffee/65">
+                  {s.note}
+                </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-10 font-serif italic text-sm text-black-coffee/65">
-            {BRAND_KIT.notes}
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {BRAND_KIT.topStats.map((s) => (
+              <div
+                key={s.label}
+                className="border-t border-line pt-5 flex items-baseline justify-between gap-4"
+              >
+                <p className="font-mono text-sm text-black-coffee/65">
+                  {s.label}
+                </p>
+                <p className="font-display text-2xl sm:text-3xl text-jacarta tracking-tight">
+                  {s.value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cream px-6 py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+            audience
           </p>
+          <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
+            Who you&apos;ll be reaching<span className="text-jacarta">.</span>
+          </h2>
+
+          <div className="mt-12 grid gap-12 lg:grid-cols-2">
+            <div className="rounded-2xl bg-white border border-line p-8">
+              <p className="font-mono text-sm text-black-coffee/65">gender</p>
+              <div className="mt-6 space-y-5">
+                <Bar
+                  label="Women"
+                  pct={demographics.gender.women}
+                  emphasis
+                />
+                <Bar label="Men" pct={demographics.gender.men} />
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-white border border-line p-8">
+              <p className="font-mono text-sm text-black-coffee/65">age range</p>
+              <div className="mt-6 space-y-4">
+                {demographics.age.map((a) => (
+                  <Bar
+                    key={a.range}
+                    label={a.range}
+                    pct={a.pct}
+                    emphasis={a.range === "25–34"}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-white border border-line p-8">
+              <p className="font-mono text-sm text-black-coffee/65">
+                top countries
+              </p>
+              <div className="mt-6 space-y-5">
+                {demographics.countries.map((c) => (
+                  <Bar
+                    key={c.name}
+                    label={c.name}
+                    pct={c.pct}
+                    emphasis={c.name === "Indonesia"}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-white border border-line p-8">
+              <p className="font-mono text-sm text-black-coffee/65">top cities</p>
+              <div className="mt-6 space-y-5">
+                {demographics.cities.map((c) => (
+                  <Bar key={c.name} label={c.name} pct={c.pct} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cream-deep px-6 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl">
+          <VideoPortfolio videos={BRAND_KIT.videoPortfolio} />
         </div>
       </section>
 
@@ -104,51 +241,7 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
-      <section className="bg-cream-deep px-6 py-20 sm:py-28">
-        <div className="mx-auto grid max-w-5xl gap-14 lg:grid-cols-2">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-              audience
-            </p>
-            <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
-              Who you&apos;ll be reaching<span className="text-jacarta">.</span>
-            </h2>
-
-            <ul className="mt-8 space-y-4 text-base sm:text-lg font-normal leading-[1.7] text-black-coffee/85">
-              {BRAND_KIT.audience.map((a, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="font-serif italic text-jacarta shrink-0">
-                    ·
-                  </span>
-                  <span>{a.line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-              past work
-            </p>
-            <h2 className="mt-4 font-serif italic text-3xl sm:text-4xl text-black-coffee">
-              Where I&apos;ve shown up<span className="text-jacarta">.</span>
-            </h2>
-
-            <ul className="mt-8 space-y-4 text-base sm:text-lg font-normal leading-[1.7] text-black-coffee/85">
-              {BRAND_KIT.pastWork.map((p, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="font-serif italic text-jacarta shrink-0">
-                    ·
-                  </span>
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-cream px-6 py-24 sm:py-32">
+      <section className="bg-cream-deep px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             collaborate
