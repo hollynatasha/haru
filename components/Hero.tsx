@@ -10,7 +10,7 @@ export function Hero() {
       <nav className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 flex items-center gap-5 sm:gap-8">
         <Link
           href="/ai-resources"
-          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
+          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-medium uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
         >
           <span className="inline-block transition-transform group-hover:-translate-x-1">
             ←
@@ -22,7 +22,7 @@ export function Hero() {
         </span>
         <Link
           href="/work-with-me"
-          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
+          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-medium uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
         >
           Work with me
           <span className="inline-block transition-transform group-hover:translate-x-1">
