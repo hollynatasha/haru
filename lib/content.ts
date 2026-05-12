@@ -276,7 +276,7 @@ export const BRAND_KIT = {
   ],
 
   cta: {
-    headline: "Let's work together in content creating.",
+    headline: "Collaborate with Holly.",
     body: "Send a quick note over WhatsApp. Tell me your brand, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
     buttonLabel: "Message me on WhatsApp",
   },
