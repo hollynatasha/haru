@@ -71,8 +71,10 @@ export function AboutNotepad() {
                 <p className="mt-3 pl-6 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
                   {ABOUT_ME.languages.join(", ")}
                 </p>
+              </div>
 
-                <p className="mt-8 font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
+              <div>
+                <p className="font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
                   EDUCATION:
                 </p>
                 <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-3">
@@ -80,21 +82,6 @@ export function AboutNotepad() {
                     <li key={i}>
                       <div>{e.line1}</div>
                       <div className="text-black-coffee/75">{e.line2}</div>
-                      <div className="text-black-coffee/55">{e.dates}</div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
-                  EXPERIENCE:
-                </p>
-                <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-4">
-                  {ABOUT_ME.experience.map((e, i) => (
-                    <li key={i}>
-                      <div>{e.role}</div>
-                      <div className="text-black-coffee/75">{e.org}</div>
                       <div className="text-black-coffee/55">{e.dates}</div>
                     </li>
                   ))}

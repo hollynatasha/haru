@@ -84,19 +84,23 @@ export default function WorkWithMePage() {
 
       <section className="bg-cream-deep px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-                the stats
-              </p>
-              <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
-                {BRAND_KIT.funnel.headline}
-              </h2>
-            </div>
+          <div className="flex items-baseline justify-between gap-4">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+              the stats
+            </p>
             <p className="font-mono text-xs sm:text-sm text-black-coffee/70">
               data per {BRAND_KIT.statsDate}
             </p>
           </div>
+
+          <h2 className="mt-6 font-display uppercase tracking-[-0.04em] leading-[0.9] text-black-coffee text-5xl sm:text-7xl lg:text-[6.5rem]">
+            {BRAND_KIT.funnel.banner.replace(/\.$/, "")}
+            <span className="text-jacarta">.</span>
+          </h2>
+
+          <p className="mt-6 font-times text-2xl sm:text-3xl text-black-coffee">
+            {BRAND_KIT.funnel.headline}
+          </p>
 
           <p className="mt-6 max-w-2xl text-base sm:text-lg font-normal leading-[1.7] text-black-coffee/85">
             {BRAND_KIT.funnel.body}

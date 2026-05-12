@@ -10,58 +10,35 @@ export const HERO = {
   name: ["HOLLY", "NATASHA"] as const,
   location: "beijing",
   tagline: "18 year old student @ tsinghua engineering",
-  topics: ["AI & Tech", "SELF DEVELOPMENT", "Student life"],
+  topics: ["AI & Tech", "SELF DEVELOPMENT", "TEDx Speaker"],
   domain: "hollynatasha.com",
 };
 
 export const VENTURES = [
   {
     name: "hanzhi.id",
-    tagline: "Study-in-China prep platform, partnered with universities across SEA.",
+    tagline:
+      "Study-in-China prep platform, partnered with universities across SEA.",
     href: "https://hanzhi.id",
-    logoSrc: "/ventures/hanzhi.png",
     accent: "default" as const,
   },
   {
     name: "csca.id",
     tagline: "Tools and resources for Chinese Scholarship Council applicants.",
     href: "https://csca.id",
-    logoSrc: "/ventures/csca.png",
     accent: "default" as const,
   },
   {
     name: "Haru Studio",
     tagline: "Self-photobooth business with combo packages, Indonesia.",
     href: "https://instagram.com/harustudio.idn",
-    logoSrc: "/ventures/haru.png",
     accent: "blush" as const,
   },
-] as const;
-
-export const SERVICES = [
   {
-    title: "SHORT-FORM VIDEO",
-    description:
-      "Storytelling about Tsinghua life, AI demos, and self-development. Quick hits that actually say something.",
-    keywords: ["Storytelling", "Tsinghua Life", "AI Demos", "Editing", "Hooks"],
-  },
-  {
-    title: "SPEAKING",
-    description:
-      "Talks, workshops, and panels on AI, student entrepreneurship, and Chinese university life.",
-    keywords: [
-      "Conferences",
-      "Workshops",
-      "Panels",
-      "Campus Events",
-      "English & Mandarin",
-    ],
-  },
-  {
-    title: "AI",
-    description:
-      "Building with AI tools, sharing what works, teaching others to ship faster.",
-    keywords: ["Prompting", "Tutorials", "Workflows", "Claude", "Automations"],
+    name: "Eclipse Learns",
+    tagline: "Taught and built STEM curricula for 5,000+ students.",
+    href: "#",
+    accent: "default" as const,
   },
 ] as const;
 
@@ -69,8 +46,8 @@ export const ABOUT_ME = {
   fields: [
     { label: "NAME", value: "Holly Natasha" },
     { label: "AGE", value: "18" },
-    { label: "LOCATION", value: "Beijing, China" },
-    { label: "OCCUPATION", value: "mech eng student, builder, video maker" },
+    { label: "LOCATION", value: "Beijing, China | Surabaya, Indonesia" },
+    { label: "OCCUPATION", value: "student, speaker, content creator" },
     {
       label: "STATUS",
       value: "open to projects & internship opportunities",
@@ -109,28 +86,6 @@ export const ABOUT_ME = {
       line1: "Summer Immersion",
       line2: "University of California, Los Angeles",
       dates: "Jun – Jul 2022",
-    },
-  ] as const,
-  experience: [
-    {
-      role: "CEO & Lead Developer",
-      org: "HeaRing (言戒)",
-      dates: "Nov 2025 – Present",
-    },
-    {
-      role: "Deputy of Administration",
-      org: "Zijing Association of Science & Technology",
-      dates: "Aug 2025 – Present",
-    },
-    {
-      role: "Core Member, International Relations",
-      org: "Tsinghua University Student Union",
-      dates: "Aug 2025 – Present",
-    },
-    {
-      role: "Core Member",
-      org: "Tsinghua Cheerleading / Dance Team",
-      dates: "Aug 2025 – Present",
     },
   ] as const,
 };
@@ -194,13 +149,6 @@ export const GUIDES = [
 
 export type Guide = (typeof GUIDES)[number];
 
-export const SPEAKING = {
-  headline: "I also speak.",
-  body: "Talks on school admission and entrepreneurship from a Tsinghua student-builder POV. English, Mandarin, Bahasa Indonesia.",
-  topics: ["School admission", "Entrepreneurship"],
-  pastStages: ["TEDx", "IdeaCloud"] as const,
-};
-
 export const BRAND_KIT = {
   statsDate: "May 2026",
 
@@ -223,6 +171,7 @@ export const BRAND_KIT = {
   ],
 
   funnel: {
+    banner: "HIGH CONVERSION RATE.",
     headline: "Saves and shares > follower count.",
     body: "I optimize for content that gets passed around, not just liked. The interaction numbers below are what actually move product for sponsors, because they signal real intent and word-of-mouth reach.",
   },
