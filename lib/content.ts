@@ -149,6 +149,16 @@ export const GUIDES = [
 
 export type Guide = (typeof GUIDES)[number];
 
+export const SPEAKING = {
+  headline: "I also speak.",
+  body: "On stage and on panels, talking through entrepreneurship, student life, and AI & tech innovations. English, Mandarin, Bahasa Indonesia.",
+  topics: ["Entrepreneurship", "Student life", "AI & Tech Innovations"],
+  pastStages: [
+    { name: "TEDx", logoSrc: "/brands/tedx.png", invert: false },
+    { name: "IdeaCloud", logoSrc: "/brands/ideacloud.png", invert: true },
+  ],
+};
+
 export const BRAND_KIT = {
   statsDate: "May 2026",
 

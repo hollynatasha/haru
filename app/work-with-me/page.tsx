@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { BRAND_KIT, WHATSAPP } from "@/lib/content";
+import { BRAND_KIT, SPEAKING, WHATSAPP } from "@/lib/content";
 import { BackToHome } from "@/components/BackToHome";
 import { WhatsAppIcon } from "@/components/Icons";
 import { WorkedWith } from "@/components/WorkedWith";
 import { VideoPortfolio } from "@/components/VideoPortfolio";
+import { SectionToggle } from "@/components/SectionToggle";
 
 export const metadata = {
   title: "Work with me, Holly Natasha",
@@ -47,15 +48,11 @@ export default function WorkWithMePage() {
 
   return (
     <>
-      <section className="relative bg-cream px-6 pt-10 pb-20 sm:pt-12 sm:pb-24">
+      <section className="relative bg-cream px-6 pt-10 pb-16 sm:pt-12 sm:pb-20">
         <div className="mx-auto max-w-5xl">
           <BackToHome variant="light" />
 
-          <div className="mt-16 sm:mt-20">
-            <WorkedWith brands={[...BRAND_KIT.workedWith]} />
-          </div>
-
-          <div className="mt-20 sm:mt-28">
+          <div className="mt-20 sm:mt-24">
             <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
               {BRAND_KIT.hero.label}
             </p>
@@ -79,6 +76,28 @@ export default function WorkWithMePage() {
               </span>
             </a>
           </div>
+
+          <div className="mt-20">
+            <WorkedWith brands={[...BRAND_KIT.workedWith]} />
+          </div>
+
+          <div className="mt-16 sm:mt-20">
+            <SectionToggle />
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="endorsements"
+        className="scroll-mt-12 bg-cream px-6 py-10 sm:py-14"
+      >
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+            endorsements
+          </p>
+          <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
+            Brand collabs, by the numbers.
+          </h2>
         </div>
       </section>
 
@@ -240,6 +259,78 @@ export default function WorkWithMePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section
+        id="speaker"
+        className="scroll-mt-12 bg-cream px-6 py-20 sm:py-28 border-t border-line/60"
+      >
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+            speaker
+          </p>
+          <h2 className="mt-4 font-times text-5xl sm:text-7xl lg:text-8xl text-black-coffee leading-[1]">
+            {SPEAKING.headline}
+          </h2>
+          <p className="mt-8 max-w-2xl text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
+            {SPEAKING.body}
+          </p>
+
+          <div className="mt-14 grid gap-10 lg:grid-cols-[1fr_320px]">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
+                topics i talk about
+              </p>
+              <ul className="mt-5 space-y-3">
+                {SPEAKING.topics.map((t, i) => (
+                  <li
+                    key={t}
+                    className="flex items-baseline gap-5 border-t border-line pt-3"
+                  >
+                    <span className="font-mono text-xs text-black-coffee/55 shrink-0 w-6">
+                      0{i + 1}
+                    </span>
+                    <span className="text-lg sm:text-xl text-black-coffee">
+                      {t}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-2xl bg-white border border-line p-8 self-start">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
+                past stages
+              </p>
+              <div className="mt-8 flex flex-col gap-8 items-center">
+                {SPEAKING.pastStages.map((s) => (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    key={s.name}
+                    src={s.logoSrc}
+                    alt={s.name}
+                    className={`h-12 sm:h-14 w-auto object-contain ${
+                      s.invert ? "[filter:invert(1)_brightness(0.4)]" : ""
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <a
+            href={WHATSAPP.href}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group mt-14 inline-flex items-center gap-3 rounded-full border border-jacarta px-7 py-4 text-jacarta text-sm font-semibold uppercase tracking-[0.2em] hover:bg-jacarta hover:text-cream transition-colors"
+          >
+            <WhatsAppIcon size={18} />
+            Book me for your stage
+            <span className="inline-block transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </a>
         </div>
       </section>
 
