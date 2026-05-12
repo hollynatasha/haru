@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { inter, cormorant, mono } from "@/lib/fonts";
+import { inter, cormorant, mono, display } from "@/lib/fonts";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} ${mono.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${mono.variable} ${display.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-black-coffee">
         <main className="flex-1">{children}</main>

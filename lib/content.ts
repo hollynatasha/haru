@@ -6,7 +6,8 @@ export const WHATSAPP = {
 export const HERO = {
   name: ["HOLLY", "NATASHA"] as const,
   location: "beijing",
-  bio: "Hi, I'm Holly, a Mechanical Engineering student at Tsinghua building AI products and making videos.",
+  tagline: "18 year old student @ tsinghua engineering",
+  topics: ["AI & Tech", "SELF DEVELOPMENT", "Student life"],
   domain: "hollynatasha.com",
 };
 
@@ -53,7 +54,7 @@ export const SERVICES = [
 export const ABOUT_ME = {
   fields: [
     { label: "NAME", value: "Holly Natasha" },
-    { label: "AGE", value: "21" },
+    { label: "AGE", value: "18" },
     { label: "LOCATION", value: "Beijing, China" },
     { label: "OCCUPATION", value: "mech eng student, builder, video maker" },
   ] as const,

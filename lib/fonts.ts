@@ -2,6 +2,7 @@ import {
   Inter,
   Cormorant_Garamond,
   JetBrains_Mono,
+  Archivo_Black,
 } from "next/font/google";
 
 export const inter = Inter({
@@ -23,5 +24,12 @@ export const mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+export const display = Archivo_Black({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-archivo-black",
   display: "swap",
 });

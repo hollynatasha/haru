@@ -11,6 +11,8 @@
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: "Helvetica Neue", "Helvetica", var(--font-archivo-black),
+    "Inter", sans-serif;
 }
 
 html,
