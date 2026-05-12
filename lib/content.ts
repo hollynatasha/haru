@@ -17,28 +17,21 @@ export const HERO = {
 export const VENTURES = [
   {
     name: "hanzhi.id",
-    tagline:
-      "Study-in-China prep platform, partnered with universities across SEA.",
     href: "https://hanzhi.id",
-    accent: "default" as const,
+    logoSrc: "/ventures/hanzhi.png",
   },
   {
     name: "csca.id",
-    tagline: "Tools and resources for Chinese Scholarship Council applicants.",
     href: "https://csca.id",
-    accent: "default" as const,
   },
   {
     name: "Haru Studio",
-    tagline: "Self-photobooth business with combo packages, Indonesia.",
     href: "https://instagram.com/harustudio.idn",
-    accent: "blush" as const,
+    logoSrc: "/ventures/haru.png",
   },
   {
     name: "Eclipse Learns",
-    tagline: "Taught and built STEM curricula for 5,000+ students.",
     href: "#",
-    accent: "default" as const,
   },
 ] as const;
 
