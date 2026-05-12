@@ -45,10 +45,10 @@ export function BusinessShowcase() {
     <section className="bg-cream py-24 sm:py-28 px-6">
       <div className="mx-auto max-w-6xl">
         <p className="text-center text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-          ventures
+          projects
         </p>
         <h2 className="mt-5 text-center font-serif italic text-4xl sm:text-5xl lg:text-6xl text-black-coffee leading-[1.05]">
-          Things I&apos;m building<span className="text-jacarta">.</span>
+          Projects<span className="text-jacarta">.</span>
         </h2>
 
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-10 items-center">
