@@ -71,6 +71,11 @@ export const ABOUT_ME = {
     { label: "AGE", value: "18" },
     { label: "LOCATION", value: "Beijing, China" },
     { label: "OCCUPATION", value: "mech eng student, builder, video maker" },
+    {
+      label: "STATUS",
+      value: "open to projects & internship opportunities",
+      highlight: true,
+    },
   ] as const,
   intro:
     "Hi! I'm Holly, an Indonesian Mechanical Engineering student at Tsinghua University. I build small AI products, make short-form video about campus life and self-development, and write about both. I'm drawn to projects that sit at the seam between engineering rigor and editorial taste.",
@@ -113,23 +118,6 @@ export const ABOUT_ME = {
       dates: "Nov 2025 – Present",
     },
     {
-      role: "Founder",
-      org: "hanzhi.id",
-      dates: "2024 – Present",
-    },
-    {
-      role: "Founder",
-      org: "csca.id",
-      dates: "2024 – Present",
-    },
-    {
-      role: "Founder",
-      org: "Haru Studio (self-photobooth)",
-      dates: "2025 – Present",
-    },
-  ] as const,
-  leadership: [
-    {
       role: "Deputy of Administration",
       org: "Zijing Association of Science & Technology",
       dates: "Aug 2025 – Present",
@@ -143,11 +131,6 @@ export const ABOUT_ME = {
       role: "Core Member",
       org: "Tsinghua Cheerleading / Dance Team",
       dates: "Aug 2025 – Present",
-    },
-    {
-      role: "Founder & President",
-      org: "Eclipse Learns",
-      dates: "May 2024 – Present",
     },
   ] as const,
 };
@@ -215,10 +198,10 @@ export const BRAND_KIT = {
   statsDate: "May 2026",
 
   hero: {
-    label: "for brands",
+    label: "for brands & stages",
     title: "Let's work together.",
     intro:
-      "I'm Holly, a Tsinghua mech eng student making short-form video about AI, tech, self-development, and student life from Beijing. If your brand fits the audience, I'd love to talk.",
+      "I'm Holly, a Tsinghua mech eng student. I make short-form video and speak about AI, tech, self-development, and student life from Beijing. If your brand or your stage fits the audience, I'd love to talk.",
   },
 
   workedWith: [
@@ -294,6 +277,22 @@ export const BRAND_KIT = {
     { tag: "MANDARIN MASTERY CIRCLE", href: INSTAGRAM_URL },
   ],
 
+  speaking: {
+    headline: "I also speak.",
+    body: "From keynote slots to campus panels, I talk about AI for non-CS students, building products from a dorm room, scholarship hacks for studying in China, and short-form storytelling. Comfortable on stage in English, Mandarin, and Bahasa Indonesia.",
+    pastStages: [
+      { name: "TEDx", note: "speaker" },
+      { name: "IdeaCloud", note: "speaker" },
+    ],
+    futureLine: "Your stage next.",
+    topics: [
+      "AI for non-CS students",
+      "Building products as a college freshman",
+      "Studying in China: the real version",
+      "Short-form storytelling that actually lands",
+    ],
+  },
+
   contentTypes: [
     {
       tag: "BRAND LIFESTYLE",
@@ -327,8 +326,8 @@ export const BRAND_KIT = {
   ],
 
   cta: {
-    headline: "Let's work together in content creating.",
-    body: "Send a quick note over WhatsApp. Tell me your brand, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
+    headline: "Let's make something together.",
+    body: "Content collab, speaking slot, or something in between. Send a quick note over WhatsApp with your brand or event, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
     buttonLabel: "Message me on WhatsApp",
   },
 };
