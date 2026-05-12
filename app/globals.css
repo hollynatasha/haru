@@ -1,22 +1,50 @@
 @import "tailwindcss";
 
 @theme {
+  --color-cream: #f4efe5;
+  --color-cream-deep: #ebe5d4;
+  --color-line: #d8d1c2;
   --color-jacarta: #3f2a52;
-  --color-dark-blue-gray: #75619d;
-  --color-wisteria: #beaedb;
-  --color-bright-gray: #e6eff7;
-  --color-black-coffee: #3a2d34;
-  --color-cream: #f5f0e6;
+  --color-jacarta-soft: #6f5688;
+  --color-black-coffee: #2a2024;
 
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 html,
 body {
-  background: #ffffff;
+  background: var(--color-cream);
   color: var(--color-black-coffee);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.win98-window {
+  border: 1px solid #000;
+  box-shadow:
+    inset 1px 1px 0 0 #fff,
+    inset -1px -1px 0 0 #404040,
+    inset 2px 2px 0 0 #dfdfdf,
+    inset -2px -2px 0 0 #808080,
+    4px 4px 0 0 rgba(58, 45, 52, 0.18);
+}
+
+.win98-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 16px;
+  background: #dcdcdc;
+  color: #1a1a1a;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  border: 1px solid #000;
+  box-shadow:
+    inset 1px 1px 0 0 #fff,
+    inset -1px -1px 0 0 #808080;
 }

@@ -1,85 +1,59 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SERVICES } from "@/lib/content";
 
 export function Services() {
-  const [openIndex, setOpenIndex] = useState<number>(0);
-
   return (
-    <section className="bg-black-coffee py-24 sm:py-32 px-6">
+    <section className="bg-cream-deep py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
-        <p className="text-sm font-bold uppercase tracking-[0.3em] text-wisteria">
-          WHAT I DO
+        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+          what i do
         </p>
 
-        <div className="mt-10 flex flex-col gap-4">
-          {SERVICES.map((service, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <motion.button
-                key={service.title}
-                type="button"
-                layout
-                onClick={() => setOpenIndex(isOpen ? -1 : i)}
-                transition={{
-                  layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                }}
-                style={{ backgroundColor: service.background }}
-                className="text-left rounded-2xl overflow-hidden p-8 sm:p-10 cursor-pointer w-full focus:outline-none focus:ring-2 focus:ring-wisteria/60"
-                aria-expanded={isOpen}
-              >
-                <motion.div layout className="flex items-start justify-between gap-6">
-                  <motion.h3
-                    layout
-                    className={`font-black tracking-tighter text-black-coffee transition-[font-size] duration-300 ${
-                      isOpen
-                        ? "text-3xl sm:text-4xl"
-                        : "text-4xl sm:text-5xl lg:text-6xl"
-                    }`}
-                  >
-                    {service.title}
-                  </motion.h3>
-                  <motion.span
-                    layout
-                    className="mt-2 shrink-0 text-2xl font-black text-black-coffee"
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    +
-                  </motion.span>
-                </motion.div>
+        <h2 className="mt-5 max-w-2xl font-serif italic text-4xl sm:text-5xl lg:text-6xl text-black-coffee leading-[1.05]">
+          Three things, on repeat<span className="text-jacarta">.</span>
+        </h2>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="content"
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 12 }}
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="mt-8 grid gap-8 lg:grid-cols-[1fr_400px]"
-                    >
-                      <div>
-                        <p className="max-w-xl text-base sm:text-lg leading-relaxed text-black-coffee">
-                          {service.description}
-                        </p>
-                        <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-1 font-serif italic text-sm text-black-coffee/80">
-                          {service.keywords.map((k) => (
-                            <li key={k}>{k}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="flex h-[220px] sm:h-[260px] lg:h-[300px] w-full items-center justify-center bg-neutral-300/70 text-neutral-600 text-xs font-bold tracking-[0.3em] rounded-xl">
-                        IMAGE
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            );
-          })}
+        <div className="mt-16 flex flex-col gap-6">
+          {SERVICES.map((service, i) => (
+            <motion.article
+              key={service.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-15% 0px -10% 0px" }}
+              transition={{
+                duration: 0.7,
+                delay: i * 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="rounded-2xl bg-white border border-line overflow-hidden p-8 sm:p-12"
+            >
+              <div className="flex items-baseline justify-between gap-6">
+                <p className="font-serif italic text-sm text-jacarta">
+                  0{i + 1}
+                </p>
+                <p className="font-serif italic text-sm text-black-coffee/40">
+                  service
+                </p>
+              </div>
+
+              <h3 className="mt-6 font-black tracking-[-0.04em] uppercase text-black-coffee leading-[0.95] text-5xl sm:text-6xl lg:text-7xl">
+                {service.title}
+              </h3>
+
+              <div className="mt-8 grid gap-10 lg:grid-cols-[2fr_1fr]">
+                <p className="max-w-xl text-base sm:text-lg font-normal leading-relaxed text-black-coffee/85">
+                  {service.description}
+                </p>
+                <ul className="flex flex-wrap content-start gap-x-4 gap-y-1 font-serif italic text-base text-jacarta">
+                  {service.keywords.map((k) => (
+                    <li key={k}>{k}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

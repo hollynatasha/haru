@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { inter, cormorant } from "@/lib/fonts";
-import { Nav } from "@/components/Nav";
+import { inter, cormorant, mono } from "@/lib/fonts";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
@@ -19,11 +18,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-black-coffee">
-        <Nav />
-        <main className="flex-1 pt-14">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
