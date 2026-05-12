@@ -7,25 +7,29 @@ import { HERO } from "@/lib/content";
 export function Hero() {
   return (
     <section className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
-      <Link
-        href="/work-with-me"
-        className="group absolute top-6 right-6 sm:top-8 sm:right-10 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta hover:text-black-coffee transition-colors"
-      >
-        Work with me
-        <span className="inline-block transition-transform group-hover:translate-x-1">
-          →
+      <nav className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 flex items-center gap-5 sm:gap-8">
+        <Link
+          href="/ai-resources"
+          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
+        >
+          <span className="inline-block transition-transform group-hover:-translate-x-1">
+            ←
+          </span>
+          AI resources
+        </Link>
+        <span aria-hidden className="text-jacarta/30 text-sm">
+          |
         </span>
-      </Link>
-
-      <Link
-        href="/ai-resources"
-        className="group absolute top-6 left-6 sm:top-8 sm:left-10 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta hover:text-black-coffee transition-colors"
-      >
-        <span className="inline-block transition-transform group-hover:-translate-x-1">
-          ←
-        </span>
-        AI resources
-      </Link>
+        <Link
+          href="/work-with-me"
+          className="group inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.22em] text-jacarta hover:text-black-coffee transition-colors"
+        >
+          Work with me
+          <span className="inline-block transition-transform group-hover:translate-x-1">
+            →
+          </span>
+        </Link>
+      </nav>
 
       <h1 className="font-display text-center tracking-[-0.04em] leading-[0.88] text-jacarta uppercase text-[4.5rem] sm:text-[7.5rem] lg:text-[11rem]">
         {HERO.name.map((line, i) => (

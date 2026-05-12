@@ -34,12 +34,22 @@ export function AboutNotepad() {
             </h2>
 
             <ul className="mt-10 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-1">
-              {ABOUT_ME.fields.map((f) => (
-                <li key={f.label}>
-                  <span className="text-black-coffee/55">{f.label}:</span>{" "}
-                  <span>{f.value}</span>
-                </li>
-              ))}
+              {ABOUT_ME.fields.map((f) => {
+                const highlight = "highlight" in f && f.highlight;
+                return (
+                  <li key={f.label}>
+                    <span className="text-black-coffee/55">{f.label}:</span>{" "}
+                    {highlight ? (
+                      <span className="inline-flex items-center gap-2 align-middle">
+                        <span className="inline-block h-2 w-2 rounded-full bg-jacarta animate-pulse" />
+                        <span className="font-bold text-jacarta">{f.value}</span>
+                      </span>
+                    ) : (
+                      <span>{f.value}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
 
             <p className="mt-8 max-w-2xl font-sans text-base sm:text-lg leading-[1.8] text-black-coffee/90">
@@ -63,21 +73,6 @@ export function AboutNotepad() {
                 </p>
 
                 <p className="mt-8 font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
-                  LEADERSHIP &amp; VOLUNTEERING:
-                </p>
-                <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-3">
-                  {ABOUT_ME.leadership.map((l, i) => (
-                    <li key={i}>
-                      <div>{l.role}</div>
-                      <div className="text-black-coffee/75">{l.org}</div>
-                      <div className="text-black-coffee/55">{l.dates}</div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
                   EDUCATION:
                 </p>
                 <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-3">
@@ -89,23 +84,18 @@ export function AboutNotepad() {
                     </li>
                   ))}
                 </ul>
+              </div>
 
-                <p className="mt-8 font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
+              <div>
+                <p className="font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
                   EXPERIENCE:
                 </p>
-                <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-2">
+                <ul className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-4">
                   {ABOUT_ME.experience.map((e, i) => (
-                    <li
-                      key={i}
-                      className="flex items-baseline justify-between gap-3"
-                    >
-                      <span>
-                        <span className="text-black-coffee/65">{e.role},</span>{" "}
-                        {e.org}
-                      </span>
-                      <span className="text-black-coffee/55 shrink-0">
-                        {e.dates}
-                      </span>
+                    <li key={i}>
+                      <div>{e.role}</div>
+                      <div className="text-black-coffee/75">{e.org}</div>
+                      <div className="text-black-coffee/55">{e.dates}</div>
                     </li>
                   ))}
                 </ul>
