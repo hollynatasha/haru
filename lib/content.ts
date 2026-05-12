@@ -194,14 +194,21 @@ export const GUIDES = [
 
 export type Guide = (typeof GUIDES)[number];
 
+export const SPEAKING = {
+  headline: "I also speak.",
+  body: "Talks on school admission and entrepreneurship from a Tsinghua student-builder POV. English, Mandarin, Bahasa Indonesia.",
+  topics: ["School admission", "Entrepreneurship"],
+  pastStages: ["TEDx", "IdeaCloud"] as const,
+};
+
 export const BRAND_KIT = {
   statsDate: "May 2026",
 
   hero: {
-    label: "for brands & stages",
+    label: "for brands",
     title: "Let's work together.",
     intro:
-      "I'm Holly, a Tsinghua mech eng student. I make short-form video and speak about AI, tech, self-development, and student life from Beijing. If your brand or your stage fits the audience, I'd love to talk.",
+      "I'm Holly, a Tsinghua mech eng student making short-form video about AI, tech, self-development, and student life from Beijing. If your brand fits the audience, I'd love to talk.",
   },
 
   workedWith: [
@@ -277,22 +284,6 @@ export const BRAND_KIT = {
     { tag: "MANDARIN MASTERY CIRCLE", href: INSTAGRAM_URL },
   ],
 
-  speaking: {
-    headline: "I also speak.",
-    body: "From keynote slots to campus panels, I talk about AI for non-CS students, building products from a dorm room, scholarship hacks for studying in China, and short-form storytelling. Comfortable on stage in English, Mandarin, and Bahasa Indonesia.",
-    pastStages: [
-      { name: "TEDx", note: "speaker" },
-      { name: "IdeaCloud", note: "speaker" },
-    ],
-    futureLine: "Your stage next.",
-    topics: [
-      "AI for non-CS students",
-      "Building products as a college freshman",
-      "Studying in China: the real version",
-      "Short-form storytelling that actually lands",
-    ],
-  },
-
   contentTypes: [
     {
       tag: "BRAND LIFESTYLE",
@@ -326,8 +317,8 @@ export const BRAND_KIT = {
   ],
 
   cta: {
-    headline: "Let's make something together.",
-    body: "Content collab, speaking slot, or something in between. Send a quick note over WhatsApp with your brand or event, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
+    headline: "Let's work together in content creating.",
+    body: "Send a quick note over WhatsApp. Tell me your brand, your timeline, and the vibe you're going for. I'll reply within 48 hours.",
     buttonLabel: "Message me on WhatsApp",
   },
 };

@@ -239,74 +239,7 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
-      <section className="bg-cream-deep px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-                on stage
-              </p>
-              <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
-                {BRAND_KIT.speaking.headline}
-              </h2>
-            </div>
-            <p className="font-mono text-xs sm:text-sm text-black-coffee/70">
-              {BRAND_KIT.speaking.futureLine}
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_360px]">
-            <div>
-              <p className="text-base sm:text-lg font-normal leading-[1.8] text-black-coffee/85">
-                {BRAND_KIT.speaking.body}
-              </p>
-
-              <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
-                topics i talk about
-              </p>
-              <ul className="mt-4 space-y-2">
-                {BRAND_KIT.speaking.topics.map((t, i) => (
-                  <li
-                    key={t}
-                    className="flex items-baseline gap-4 border-t border-line pt-2"
-                  >
-                    <span className="font-mono text-xs text-black-coffee/55 shrink-0 w-6">
-                      0{i + 1}
-                    </span>
-                    <span className="text-base text-black-coffee/90">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-2xl bg-white border border-line p-8 self-start">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
-                past stages
-              </p>
-              <ul className="mt-6 divide-y divide-line">
-                {BRAND_KIT.speaking.pastStages.map((s) => (
-                  <li
-                    key={s.name}
-                    className="flex items-baseline justify-between py-4"
-                  >
-                    <span className="font-display text-2xl text-black-coffee tracking-tight">
-                      {s.name}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-black-coffee/55">
-                      {s.note}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 font-times text-sm text-black-coffee/60">
-                More to come. Drop yours below.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-cream px-6 py-24 sm:py-32">
+      <section className="bg-cream-deep px-6 py-24 sm:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             collaborate
