@@ -74,51 +74,53 @@ export const ABOUT_ME = {
   ] as const,
   intro:
     "Hi! I'm Holly, an Indonesian Mechanical Engineering student at Tsinghua University. I build small AI products, make short-form video about campus life and self-development, and write about both. I'm drawn to projects that sit at the seam between engineering rigor and editorial taste.",
-  skills: [
-    {
-      group: "ai & tooling",
-      items: ["Claude", "ChatGPT", "Cursor", "Claude Code", "n8n"],
-    },
-    {
-      group: "video",
-      items: ["CapCut", "Premiere", "Storyboarding"],
-    },
-    {
-      group: "code",
-      items: ["Next.js", "React", "TypeScript", "Python", "Tailwind"],
-    },
-    {
-      group: "still learning",
-      items: ["embodied AI", "Mandarin (HSK 5 work in progress)", "Blender"],
-    },
+  technicalSkills: [
+    "C++",
+    "Final Cut Pro",
+    "Adobe Illustrator",
+    "Photoshop",
+    "After Effects",
+    "Premiere Pro",
+    "Canva",
+    "Microsoft Office",
+  ] as const,
+  languages: [
+    "Indonesian (Native)",
+    "English (IELTS 8.0)",
+    "Chinese (HSK 5)",
   ] as const,
   education: [
     {
-      line1: "BS in Mechanical Engineering",
+      line1: "B.S. Mechanical Engineering",
       line2: "Tsinghua University, Beijing",
-      dates: "2024–present",
+      dates: "Aug 2025 – Present",
+    },
+    {
+      line1: "Pre-college Credit Program",
+      line2: "University of Pennsylvania",
+      dates: "Jun – Aug 2023",
+    },
+    {
+      line1: "Summer Immersion",
+      line2: "University of California, Los Angeles",
+      dates: "Jun – Jul 2022",
     },
   ] as const,
   experience: [
     {
       role: "Founder",
       org: "hanzhi.id",
-      dates: "2024–present",
+      dates: "2024 – Present",
     },
     {
       role: "Founder",
       org: "csca.id",
-      dates: "2024–present",
+      dates: "2024 – Present",
     },
     {
       role: "Founder",
       org: "Haru Studio (self-photobooth)",
-      dates: "2025–present",
-    },
-    {
-      role: "Member",
-      org: "Tsinghua Embodied AI team, Zijing College",
-      dates: "2025–present",
+      dates: "2025 – Present",
     },
   ] as const,
 };

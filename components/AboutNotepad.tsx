@@ -49,16 +49,18 @@ export function AboutNotepad() {
             <div className="mt-12 grid gap-12 lg:grid-cols-2">
               <div>
                 <p className="font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
-                  SKILLS:
+                  TECHNICAL SKILLS:
                 </p>
-                <dl className="mt-3 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee space-y-3">
-                  {ABOUT_ME.skills.map((s) => (
-                    <div key={s.group}>
-                      <dt className="text-black-coffee/65">{s.group} &gt;</dt>
-                      <dd className="pl-6">{s.items.join(", ")}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <p className="mt-3 pl-6 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
+                  {ABOUT_ME.technicalSkills.join(", ")}
+                </p>
+
+                <p className="mt-8 font-mono text-sm font-bold underline underline-offset-4 text-black-coffee">
+                  LANGUAGES:
+                </p>
+                <p className="mt-3 pl-6 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
+                  {ABOUT_ME.languages.join(", ")}
+                </p>
               </div>
 
               <div>
