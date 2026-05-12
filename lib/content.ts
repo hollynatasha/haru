@@ -150,8 +150,8 @@ export const GUIDES = [
 export type Guide = (typeof GUIDES)[number];
 
 export const SPEAKING = {
-  headline: "I also speak.",
-  body: "On stage and on panels, talking through entrepreneurship, student life, and AI & tech innovations. English, Mandarin, Bahasa Indonesia.",
+  headline: "Talks, panels, and keynotes.",
+  body: "Booked for conversations on entrepreneurship, student life, and AI & tech innovations. Comfortable on stage in English, Mandarin, and Bahasa Indonesia.",
   topics: ["Entrepreneurship", "Student life", "AI & Tech Innovations"],
   pastStages: [
     { name: "TEDx", logoSrc: "/brands/tedx.png", invert: false },

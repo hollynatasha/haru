@@ -52,7 +52,7 @@ export default function WorkWithMePage() {
         <div className="mx-auto max-w-5xl">
           <BackToHome variant="light" />
 
-          <div className="mt-20 sm:mt-24">
+          <div className="mt-20 sm:mt-24 flex flex-col items-center text-center">
             <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
               {BRAND_KIT.hero.label}
             </p>
@@ -77,10 +77,6 @@ export default function WorkWithMePage() {
             </a>
           </div>
 
-          <div className="mt-20">
-            <WorkedWith brands={[...BRAND_KIT.workedWith]} />
-          </div>
-
           <div className="mt-16 sm:mt-20">
             <SectionToggle />
           </div>
@@ -89,15 +85,19 @@ export default function WorkWithMePage() {
 
       <section
         id="endorsements"
-        className="scroll-mt-12 bg-cream px-6 py-10 sm:py-14"
+        className="scroll-mt-12 bg-cream px-6 py-14 sm:py-20"
       >
         <div className="mx-auto max-w-5xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
-            endorsements
-          </p>
-          <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
-            Brand collabs, by the numbers.
-          </h2>
+          <WorkedWith brands={[...BRAND_KIT.workedWith]} />
+
+          <div className="mt-16 text-center">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
+              endorsements
+            </p>
+            <h2 className="mt-4 font-times text-3xl sm:text-4xl text-black-coffee">
+              Brand collabs, by the numbers.
+            </h2>
+          </div>
         </div>
       </section>
 
