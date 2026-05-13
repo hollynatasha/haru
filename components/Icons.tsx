@@ -74,9 +74,25 @@ export function WhatsAppIcon({ className, size = 22 }: IconProps) {
   );
 }
 
+export function LinkedInIcon({ className, size = 22 }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="currentColor"
+      className={className}
+      aria-hidden
+    >
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75ZM9.5 9.75h3.83v1.54h.05c.54-.97 1.85-1.99 3.81-1.99 4.07 0 4.82 2.5 4.82 5.76V21h-4v-4.86c0-1.16-.02-2.65-1.7-2.65-1.7 0-1.96 1.26-1.96 2.56V21h-4V9.75Z" />
+    </svg>
+  );
+}
+
 export const ContactIcons = {
   instagram: InstagramIcon,
   tiktok: TikTokIcon,
   mail: MailIcon,
   whatsapp: WhatsAppIcon,
+  linkedin: LinkedInIcon,
 } as const;

@@ -5,6 +5,7 @@ export const WHATSAPP = {
 
 export const INSTAGRAM_URL = "https://instagram.com/hollynst";
 export const TIKTOK_URL = "https://www.tiktok.com/@hollynst";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/holly-natasha-txt/";
 
 export const HERO = {
   name: ["HOLLY", "NATASHA"] as const,
@@ -32,6 +33,7 @@ export const VENTURES = [
   {
     name: "Eclipse Learns",
     href: "#",
+    logoSrc: "/ventures/eclipse.png",
   },
 ] as const;
 
@@ -49,6 +51,27 @@ export const ABOUT_ME = {
   ] as const,
   intro:
     "Hi! I'm Holly, an Indonesian Mechanical Engineering student at Tsinghua University. I build small AI products, make short-form video about campus life and self-development, and write about both. I'm drawn to projects that sit at the seam between engineering rigor and editorial taste.",
+  highlights: [
+    {
+      tag: "01",
+      title: "tsinghua engineering",
+      points: [
+        "China National Winner (Top ~5%), Student Innovation Training Program",
+        "1st Rank, Challenge Cup Scientific Research Competition, Tsinghua University",
+        "Finalist (Top ~10%), Challenge Cup Entrepreneurship Competition, Tsinghua University",
+      ],
+    },
+    {
+      tag: "02",
+      title: "creator",
+      points: ["24k on instagram, 1M+ monthly views"],
+    },
+    {
+      tag: "03",
+      title: "prev growth & product intern",
+      points: [],
+    },
+  ] as const,
   technicalSkills: [
     "C++",
     "Final Cut Pro",
@@ -306,6 +329,11 @@ export const FOOTER = {
       kind: "whatsapp" as const,
       label: WHATSAPP.raw,
       href: WHATSAPP.href,
+    },
+    {
+      kind: "linkedin" as const,
+      label: "holly-natasha-txt",
+      href: LINKEDIN_URL,
     },
   ],
   links: [
