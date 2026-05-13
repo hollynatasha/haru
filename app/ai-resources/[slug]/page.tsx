@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GUIDES } from "@/lib/content";
 import { GUIDE_BODIES } from "@/lib/guide-content";
 import { BackToHome } from "@/components/BackToHome";
+import { GuideIconSvg } from "@/components/GuideIcon";
 
 export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
@@ -69,9 +70,16 @@ export default async function GuidePage({
             {body.map((section, i) => (
               <div key={i}>
                 {section.heading && (
-                  <h2 className="font-serif italic text-2xl sm:text-3xl text-black-coffee">
-                    {section.heading}
-                  </h2>
+                  <div className="flex items-center gap-3">
+                    {section.icon && (
+                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-cream text-jacarta">
+                        <GuideIconSvg name={section.icon} size={18} />
+                      </span>
+                    )}
+                    <h2 className="font-serif italic text-2xl sm:text-3xl text-black-coffee">
+                      {section.heading}
+                    </h2>
+                  </div>
                 )}
                 <div className="mt-5 space-y-5">
                   {section.paragraphs.map((p, j) => (
@@ -83,6 +91,18 @@ export default async function GuidePage({
                     </p>
                   ))}
                 </div>
+                {section.code && section.code.length > 0 && (
+                  <div className="mt-6 space-y-4">
+                    {section.code.map((c, k) => (
+                      <pre
+                        key={k}
+                        className="overflow-x-auto rounded-lg border border-line bg-jacarta/[0.04] p-5 font-mono text-[12px] sm:text-[13px] leading-relaxed text-black-coffee whitespace-pre-wrap"
+                      >
+                        {c}
+                      </pre>
+                    ))}
+                  </div>
+                )}
                 {section.images && section.images.length > 0 && (
                   <div className="mt-8 space-y-6">
                     {section.images.map((img, k) => (

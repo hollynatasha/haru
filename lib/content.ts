@@ -106,6 +106,24 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "resume-ats-prompts",
+    category: "SAVE THIS",
+    title: "4 PROMPTS BUAT CV LOLOS ATS",
+    description:
+      "75 persen CV ke-reject ATS sebelum manusia liat. Ini 4 prompt Claude yang aku pake buat fix itu, plus contoh real pake format Harvard.",
+    readMinutes: 12,
+    publishedAt: "2026-05-13",
+  },
+  {
+    slug: "anti-hallucination-prompt",
+    category: "SAVE THIS",
+    title: "PROMPT ANTI-HALLUCINATION",
+    description:
+      "Bulan lalu aku hampir submit skripsi dengan paper yang Claude ngarang sendiri. Ini 1 prompt yang aku paste tiap kali pake AI buat research.",
+    readMinutes: 6,
+    publishedAt: "2026-05-13",
+  },
+  {
     slug: "claude-full-setup",
     category: "SETUP GUIDE",
     title: "FULL SETUP: CHAT, COWORK, CODE & DESIGN",

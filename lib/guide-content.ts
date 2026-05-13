@@ -4,13 +4,340 @@ type GuideImage = {
   caption?: string;
 };
 
+export type GuideIcon =
+  | "file-text"
+  | "edit"
+  | "search"
+  | "languages"
+  | "user-check"
+  | "refresh"
+  | "alert"
+  | "shield"
+  | "check"
+  | "sparkles"
+  | "trending-up"
+  | "book"
+  | "help"
+  | "clock";
+
 type Section = {
   heading?: string;
+  icon?: GuideIcon;
   paragraphs: string[];
+  code?: string[];
   images?: GuideImage[];
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "resume-ats-prompts": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment 'RESUME' di video.",
+      ],
+    },
+    {
+      heading: "Real talk soal CV",
+      icon: "trending-up",
+      paragraphs: [
+        "75 persen CV ke-reject sama ATS sebelum manusia pernah liat. ATS itu Applicant Tracking System, robot yang scan CV kamu dan decide apakah kamu lanjut ke tahap interview atau langsung dibuang. Jadi sebelum recruiter manusia ngeliat kamu, robot ini yang jadi gerbang pertama.",
+        "Aku belajar ini dari dua sisi. Sisi pertama waktu aku apply ke Tsinghua dan harus tweak CV aku berkali-kali biar lolos. Sisi kedua waktu aku rebuild careers page Haru dan review 200 lebih CV kandidat. Yang aku liat konsisten: kebanyakan orang nulis CV pake bahasa yang terlalu generic dan ga ada angka.",
+        "4 prompt Claude di bawah ini yang aku pake buat fix masalah itu. Pake satu per satu di chat Claude kamu.",
+      ],
+    },
+    {
+      heading: "Sample resume buat contoh",
+      icon: "file-text",
+      paragraphs: [
+        "Buat semua prompt di bawah, aku pake format Harvard Resume sebagai contoh. Format Harvard itu standar emas yang dipake students Harvard Business School dan kebanyakan top universities. Strukturnya simpel: single column, no tables, no graphics, action verb di tiap bullet, angka di mana mungkin.",
+        "Aku bakal pake CV fiktif 'Sarah, freshgrad Marketing dari UI' sebagai contoh di semua prompt di bawah biar kamu bisa liat langsung gimana hasilnya.",
+      ],
+      images: [
+        {
+          src: "/blog/resume-ats/harvard-template.png",
+          alt: "Harvard College resume sample template",
+          caption:
+            "Resume Sample dari Mignone Center for Career Success. Source: careerservices.fas.harvard.edu",
+        },
+      ],
+    },
+    {
+      heading: "Prompt 1: The Rewriter",
+      icon: "edit",
+      paragraphs: [
+        "Buat apa: ubah pengalaman generic kamu jadi bullet yang punya angka dan dampak, pake Google XYZ formula (Accomplished X, as measured by Y, by doing Z).",
+        "Copy paste prompt ini ke Claude:",
+      ],
+      code: [
+        `Aku punya bullet point pengalaman kerja di CV aku yang masih generic.
+Tolong rewrite pake Google XYZ formula: "Accomplished X, as measured by Y,
+by doing Z."
+
+Aturan:
+1. Setiap bullet harus punya minimal 1 angka konkret (persentase, jumlah,
+   durasi, atau dollar amount).
+2. Mulai dengan kata kerja kuat (Launched, Increased, Built, Reduced, dll),
+   bukan "Responsible for" atau "Helped with".
+3. Kalo aku belum punya angka, kasih aku 3 cara konkret buat estimate atau
+   measure achievement aku.
+4. Tetep dalam 2 baris per bullet biar muat di format Harvard Resume.
+
+Bullet aku yang sekarang:
+[paste bullet kamu di sini]`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Contoh hasil di CV Sarah.",
+        "Sebelum: Membantu tim marketing mencapai target campaign tahunan.",
+        "Setelah pake Rewriter: Increased Q3 campaign ROI 40% (Rp 120M revenue) by launching 3 user-generated content campaigns and optimizing paid social spend across Meta and TikTok.",
+        "Beda banget kan? Yang kedua punya angka, ada action verb, dan jelas impact-nya.",
+      ],
+    },
+    {
+      heading: "Prompt 2: The Diagnoser",
+      icon: "search",
+      paragraphs: [
+        "Buat apa: scan CV kamu kayak ATS beneran dan flag bagian yang bakal bikin kamu ke-reject.",
+        "Copy paste prompt ini ke Claude:",
+      ],
+      code: [
+        `Anggap kamu adalah ATS (Applicant Tracking System) yang lagi scan CV ini
+buat posisi [tulis posisi kamu di sini, contoh: "Marketing Associate at
+B2B SaaS company"].
+
+Tolong analisis CV aku dan flag:
+1. Keyword yang missing atau understuffed dibanding job description tipikal
+   buat posisi ini.
+2. Format yang ga ATS-friendly (tabel, kolom multiple, header weird, font
+   yang ga standar, tanggal yang inconsistent).
+3. Bullet yang terlalu generic atau ga ada angka.
+4. Section yang harusnya ada tapi ga ada (atau sebaliknya, ada section yang
+   harusnya ga ada).
+
+Buat setiap flag, kasih:
+- Lokasi spesifik (section + baris)
+- Kenapa itu masalah
+- Fix konkret yang bisa aku langsung apply
+
+CV aku:
+[paste CV kamu di sini, atau upload file-nya]`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Contoh hasil di CV Sarah. Claude bakal balikin sesuatu kayak gini:",
+      ],
+      code: [
+        `FLAG 1: EDUCATION section — tanggal kamu nulis "2020 - sekarang" tapi
+di bagian Experience nulis "Aug 2023 - Present". Inconsistent format.
+Fix: pake satu format konsisten, contoh "Aug 2020 - May 2024".
+
+FLAG 2: EXPERIENCE bullet 2 — "Bertanggung jawab atas social media
+campaigns" terlalu pasif dan ga ada angka. Fix: ubah ke "Managed 5
+social media campaigns yang generate 2M impressions dalam 6 bulan."
+
+FLAG 3: SKILLS section — kamu nulis "Microsoft Office" tapi ga sebut
+"Excel pivot tables" atau "PowerPoint" specifically. ATS biasanya
+match keyword yang lebih spesifik.
+
+FLAG 4: Missing keyword umum buat Marketing Associate posisi B2B SaaS —
+"CRM", "lead generation", "marketing automation", "Hubspot". Kalo kamu
+beneran punya pengalaman ini, masukin ke bullet relevant.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Pakai output ini sebagai checklist langsung buat revise CV kamu.",
+      ],
+    },
+    {
+      heading: "Prompt 3: The Translator",
+      icon: "languages",
+      paragraphs: [
+        "Buat apa: buat kamu yang mau career pivot dari satu industri ke industri lain. Skill kamu di industri lama kemungkinan transferable, tapi kamu butuh bahasa industri barunya.",
+        "Copy paste prompt ini ke Claude:",
+      ],
+      code: [
+        `Aku mau career pivot dari [industri/role A] ke [industri/role B].
+
+Aku kasih kamu 2 hal:
+1. Pengalaman aku yang sekarang (bullet dari CV aku)
+2. Job description buat posisi yang aku target di industri baru
+
+Tolong translate pengalaman aku jadi bahasa industri baru. Caranya:
+1. Identify skill underlying dari setiap bullet aku (apa skill sebenernya
+   yang aku pake, di-strip dari konteks industri).
+2. Rephrase bullet pake terminology, keyword, dan framing yang relevant
+   di industri baru.
+3. Pertahankan angka dan fakta konkret (jangan ngarang prestasi yang
+   ga ada).
+4. Flag mana skill aku yang beneran transferable vs mana yang ga relevant
+   sama sekali.
+
+Pengalaman aku sekarang:
+[paste bullet CV kamu]
+
+Job description target:
+[paste job desc lengkap]`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Contoh hasil di CV Sarah (pivot dari Marketing agency ke Tech B2B).",
+        "Sebelum (bahasa marketing agency): Launched 12 brand campaigns for FMCG clients, generating 4.2M social media impressions.",
+        "Setelah Translator (bahasa B2B tech): Led 12 go-to-market initiatives across multiple verticals, driving 4.2M qualified audience touchpoints through full-funnel content distribution.",
+        "Skill underlying-nya sama (kampanye + reach), tapi bahasanya udah ke-tune buat audience B2B tech.",
+      ],
+    },
+    {
+      heading: "Prompt 4: The Hiring Manager",
+      icon: "user-check",
+      paragraphs: [
+        "Buat apa: simulasi interview beneran sebelum kamu beneran interview. Claude jadi hiring manager yang nanyain pertanyaan tough dan rate jawaban kamu.",
+        "Copy paste prompt ini ke Claude:",
+      ],
+      code: [
+        `Aku mau practice interview buat posisi [tulis posisi + company-nya].
+Tolong jadi hiring manager beneran yang interview aku.
+
+Aturan:
+1. Tanya 5 pertanyaan, mulai dari behavioral question (STAR format),
+   technical buat role-nya, sampe pertanyaan curveball yang biasanya
+   bikin kandidat stumble.
+2. Tanya satu per satu, tunggu aku jawab, baru tanya yang berikutnya.
+3. Setelah aku jawab tiap pertanyaan, kasih rating 1-10 plus feedback:
+   - Apa yang strong dari jawaban aku
+   - Apa yang weak atau missing
+   - Versi jawaban yang lebih kuat (1 paragraf contoh)
+4. Setelah 5 pertanyaan selesai, kasih overall assessment + 3 hal yang
+   aku harus improve sebelum interview real.
+
+Context CV aku:
+[paste CV kamu]
+
+Job description:
+[paste job desc]
+
+Mulai dari pertanyaan pertama.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Tips: jangan langsung baca semua pertanyaannya. Jawab satu per satu kayak interview beneran biar feedback Claude akurat.",
+      ],
+    },
+    {
+      heading: "Loop yang aku pake",
+      icon: "refresh",
+      paragraphs: [
+        "Urutan idealnya: Diagnoser dulu buat tau apa yang salah di CV kamu sekarang. Rewriter buat fix bullet yang generic jadi pake XYZ formula. Translator kalo kamu lagi pivot industri. Hiring Manager seminggu sebelum interview beneran.",
+        "Pake loop ini setiap kamu apply ke posisi baru. Tweak CV kamu sesuai job description-nya.",
+      ],
+    },
+    {
+      heading: "Yang harus kamu hindari",
+      icon: "alert",
+      paragraphs: [
+        "Jangan langsung trust output Claude 100 persen. Selalu review apakah angka yang dia suggest masuk akal sama pengalaman kamu yang asli. Jangan ngarang prestasi.",
+        "Jangan pake CV yang udah diformat tabel atau multiple columns. ATS susah baca. Pake format Harvard yang simple single-column.",
+        "Jangan stuff keyword secara obvious. ATS sekarang udah pinter dan recruiter manusia bakal langsung notice.",
+      ],
+    },
+  ],
+  "anti-hallucination-prompt": [
+    {
+      paragraphs: [
+        "Ini cerita yang aku ceritain di video, plus 1 prompt yang aku pake biar AI ga ngarang.",
+      ],
+      images: [
+        {
+          src: "/blog/anti-hallucination/hero.png",
+          alt: "27 percent — the rate AI hallucinates",
+          caption:
+            "Riset bilang AI bisa hallucinate sampai 27% of the time pas dipake buat research.",
+        },
+      ],
+    },
+    {
+      heading: "Cerita singkat",
+      icon: "book",
+      paragraphs: [
+        "Bulan lalu aku hampir submit skripsi dengan paper akademik yang Claude bikin-bikin sendiri. Author, tahun, judul, jurnal, halaman, semuanya keliatan legit banget. Aku coba google paper-nya buat double check dan ternyata paper-nya beneran ga ada di Google Scholar, ga ada di mana-mana. Claude full confidence ngarang sendiri dan aku hampir submit ke supervisor.",
+        "Ini yang namanya AI hallucination dan riset bilang AI bisa hallucinate sampai 27 persen of the time. Artinya kalo kamu pake AI buat hal serius kayak research, fakta, angka, atau citation, kamu harus punya cara buat verify.",
+      ],
+    },
+    {
+      heading: "Kenapa AI hallucinate?",
+      icon: "help",
+      paragraphs: [
+        "AI kayak Claude itu sebenernya predicting kata berikutnya yang paling mungkin, bukan retrieving fakta dari database verified. Jadi kalo dia ga tau jawabannya, dia tetep bisa generate kalimat yang sounds confident karena pattern-nya match. Bukan dia jahat atau sengaja bohong, dia cuma ga punya filter built-in buat tau mana yang real dan mana yang dia ngarang.",
+        "Solusinya bukan stop pake AI, tapi kasih dia filter manual lewat cara kamu ngeprompt.",
+      ],
+    },
+    {
+      heading: "Prompt anti-hallucination yang bisa kamu copy-paste",
+      icon: "shield",
+      paragraphs: [
+        "Ini prompt yang aku paste di awal chat setiap kali aku pake Claude buat research atau hal serius. Copy paste apa adanya, ganti bagian [topik kamu] sama topik yang lagi kamu kerjain.",
+      ],
+      code: [
+        `Sebelum jawab pertanyaan aku soal [topik kamu], aku mau kamu follow 4 aturan ini:
+
+1. Kalo kamu ga punya source yang bisa di-verify buat satu klaim, bilang aja
+   "aku ga punya source yang reliable buat klaim ini." Jangan ngarang nama
+   paper, author, tahun, atau statistik. Lebih baik kamu jujur ga tau
+   daripada bikin sesuatu yang keliatan legit.
+
+2. Buat setiap fakta atau angka yang kamu kasih, sebutkan sumbernya secara
+   spesifik. Kalo sumbernya cuma "general knowledge" atau "pattern dari
+   training data", bilang gitu juga, jangan dibikin sounds authoritative.
+
+3. Di akhir jawaban kamu, kasih confidence rating dari 1 sampe 10 buat
+   keseluruhan jawaban. Jelasin bagian mana yang kamu yakin dan bagian mana
+   yang kamu kurang yakin. Default "I'm sure" ga boleh dipake.
+
+4. Kasih aku 2 sampe 3 cara konkret buat aku verify jawaban kamu sendiri,
+   misalnya keyword spesifik buat di-google, nama database yang relevant,
+   atau cara ngecek manual.
+
+Setelah kamu confirm kamu ngerti 4 aturan ini, baru aku kasih pertanyaan
+sebenernya.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Cara pakenya: paste prompt ini dulu di awal chat. Tunggu Claude konfirmasi dia ngerti. Baru kamu kasih pertanyaan kamu yang sebenernya. Setiap kali Claude jawab, dia bakal otomatis follow 4 aturan tadi.",
+      ],
+    },
+    {
+      heading: "Kenapa prompt ini works",
+      icon: "check",
+      paragraphs: [
+        "Empat aturan di prompt itu cover empat tipe hallucination yang berbeda.",
+        "Aturan 1 force Claude jujur kalo dia ga punya source. Ini paling penting karena tipe hallucination paling berbahaya itu yang sounds confident.",
+        "Aturan 2 bikin kamu bisa langsung lihat mana klaim yang verifiable dan mana yang cuma pattern matching.",
+        "Aturan 3 kasih kamu signal kapan harus extra cek. Kalo Claude bilang dia 6 dari 10, jangan langsung percaya.",
+        "Aturan 4 balikin ownership ke kamu. Kamu yang verify, bukan blindly trust.",
+        "Stack empat aturan ini di satu prompt, hampir ga ada hallucination yang lolos.",
+      ],
+    },
+    {
+      heading: "Kapan kamu ga perlu pake prompt ini",
+      icon: "clock",
+      paragraphs: [
+        "Kamu ga harus pake prompt ini buat semua chat. Kalo kamu lagi creative brainstorm, draft caption, bikin nama produk, atau cuma main-main, ga usah. Pake prompt ini cuma buat hal yang stakes-nya tinggi: research akademik atau citation, fakta historis atau angka statistik, klaim medical, legal, atau financial, apapun yang kalau salah bakal ada konsekuensi real.",
+        "Buat sisanya, biarin Claude flow biar idenya lebih liar.",
+      ],
+    },
+    {
+      heading: "Cara aku pake sehari-hari",
+      icon: "sparkles",
+      paragraphs: [
+        "Buat skripsi dan research Haru, aku selalu paste prompt ini di awal. Buat brainstorm konten atau ngedraft caption, ga aku pake karena justru bikin output-nya terlalu kaku. Intinya, kamu yang tau konteksnya, jadi kamu yang decide kapan butuh filter dan kapan ga.",
+        "Yang penting kamu ga blindly trust AI cuma karena jawabannya sounds confident. Sebagus apapun AI, dia masih predicting, bukan knowing.",
+      ],
+    },
+  ],
   "claude-full-setup": [
     {
       paragraphs: [
