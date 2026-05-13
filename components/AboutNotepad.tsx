@@ -57,26 +57,36 @@ export function AboutNotepad() {
             </p>
 
             <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
-              {ABOUT_ME.highlights.map((h) => (
-                <div key={h.tag}>
-                  <p className="font-mono text-sm font-bold text-black-coffee">
-                    <span className="text-black-coffee/55">[{h.tag}]</span>{" "}
-                    {h.title}
-                  </p>
-                  {h.points.length > 0 && (
-                    <ul className="mt-3 space-y-2 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
-                      {h.points.map((p, i) => (
-                        <li key={i} className="flex gap-2 pl-1">
-                          <span aria-hidden className="text-jacarta">
-                            ◉
-                          </span>
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
+              {(() => {
+                const left = ABOUT_ME.highlights.slice(0, 1);
+                const right = ABOUT_ME.highlights.slice(1);
+                const renderItem = (h: (typeof ABOUT_ME.highlights)[number]) => (
+                  <div key={h.tag}>
+                    <p className="font-mono text-sm font-bold text-black-coffee">
+                      <span className="text-black-coffee/55">[{h.tag}]</span>{" "}
+                      {h.title}
+                    </p>
+                    {h.points.length > 0 && (
+                      <ul className="mt-3 space-y-2 font-mono text-[13px] sm:text-sm leading-relaxed text-black-coffee">
+                        {h.points.map((p, i) => (
+                          <li key={i} className="flex gap-2 pl-1">
+                            <span aria-hidden className="text-jacarta">
+                              ◉
+                            </span>
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+                return (
+                  <>
+                    <div className="space-y-10">{left.map(renderItem)}</div>
+                    <div className="space-y-10">{right.map(renderItem)}</div>
+                  </>
+                );
+              })()}
             </div>
 
             <div className="mt-12 grid gap-12 lg:grid-cols-2">

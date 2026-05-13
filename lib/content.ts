@@ -22,13 +22,13 @@ export const VENTURES = [
     logoSrc: "/ventures/hanzhi.png",
   },
   {
-    name: "csca.id",
-    href: "https://csca.id",
-  },
-  {
     name: "Haru Studio",
     href: "https://instagram.com/harustudio.idn",
     logoSrc: "/ventures/haru.png",
+  },
+  {
+    name: "csca.id",
+    href: "https://csca.id",
   },
   {
     name: "Eclipse Learns",

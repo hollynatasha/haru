@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import {
   HERO,
   VENTURES,
@@ -11,6 +12,33 @@ import {
   WHATSAPP,
 } from "@/lib/content";
 import { ContactIcons } from "./Icons";
+
+function useTypewriter(text: string, startDelay = 700, charDelay = 45) {
+  const [output, setOutput] = useState("");
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    let i = 0;
+    let tick: ReturnType<typeof setInterval> | null = null;
+    const start = setTimeout(() => {
+      tick = setInterval(() => {
+        i += 1;
+        setOutput(text.slice(0, i));
+        if (i >= text.length) {
+          if (tick) clearInterval(tick);
+          setDone(true);
+        }
+      }, charDelay);
+    }, startDelay);
+
+    return () => {
+      clearTimeout(start);
+      if (tick) clearInterval(tick);
+    };
+  }, [text, startDelay, charDelay]);
+
+  return { output, done };
+}
 
 const HERO_CONTACTS = [
   { kind: "instagram" as const, label: "Instagram", href: INSTAGRAM_URL },
@@ -43,13 +71,55 @@ function OrbitMark({
   venture,
   position,
   index,
+  mouseRef,
 }: {
   venture: Venture;
   position: (typeof ORBIT_POSITIONS)[number];
   index: number;
+  mouseRef: React.MutableRefObject<{ x: number; y: number } | null>;
 }) {
   const isLinked = venture.href !== "#";
   const hasLogo = "logoSrc" in venture && venture.logoSrc;
+
+  const markRef = useRef<HTMLDivElement>(null);
+  const pullX = useMotionValue(0);
+  const pullY = useMotionValue(0);
+  const springX = useSpring(pullX, { stiffness: 180, damping: 22, mass: 0.6 });
+  const springY = useSpring(pullY, { stiffness: 180, damping: 22, mass: 0.6 });
+
+  useEffect(() => {
+    let rafId = 0;
+    const RADIUS = 260;
+    const MAX_PULL = 22;
+    const update = () => {
+      const el = markRef.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const m = mouseRef.current;
+        if (m) {
+          const dx = m.x - cx;
+          const dy = m.y - cy;
+          const dist = Math.hypot(dx, dy);
+          if (dist < RADIUS && dist > 0.5) {
+            const strength = (RADIUS - dist) / RADIUS;
+            pullX.set((dx / dist) * strength * MAX_PULL);
+            pullY.set((dy / dist) * strength * MAX_PULL);
+          } else {
+            pullX.set(0);
+            pullY.set(0);
+          }
+        } else {
+          pullX.set(0);
+          pullY.set(0);
+        }
+      }
+      rafId = requestAnimationFrame(update);
+    };
+    rafId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafId);
+  }, [mouseRef, pullX, pullY]);
 
   const inner = hasLogo ? (
     /* eslint-disable-next-line @next/next/no-img-element */
@@ -66,8 +136,8 @@ function OrbitMark({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
         duration: 0.9,
         delay: 0.9 + index * 0.15,
@@ -75,36 +145,56 @@ function OrbitMark({
       }}
       className={`pointer-events-none absolute z-0 ${position.className}`}
     >
-      <motion.div
-        animate={{ y: [0, position.drift, 0] }}
-        transition={{
-          duration: 6 + index * 0.6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="pointer-events-auto"
-      >
-        {isLinked ? (
-          <a
-            href={venture.href}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label={venture.name}
-            className="block opacity-80 hover:opacity-100 transition-opacity"
-          >
-            {inner}
-          </a>
-        ) : (
-          <div className="opacity-80">{inner}</div>
-        )}
+      <motion.div ref={markRef} style={{ x: springX, y: springY }}>
+        <motion.div
+          animate={{ y: [0, position.drift, 0] }}
+          transition={{
+            duration: 6 + index * 0.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="pointer-events-auto"
+        >
+          {isLinked ? (
+            <a
+              href={venture.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={venture.name}
+              className="block opacity-80 hover:opacity-100 transition-opacity"
+            >
+              {inner}
+            </a>
+          ) : (
+            <div className="opacity-80">{inner}</div>
+          )}
+        </motion.div>
       </motion.div>
     </motion.div>
   );
 }
 
 export function Hero() {
+  const { output: typedTagline, done: taglineDone } = useTypewriter(
+    HERO.tagline,
+    900,
+    45,
+  );
+
+  const mouseRef = useRef<{ x: number; y: number } | null>(null);
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    mouseRef.current = { x: e.clientX, y: e.clientY };
+  };
+  const handleMouseLeave = () => {
+    mouseRef.current = null;
+  };
+
   return (
-    <section className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
+    <section
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-20 overflow-hidden"
+    >
       <nav className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 flex items-center gap-5 sm:gap-8 z-20">
         <Link
           href="/ai-resources"
@@ -135,6 +225,7 @@ export function Hero() {
           venture={v}
           position={ORBIT_POSITIONS[i % ORBIT_POSITIONS.length]}
           index={i}
+          mouseRef={mouseRef}
         />
       ))}
 
@@ -162,8 +253,17 @@ export function Hero() {
         transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
         className="relative z-10 mt-10 flex max-w-xl flex-col items-center text-center"
       >
-        <p className="font-serif italic text-base sm:text-lg text-black-coffee/85">
-          {HERO.tagline}
+        <p
+          className="font-serif italic text-base sm:text-lg text-black-coffee/85 min-h-[1.5em]"
+          aria-label={HERO.tagline}
+        >
+          <span>{typedTagline}</span>
+          <span
+            aria-hidden
+            className={`ml-0.5 inline-block w-[1.5px] h-[1em] bg-black-coffee/70 align-[-0.15em] ${
+              taglineDone ? "animate-pulse" : ""
+            }`}
+          />
         </p>
         <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] sm:text-sm font-medium tracking-[0.18em] text-jacarta">
           {HERO.topics.map((t, i) => (
@@ -176,7 +276,15 @@ export function Hero() {
           ))}
         </p>
         <p className="mt-6 font-serif italic text-sm text-black-coffee/55">
-          {HERO.domain}
+          <span className="group relative inline-block cursor-default">
+            <span className="transition-colors duration-300 group-hover:text-black-coffee">
+              {HERO.domain}
+            </span>
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-black-coffee/70 transition-transform duration-500 ease-out group-hover:scale-x-100"
+            />
+          </span>
         </p>
 
         <div className="mt-7 flex items-center gap-3 sm:gap-4">

@@ -5,6 +5,7 @@ import { WhatsAppIcon } from "@/components/Icons";
 import { WorkedWith } from "@/components/WorkedWith";
 import { VideoPortfolio } from "@/components/VideoPortfolio";
 import { SectionToggle } from "@/components/SectionToggle";
+import { CountUpStat } from "@/components/CountUpStat";
 
 export const metadata = {
   title: "Work with me, Holly Natasha",
@@ -129,9 +130,10 @@ export default function WorkWithMePage() {
             <div className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line">
               {BRAND_KIT.funnelStats.map((s) => (
                 <div key={s.label} className="p-8">
-                  <p className="font-black tracking-[-0.03em] text-black-coffee text-4xl sm:text-5xl">
-                    {s.value}
-                  </p>
+                  <CountUpStat
+                    value={s.value}
+                    className="font-black tracking-[-0.03em] text-black-coffee text-4xl sm:text-5xl block"
+                  />
                   <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-jacarta">
                     {s.label}
                   </p>
@@ -150,9 +152,10 @@ export default function WorkWithMePage() {
                   <p className="font-mono text-xs sm:text-sm text-black-coffee/70">
                     {s.label}
                   </p>
-                  <p className="font-display text-xl sm:text-2xl text-jacarta tracking-tight">
-                    {s.value}
-                  </p>
+                  <CountUpStat
+                    value={s.value}
+                    className="font-display text-xl sm:text-2xl text-jacarta tracking-tight"
+                  />
                 </div>
               ))}
             </div>

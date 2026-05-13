@@ -19,7 +19,7 @@ export default function AiResourcesPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
               resources
             </p>
-            <h1 className="mt-6 font-black uppercase tracking-[-0.05em] text-black-coffee leading-[0.88] text-[4.5rem] sm:text-[8rem] lg:text-[10rem]">
+            <h1 className="mt-6 font-display uppercase tracking-[-0.04em] text-black-coffee leading-[0.88] text-[4.5rem] sm:text-[8rem] lg:text-[10rem]">
               <span className="block">AI</span>
               <span className="block">RESOURCES</span>
             </h1>
