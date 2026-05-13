@@ -203,7 +203,7 @@ export function Hero() {
           <span className="inline-block transition-transform group-hover:-translate-x-1">
             ←
           </span>
-          AI resources
+          Resources
         </Link>
         <span aria-hidden className="text-jacarta/30 text-sm">
           |

@@ -1,4 +1,14 @@
-type Section = { heading?: string; paragraphs: string[] };
+type GuideImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+type Section = {
+  heading?: string;
+  paragraphs: string[];
+  images?: GuideImage[];
+};
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
   "claude-full-setup": [
@@ -27,6 +37,13 @@ export const GUIDE_BODIES: Record<string, Section[]> = {
         "Cara aku pake di Haru: 500 email per minggu yang dulu makan 2 jam sekarang cuma 5 menit karena Cowork yang sortirin, flag yang urgent, dan draft reply template buat yang standar.",
         "Tips buat pemula: mulai dari task kecil dulu, kayak minta dia sortir satu folder atau summarize isi beberapa file. Jangan langsung kasih akses ke semua sistem kamu sebelum kamu ngerti cara kerjanya.",
       ],
+      images: [
+        {
+          src: "/blog/claude-setup/cowork.jpg",
+          alt: "Claude Cowork desktop interface",
+          caption: "Claude Cowork — the desktop agent. Source: anthropic.com",
+        },
+      ],
     },
     {
       heading: "3. Claude Code",
@@ -37,6 +54,13 @@ export const GUIDE_BODIES: Record<string, Section[]> = {
         "Buat yang ngoding: refactor kode lama yang messy; debug error yang udah bikin pusing berjam-jam; nulis unit test otomatis.",
         "Tips buat pemula: kalau kamu non-coder, cukup deskripsiin apa yang mau kamu automasi dalam bahasa biasa. Contohnya 'bikin script Excel yang highlight semua cell di kolom Revenue yang nilainya di bawah 5 juta jadi merah.' Dia yang handle sisanya.",
       ],
+      images: [
+        {
+          src: "/blog/claude-setup/code.jpg",
+          alt: "Claude Code running in a terminal",
+          caption: "Claude Code — agentic coding from the terminal. Source: anthropic.com",
+        },
+      ],
     },
     {
       heading: "4. Claude Design",
@@ -46,6 +70,13 @@ export const GUIDE_BODIES: Record<string, Section[]> = {
         "Buat apa aja: pitch deck untuk presentasi atau fundraising; mockup tampilan app atau website; template visual buat konten atau dokumen; wireframe produk yang mau kamu develop.",
         "Cara aku pake: pitch deck yang dulu butuh 8 jam kerja plus bayar designer external sekarang jadi 20 menit dan aku kerjain sendiri karena aku tinggal deskripsiin tone, warna, dan struktur slide-nya.",
         "Tips buat pemula: makin detail deskripsi kamu, makin bagus hasilnya. Sebutin warna, tone (minimalist, bold, corporate, dll), jumlah slide atau halaman, dan tujuan dokumennya. Jangan cuma 'bikin pitch deck' tapi 'bikin pitch deck 5 slide buat B2B SaaS startup, minimalist, warna navy dan cream, target audience investor Series A.'",
+      ],
+      images: [
+        {
+          src: "/blog/claude-setup/design.jpg",
+          alt: "Claude Design interface",
+          caption: "Claude Design — prompt-to-mockup. Source: anthropic.com",
+        },
       ],
     },
     {

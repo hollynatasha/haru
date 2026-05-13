@@ -83,6 +83,26 @@ export default async function GuidePage({
                     </p>
                   ))}
                 </div>
+                {section.images && section.images.length > 0 && (
+                  <div className="mt-8 space-y-6">
+                    {section.images.map((img, k) => (
+                      <figure key={k} className="overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          loading="lazy"
+                          className="w-full h-auto rounded-lg border border-line bg-cream"
+                        />
+                        {img.caption && (
+                          <figcaption className="mt-3 font-serif italic text-sm text-black-coffee/60 text-center">
+                            {img.caption}
+                          </figcaption>
+                        )}
+                      </figure>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

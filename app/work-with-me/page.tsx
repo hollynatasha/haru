@@ -86,7 +86,7 @@ export default function WorkWithMePage() {
 
       <section
         id="endorsements"
-        className="scroll-mt-12 bg-cream px-6 py-14 sm:py-20"
+        className="scroll-mt-12 bg-white px-6 py-14 sm:py-20"
       >
         <div className="mx-auto max-w-5xl">
           <WorkedWith brands={[...BRAND_KIT.workedWith]} />
@@ -233,7 +233,7 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
-      <section className="bg-cream px-6 py-20 sm:py-28">
+      <section className="bg-white px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-jacarta">
             content i make

@@ -49,8 +49,6 @@ export const ABOUT_ME = {
       highlight: true,
     },
   ] as const,
-  intro:
-    "Hi! I'm Holly, an Indonesian Mechanical Engineering student at Tsinghua University. I build small AI products, make short-form video about campus life and self-development, and write about both. I'm drawn to projects that sit at the seam between engineering rigor and editorial taste.",
   highlights: [
     {
       tag: "01",
@@ -337,7 +335,7 @@ export const FOOTER = {
     },
   ],
   links: [
-    { label: "AI resources", href: "/ai-resources" },
+    { label: "Resources", href: "/ai-resources" },
     { label: "Work with me", href: "/work-with-me" },
   ],
   bottomLine: "© 2026 Holly Natasha. Built in Beijing.",

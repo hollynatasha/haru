@@ -52,10 +52,6 @@ export function AboutNotepad() {
               })}
             </ul>
 
-            <p className="mt-8 max-w-2xl font-sans text-base sm:text-lg leading-[1.8] text-black-coffee/90">
-              {ABOUT_ME.intro}
-            </p>
-
             <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
               {(() => {
                 const left = ABOUT_ME.highlights.slice(0, 1);
