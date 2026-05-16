@@ -123,6 +123,24 @@ export default async function GuidePage({
                     ))}
                   </div>
                 )}
+                {section.cta && (
+                  <div className="mt-8 rounded-xl border border-jacarta/30 bg-jacarta/[0.04] p-6 sm:p-8">
+                    {section.cta.note && (
+                      <p className="font-serif italic text-base text-black-coffee/75">
+                        {section.cta.note}
+                      </p>
+                    )}
+                    <a
+                      href={section.cta.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="mt-4 inline-flex items-center gap-2 rounded-full bg-jacarta px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-cream hover:bg-black-coffee transition-colors"
+                    >
+                      {section.cta.label}
+                      <span aria-hidden>→</span>
+                    </a>
+                  </div>
+                )}
               </div>
             ))}
           </div>

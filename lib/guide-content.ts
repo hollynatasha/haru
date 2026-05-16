@@ -18,7 +18,18 @@ export type GuideIcon =
   | "trending-up"
   | "book"
   | "help"
-  | "clock";
+  | "clock"
+  | "users"
+  | "zap"
+  | "brain"
+  | "arrow-right"
+  | "message";
+
+type GuideCta = {
+  label: string;
+  href: string;
+  note?: string;
+};
 
 type Section = {
   heading?: string;
@@ -26,9 +37,146 @@ type Section = {
   paragraphs: string[];
   code?: string[];
   images?: GuideImage[];
+  cta?: GuideCta;
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "ai-5-levels": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment di video 5 level AI.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-5-levels/hero.png",
+          alt: "5 levels of AI — from LLM to super intelligence",
+          caption: "5 level AI — dari yang udah bisa kamu pake hari ini sampe yang masih research territory.",
+        },
+      ],
+    },
+    {
+      heading: "Quick reality check",
+      icon: "alert",
+      paragraphs: [
+        "Kalo kamu cuma pake ChatGPT atau Claude buat tanya-jawab, kamu baru kenal 1 dari 5 level AI yang ada sekarang. Dan ga apa-apa, kebanyakan orang masih di situ. Tapi gap antara level 1 dan level 2 itu yang bikin beberapa founder dan student bisa 10x produktivitas mereka dalam 6 bulan terakhir.",
+        "Aku breakdown 5 level-nya satu per satu, plus aku kasih copy-paste prompt di akhir biar kamu bisa langsung level up dari Stage 1 ke Stage 2.",
+      ],
+    },
+    {
+      heading: "Level 1: Large Language Model (LLM)",
+      icon: "message",
+      paragraphs: [
+        "Status: ini level paling familiar. Mayoritas orang ada di sini.",
+        "LLM itu kayak ChatGPT, Claude, Gemini, semua chatbot di HP kamu. Kamu tanya, dia jawab. Tools-nya teks ke teks, satu turn satu jawaban. Useful banget tapi terbatas karena dia cuma respond ke kamu, ga ada inisiatif buat kerjain sesuatu.",
+        "Yang kamu bisa lakuin di level ini: summarize artikel atau dokumen panjang, brainstorm ide, draft email atau caption, tanya konsep yang kamu ga ngerti.",
+        "Limit-nya: setiap kali kamu butuh sesuatu, kamu harus prompt manual. AI ga otomatis kerjain task buat kamu. Kamu yang masih jadi operator.",
+      ],
+    },
+    {
+      heading: "Level 2: Agentic AI (di sini kita sekarang)",
+      icon: "arrow-right",
+      paragraphs: [
+        "Status: lagi dibangun aktif sekarang, dan kamu bisa mulai pake.",
+        "Agentic AI itu AI yang bisa kamu kasih 'kerjaan' bukan cuma pertanyaan. Bedanya simple tapi besar. Di Stage 1 kamu bilang 'explain this contract.' Di Stage 2 kamu bilang 'baca semua contract di folder ini, flag yang punya unfair clause, draft email reject buat yang ga lulus, dan kasih aku summary akhir.'",
+        "Tools kayak Claude Cowork, ChatGPT Agents, Manus, sama Devin udah masuk di tahap ini. Dia bisa baca file di desktop kamu, sortir folder, kirim email otomatis, dan browsing web atas nama kamu.",
+        "Yang aku pake di Haru: sortir 500 email per minggu yang dulu makan 2 jam sekarang cuma 5 menit. Aku ga manually buka satu-satu, AI yang lakuin sambil aku kerja yang lain.",
+      ],
+    },
+    {
+      heading: "Level 3: Multi-Agent Systems",
+      icon: "users",
+      paragraphs: [
+        "Status: infrastructure-nya lagi dibangun, belum mainstream.",
+        "Bayangin bukan satu AI yang kerja, tapi 20 AI yang delegate ke satu sama lain. Yang satu research, yang satu nulis, yang satu approve, yang satu publish. Tanpa ada manusia di tengah. Mereka komunikasi langsung satu sama lain dan koordinasi kayak tim beneran.",
+        "Ini yang lagi dibangun di lab kayak Anthropic dan OpenAI lewat protocol kayak MCP (Model Context Protocol) dan A2A (Agent to Agent). Buat sekarang masih experimental, tapi 1-2 tahun lagi ini bakal jadi standar.",
+      ],
+    },
+    {
+      heading: "Level 4: AGI (Artificial General Intelligence)",
+      icon: "brain",
+      paragraphs: [
+        "Status: disputed. Expert pun masih debat.",
+        "AGI itu AI yang bisa match atau exceed kemampuan kognitif manusia di semua bidang. Bisa diagnose kayak dokter senior, debate kayak lawyer, code kayak engineer, semua dalam satu sistem. Dan yang paling penting, dia belajar sendiri bukan di-train manual.",
+        "Yang menariknya, ga ada konsensus apakah kita udah sampai sini atau belum. Beberapa peneliti Google DeepMind dan OpenAI bilang kita udah hampir, beberapa peneliti lain bilang masih jauh. Definisi AGI sendiri masih debatable.",
+      ],
+    },
+    {
+      heading: "Level 5: Super Intelligence",
+      icon: "zap",
+      paragraphs: [
+        "Status: hipotetis tapi udah ada research aktif.",
+        "Super intelligence itu AI yang lebih pintar dari semua manusia gabungan. Dia ga butuh input kita, ga butuh bantuan kita, dan bisa solve problem yang manusia udah stuck berabad-abad. Disease, krisis iklim, fisika quantum yang Einstein pun stuck.",
+        "Pertanyaan besarnya bukan 'kapan' tapi 'apakah ini bakal jadi hal terbaik yang pernah terjadi ke manusia, atau yang paling destructive.' Ini debate filosofis yang lagi rame di kalangan researcher AI safety.",
+      ],
+    },
+    {
+      heading: "Realisticnya, kamu harus fokus ke mana?",
+      icon: "check",
+      paragraphs: [
+        "Realisticnya, Stage 1 ke Stage 2 itu jarak yang bisa kamu jembatani sekarang. Stage 3, 4, 5 itu masih research territory dan ga affect daily life kamu langsung. Tapi kalo kamu masih stuck di Stage 1, kamu basically pake AI dengan tangan diiket di belakang.",
+        "Buat naik dari Stage 1 ke Stage 2, kamu ga harus pake tools baru. Kamu cuma harus ubah cara kamu ngeprompt. Stop nanya, mulai delegate.",
+      ],
+    },
+    {
+      heading: "Copy paste prompt: level up dari Stage 1 ke Stage 2",
+      icon: "shield",
+      paragraphs: [
+        "Prompt ini yang aku pake setiap kali aku punya task multi-step yang biasanya aku kerjain manual. Paste prompt ini di Claude atau ChatGPT, ganti bagian [task kamu] sama task konkret yang lagi kamu hadapi.",
+      ],
+      code: [
+        `Aku mau kamu jadi agentic AI buat aku, bukan cuma chatbot yang jawab
+satu pertanyaan. Artinya kamu harus treat task aku sebagai project
+yang harus diselesaikan, bukan pertanyaan yang harus dijawab.
+
+Task aku: [tulis task lengkap kamu di sini, contoh: "review 10 cold
+email yang mau aku kirim ke investor minggu ini, flag yang weak,
+rewrite yang ga work, dan kasih aku versi final yang ready dikirim"]
+
+Aturan kerja kamu:
+1. Sebelum mulai, pecah task ini jadi sub-task yang lebih kecil dan
+   logical. Kasih aku list sub-task itu dulu sebelum kamu mulai.
+2. Konfirmasi sama aku kalo ada assumption yang kamu butuh sebelum
+   mulai. Jangan langsung jalan kalo ada hal yang ambiguous.
+3. Kerjain sub-task satu per satu secara berurutan. Setiap selesai
+   satu sub-task, kasih update singkat ke aku.
+4. Kalo kamu butuh info tambahan dari aku di tengah jalan, tanya
+   langsung jangan tunggu sampe selesai.
+5. Di akhir, kasih aku 3 hal: hasil final, ringkasan apa yang kamu
+   kerjain, dan rekomendasi 2-3 langkah follow up yang aku harus
+   lakuin sendiri.
+6. Kalo ada bagian dari task yang kamu ga bisa kerjain (misal butuh
+   akses ke sistem yang ga kamu punya), kasih tau di awal jangan
+   skip diam-diam.
+
+Konfirmasi dulu kamu ngerti aturan ini, baru aku approve kamu mulai.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Cara pakenya: paste prompt di atas ke chat baru di Claude atau ChatGPT. Tunggu AI konfirmasi dia ngerti aturannya. Setelah konfirmasi, dia bakal kasih kamu list sub-task dulu. Kamu review, approve, atau adjust list-nya. Setelah approve, dia jalanin task-nya step by step.",
+        "Beda banget feel-nya dari pertanyaan biasa. Kamu basically jadiin Claude project manager, bukan answer machine.",
+      ],
+    },
+    {
+      heading: "Contoh real di workflow aku",
+      icon: "refresh",
+      paragraphs: [
+        "Stage 1 way (yang dulu aku lakuin): aku tanya 'tolong summarize legal contract ini.' Claude kasih summary. Aku tanya lagi 'apa yang concerning?' Claude list red flags. Aku tanya lagi 'tolong draft email negotiate.' Claude draft email. Total 3 prompt, 3 turn, masih harus manual.",
+        "Stage 2 way (sekarang): aku paste prompt di atas plus task: 'review legal contract Haru ini, flag red flag, draft email negotiate, kasih aku 3 langkah follow up.' Claude kasih sub-task list, aku approve. Claude jalanin semuanya sekaligus, kasih aku output final. Total 1 prompt, 1 turn, hasil komplit.",
+        "Selisihnya ga cuma waktu, tapi mental load. Stage 2 thinking itu yang bikin kamu pake AI as leverage, bukan as crutch.",
+      ],
+    },
+    {
+      heading: "Mau lebih?",
+      icon: "sparkles",
+      paragraphs: [],
+      cta: {
+        label: "Follow @hollynst on Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Aku post breakdown AI, workflow, dan Tsinghua life tiap minggu. Kalo guide ini useful, ikutin biar dapet yang berikutnya duluan.",
+      },
+    },
+  ],
   "resume-ats-prompts": [
     {
       paragraphs: [

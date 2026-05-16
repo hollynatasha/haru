@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "ai-5-levels",
+    category: "AI TUTORIAL",
+    title: "5 LEVEL AI YANG WAJIB KAMU TAU",
+    description:
+      "Stage 1 ke Stage 5: cuma 2 yang bisa kamu sentuh hari ini. Plus prompt buat level up dari LLM ke agentic.",
+    readMinutes: 10,
+    publishedAt: "2026-05-16",
+  },
+  {
     slug: "resume-ats-prompts",
     category: "SAVE THIS",
     title: "4 PROMPTS BUAT CV LOLOS ATS",
