@@ -106,6 +106,33 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "5-day-claude-setup",
+    category: "WORKFLOW",
+    title: "5-DAY CLAUDE SETUP: NOOB KE EXPERT",
+    description:
+      "Roadmap 5 hari yang aku wish ada waktu aku baru mulai. 15-30 menit per hari, plus prompt yang ngajarin Claude soal kamu otomatis.",
+    readMinutes: 11,
+    publishedAt: "2026-05-18",
+  },
+  {
+    slug: "claude-free-resources",
+    category: "SAVE THIS",
+    title: "5 RESOURCE GRATIS CLAUDE",
+    description:
+      "Aku urutin dari ROI tercepat, bukan dari yang paling viral. Plus prompt buat dapet rekomendasi personalized.",
+    readMinutes: 9,
+    publishedAt: "2026-05-18",
+  },
+  {
+    slug: "claude-calendar",
+    category: "WORKFLOW",
+    title: "3 CARA CLAUDE HANDLE CALENDAR KAMU",
+    description:
+      "2 jam per minggu balik ke aku setelah Claude handle calendar Haru. Plus setup prompt buat dia ngerti konteks kamu.",
+    readMinutes: 8,
+    publishedAt: "2026-05-18",
+  },
+  {
     slug: "ai-5-levels",
     category: "AI TUTORIAL",
     title: "5 LEVEL AI YANG WAJIB KAMU TAU",

@@ -23,7 +23,12 @@ export type GuideIcon =
   | "zap"
   | "brain"
   | "arrow-right"
-  | "message";
+  | "message"
+  | "calendar"
+  | "mic"
+  | "camera"
+  | "link"
+  | "plug";
 
 type GuideCta = {
   label: string;
@@ -41,6 +46,456 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "5-day-claude-setup": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment 'ROADMAP' di video.",
+      ],
+      images: [
+        {
+          src: "/blog/5-day-setup/hero.png",
+          alt: "5-day Claude setup roadmap",
+          caption: "5 hari, 15-30 menit per hari. Ga overwhelming.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa most orang stuck sama Claude",
+      icon: "alert",
+      paragraphs: [
+        "Most orang download Claude, tanya 1-2 pertanyaan, ngerasa 'yah biasa aja kayak ChatGPT', terus jarang dibuka lagi. Bukan karena Claude-nya jelek, tapi karena mereka pake default Claude yang ga tau apapun tentang mereka, dan setup foundation-nya ga pernah dibangun.",
+        "Hari 1 setelah download itu basically Claude treat kamu kayak stranger. Hari 30 setelah setup proper, Claude treat kamu kayak somebody yang dia kenal 2 tahun. Gap-nya itu yang most orang ga pernah jembatani.",
+        "Roadmap 5 hari ini yang aku wish ada waktu aku baru mulai. Tiap hari 15 sampe 30 menit, ga overwhelming.",
+      ],
+    },
+    {
+      heading: "Hari 1: Setup foundation (15 menit)",
+      icon: "file-text",
+      paragraphs: [
+        "Tujuan hari ini: bikin folder yang jadi memory jangka panjang Claude.",
+        "Step-by-step: download Claude dari App Store (Mac) atau Microsoft Store (Windows). Yang versi mobile juga, biar bisa pake voice command nanti. Login pake email Google atau email biasa. Di sidebar kiri, klik tab Projects atau Folders. Bikin 4 folder yang represent area utama hidup atau kerja kamu.",
+        "Contoh folder aku di Haru: Operations (semua yang related ke daily ops, hiring, vendor), Content (script video, caption, blog draft), Hiring (CV screening, interview prep, offer letter), Founder Notes (jurnal pribadi, journaling, decision log).",
+        "Kenapa folder penting: setiap chat yang kamu mulai di dalam folder otomatis inherit context folder itu. Jadi Claude tau kamu lagi di 'content mode' atau 'ops mode' dan tone-nya menyesuaikan.",
+        "Tips beginner: mulai dari 4 folder, jangan lebih. Kamu bisa tambah nanti. Folder yang too granular justru bikin kamu lupa file mana di folder mana.",
+      ],
+    },
+    {
+      heading: "Hari 2: Ajarin Claude soal kamu (30 menit)",
+      icon: "edit",
+      paragraphs: [
+        "Tujuan hari ini: bikin 2 file penting di setiap folder biar Claude ga treat kamu kayak orang asing.",
+        "File 1: About-Me.md. Isinya basic info tentang kamu, goals kamu, dan background yang relevan. Contoh format:",
+      ],
+      code: [
+        `# About Me
+
+## Nama
+[Holly]
+
+## Pekerjaan
+Founder di Haru (B2B SaaS untuk content workflow).
+Mahasiswa Tsinghua (jurusan Business Analytics).
+CEO sejak umur 15.
+
+## Goals 2026
+- Scale Haru ke ARR $1M
+- Selesai semester 4 Tsinghua dengan GPA 3.7+
+- Build content library untuk AI literacy di Indonesia
+
+## Background relevan
+- Indonesia-based, lahir di Jakarta
+- Pengalaman: ops, content, founder, hiring
+- Industri yang aku tau: SaaS, content creation, ed-tech
+
+## Constraint penting
+- Bahasa: Indonesian native, English fluent
+- Timezone: GMT+7
+- Working hours: Senin-Jumat, 9-18`,
+      ],
+    },
+    {
+      paragraphs: [
+        "File 2: AI-Style.md. Isinya gimana kamu mau Claude ngomong sama kamu. Contoh:",
+      ],
+      code: [
+        `# How I Want Claude to Respond
+
+## Tone
+- Direct tapi warm
+- Indonesian-English mix natural (kayak chat sama temen)
+- No corporate jargon
+- No filler ("Great question!" "Let me think...")
+
+## Format
+- Default ke bullet kalo lebih dari 3 poin
+- Code block kalo ngasih instruksi step-by-step
+- Bold buat keyword penting, italic buat emphasis
+
+## Banned (jangan pernah dipake)
+- Em-dash
+- Kata "menggali", "permadani", "tak ada kata lain selain"
+- Generic motivational fluff
+- Fragmen pendek di bawah 5 kata
+
+## Selalu lakuin
+- Jujur kalo ga tau jawaban-nya
+- Sebutin sumber kalo ngasih fakta
+- Tanya konteks kalo request aku ambiguous`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Cara bikin file-nya: buka tab Cowork di Claude (bukan Chat), terus minta Claude bikin folder dan 2 file ini. Atau bikin manual di Notion/text editor terus upload ke folder Claude kamu.",
+        "Buat semua 4 folder kamu punya 2 file ini. Tone bisa berbeda per folder (contoh: tone di Founder Notes lebih reflective, tone di Operations lebih direct).",
+      ],
+    },
+    {
+      heading: "Hari 3: Pindah ke Cowork (20 menit)",
+      icon: "arrow-right",
+      paragraphs: [
+        "Tujuan hari ini: switch dari chatbot mode ke worker mode.",
+        "Bedanya Chat vs Cowork: Chat itu kamu tanya, dia jawab. Cowork itu kamu kasih task, dia kerjain. Chat stateless, ga inget action. Cowork action-oriented, bisa eksekusi. Chat cocok buat brainstorm. Cowork cocok buat automasi. Chat free di browser. Cowork butuh Claude Pro.",
+        "Cara setup: buka Claude desktop app (bukan web browser). Di top navigation, klik tab Cowork. Kalo pertama kali, ada setup wizard yang guide kamu. Ikutin aja. Setelah setup, kamu bisa minta Claude kerjain task multi-step otomatis.",
+        "Coba task pertama yang gampang: 'Tolong buka folder Downloads aku, list semua file PDF yang lebih lama dari 30 hari, terus pindahin ke folder Archive yang ada di Desktop. Konfirmasi sama aku sebelum delete apapun.'",
+        "Claude bakal lakuin satu-satu sambil update kamu di setiap step. Ini Stage 2 AI thinking yang aku ceritain di video.",
+      ],
+    },
+    {
+      heading: "Hari 4: Connect MCP (30 menit)",
+      icon: "plug",
+      paragraphs: [
+        "Tujuan hari ini: kasih Claude akses ke app lain kamu.",
+        "MCP itu Model Context Protocol, basically protocol yang nge-connect Claude ke literally aplikasi apapun. Tanpa MCP, Claude cuma punya akses ke data dalam chat kamu. Dengan MCP, dia bisa baca Gmail kamu, Notion kamu, Slack kamu, sampe Stripe dashboard kamu.",
+        "Cara setup: di Claude desktop app, klik Settings terus pilih tab Connectors atau Integrations. Ada list official connector dari Anthropic. Mulai dari yang paling relevan sama kerjaan kamu.",
+        "Saran beginner — connect maksimum 3 dulu: Gmail kalo kamu sering email, Google Drive kalo file kamu di sana, Slack kalo tim kamu pake Slack.",
+        "Buat advanced user (Hari 4 versi extended), explore awesome-mcp-servers di GitHub yang punya 200+ connector termasuk Stripe, Linear, Notion, Postgres, dan banyak lainnya.",
+        "Tes setelah connect: 'Tolong cek email aku 24 jam terakhir, kasih aku summary 3 email paling penting yang butuh aku respond.' Kalo connector setup bener, Claude bakal baca inbox kamu beneran dan kasih summary. Kalo salah, dia bakal bilang ga punya akses.",
+      ],
+    },
+    {
+      heading: "Hari 5 (optional): Claude Code",
+      icon: "zap",
+      paragraphs: [
+        "Tujuan hari ini: kasih Claude akses ke computer kamu langsung.",
+        "Honest disclaimer: hari 5 ini optional, ga semua orang butuh. Kalo kamu non-coder dan kerjaan kamu lebih ke content atau ops, hari 4 udah cukup. Kalo kamu engineer, freelancer, atau founder yang punya sisi technical, hari 5 worth setup.",
+        "Cara setup buat non-coder: buka Terminal (Mac) atau Command Prompt (Windows). Ketik 'npm install -g @anthropic-ai/claude-code'. Tekan enter. Tunggu install selesai. Login pake account Claude kamu. Buka folder mana aja di terminal dan ketik 'claude-code' buat start session.",
+        "Yang bisa kamu lakuin (use case non-coder): 'Tolong scan folder Downloads aku, identify semua file yang duplicate, dan pindahin yang duplicate ke folder Trash. Konfirmasi total size yang freed up.' Atau: 'Bikin script Excel macro yang highlight semua cell di kolom Revenue yang nilainya di bawah 5 juta jadi merah.' Atau: 'Rapiin folder Photos aku berdasarkan tanggal di EXIF data, masukin ke subfolder per bulan.'",
+        "Untuk yang ngoding: Claude Code juga bisa refactor codebase, debug, nulis test, dan handle Git workflow.",
+      ],
+    },
+    {
+      heading: "Copy paste prompt: hari 2 interview generator",
+      icon: "shield",
+      paragraphs: [
+        "Ini prompt yang paling impactful di seluruh roadmap. Paste ke chat Claude di hari 2, Claude bakal interview kamu dan generate About-Me.md plus AI-Style.md kamu otomatis.",
+      ],
+      code: [
+        `Aku mau kamu jadi setup assistant aku buat hari kedua Claude roadmap.
+Tugas kamu interview aku 25 sampe 35 pertanyaan, terus generate 2 file
+buat aku: About-Me.md dan AI-Style.md.
+
+ATURAN INTERVIEW:
+1. Tanya satu pertanyaan per turn, tunggu jawaban aku, baru lanjut.
+2. Kategori pertanyaan:
+   - 5-7 pertanyaan tentang siapa aku (nama, role, goals, background)
+   - 5-7 pertanyaan tentang kerjaan dan konteks aku
+   - 5-7 pertanyaan tentang cara aku komunikasi dan preferensi tone
+   - 5-7 pertanyaan tentang banned words, antipattern, atau format
+     yang aku ga suka
+   - 3-5 pertanyaan tentang constraint (timezone, bahasa, jam kerja)
+3. Kalo jawaban aku terlalu pendek atau generic, follow up dengan
+   pertanyaan klarifikasi spesifik.
+4. Kalo aku kasih contoh writing aku (caption, email lama, dll),
+   analisa pattern dan tanya buat konfirmasi.
+
+OUTPUT:
+Setelah 25-35 pertanyaan, generate 2 file dalam format markdown:
+
+About-Me.md harus include:
+- Nama lengkap
+- Pekerjaan dan role
+- Goals jangka pendek (3-6 bulan) dan panjang (1-3 tahun)
+- Background relevan
+- Industri yang aku tau
+- Constraint (bahasa, timezone, jam kerja)
+
+AI-Style.md harus include:
+- Tone preference (formal/casual/mixed, warmth level)
+- Format preference (bullet vs paragraph, code block usage)
+- Banned words atau phrase
+- Filler phrase yang aku ga suka
+- Hal yang Claude harus selalu lakuin
+- Hal yang Claude harus jangan pernah lakuin
+
+Mulai dari pertanyaan pertama. Don't generate file sebelum interview
+selesai.`,
+      ],
+      cta: {
+        label: "Follow @hollynst di Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Setelah Claude generate 2 file, copy paste ke setiap folder kamu. Mau breakdown AI dan workflow lainnya tiap minggu? Ikutin di sana.",
+      },
+    },
+    {
+      heading: "Yang harus kamu hindari di setup",
+      icon: "alert",
+      paragraphs: [
+        "Jangan setup 10 folder di hari 1. 4 cukup. Folder berlebihan bikin kamu lupa file mana di folder mana.",
+        "Jangan skip hari 2. Tanpa About-Me + AI-Style, semua hari setelahnya jauh kurang impactful.",
+        "Jangan connect 10 MCP di hari 4 sekaligus. Connect 3 dulu, biasain pake-nya, baru tambah.",
+        "Jangan paksain hari 5 kalo kamu non-coder. Hari 4 udah cukup powerful buat 90 persen use case.",
+      ],
+    },
+  ],
+  "claude-free-resources": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment 'LINKS' di video.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-resources/hero.png",
+          alt: "5 free Claude resources ranked by ROI",
+          caption: "5 resource gratis, ranked dari ROI tercepat ke paling slow-burn.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa urutan resource itu penting",
+      icon: "trending-up",
+      paragraphs: [
+        "Most listicle resource Claude di TikTok urutin berdasarkan apa yang populer. Aku urutin berdasarkan apa yang langsung kepake di hari pertama kamu pake-nya. Ada perbedaan besar.",
+        "Resource bagus tapi butuh 3 minggu kamu pelajarin = useless kalo kamu cuma punya 1 jam minggu ini. Resource yang langsung kasih kamu template kerja dalam 5 menit = useful walaupun namanya ga seglamour MIT free course.",
+        "5 resource di bawah ini aku urutin dari yang fastest ROI, bukan dari yang paling viral.",
+      ],
+    },
+    {
+      heading: "1. anthropic-cookbook (GitHub)",
+      icon: "file-text",
+      paragraphs: [
+        "Link: github.com/anthropics/anthropic-cookbook",
+        "Kenapa di nomor 1: ini koleksi code recipe siap pakai dari Anthropic sendiri. Kamu clone repo-nya, buka folder yang relevan, edit 2-3 line, dan jalanin. 5 menit kamu udah punya template yang beneran kerja.",
+        "Yang bisa kamu langsung pake: extraction/ (extract structured data dari dokumen, email, atau PDF), rag/ (bikin sistem tanya jawab pake data kamu sendiri), agents/ (workflow agent multi-step), multimodal/ (analisa gambar, audio, sama dokumen), evaluation/ (cek kualitas output AI kamu).",
+        "Yang aku pake: recipe extraction buat parse legal contract Haru jadi structured JSON. Dulu manual baca 30 menit per contract, sekarang 30 detik.",
+        "Beda dari course: course ngajarin kamu konsep, cookbook kasih kamu kode jadi yang tinggal modify.",
+      ],
+    },
+    {
+      heading: "2. awesome-mcp-servers (GitHub)",
+      icon: "plug",
+      paragraphs: [
+        "Link: github.com/punkpeye/awesome-mcp-servers",
+        "Kenapa di nomor 2: MCP itu Model Context Protocol, protocol yang nge-connect Claude ke literally apapun. Repo ini punya 200 lebih server siap pakai. Notion, Linear, Stripe, Slack, Drive, sampe printer di rumah kamu, semua udah ada.",
+        "Yang bisa kamu langsung pake (paling populer): Notion MCP (Claude baca dan tulis ke workspace Notion kamu), Stripe MCP (Claude akses revenue, customer, transaksi), Linear MCP (Claude baca dan bikin ticket), Postgres MCP (Claude query database kamu langsung), Filesystem MCP (Claude akses folder lokal kamu).",
+        "Yang aku pake: aku connect Claude ke Stripe Haru lewat MCP. Sekarang tiap pagi Claude kirim summary revenue 24 jam terakhir ke Slack DM aku tanpa aku login dashboard Stripe sama sekali.",
+        "Beda dari Anthropic connector official: connector official di claude.ai cuma cover ~10 apps populer. MCP cover 200+ termasuk niche tools dan setup custom.",
+      ],
+    },
+    {
+      heading: "3. awesome-claude-code-subagents (GitHub)",
+      icon: "users",
+      paragraphs: [
+        "Link: github.com/hesreallyhim/awesome-claude-code-subagents",
+        "Kenapa di nomor 3: 100 lebih sub-agent yang community bikin gratis. Tiap sub-agent itu basically Claude yang udah di-training khusus buat task spesifik. Ga generic kayak default Claude, tapi laser-focused.",
+        "Yang bisa kamu langsung pake: cv-screener (review dan rank CV berdasarkan job desc), security-auditor (scan codebase kamu buat vulnerability), doc-writer (generate dokumentasi dari kode), refactor-pro (refactor large codebase secara aman), test-writer (generate unit test otomatis).",
+        "Yang aku pake: cv-screener buat review 50 CV per minggu di Haru. Ranked output dengan skor 1-10 plus alasan. 4 menit total vs 6 jam manual.",
+        "Caveat: karena community-built, kualitasnya bervariasi. Cek star count dan last-updated date sebelum install.",
+      ],
+    },
+    {
+      heading: "4. Anthropic Skills Library (claude.ai)",
+      icon: "sparkles",
+      paragraphs: [
+        "Link: claude.ai/customize/skills",
+        "Kenapa di nomor 4: ini koleksi skill resmi dari Anthropic. Plug ke chat kamu kayak install app, dan Claude langsung jadi spesialis di task itu.",
+        "Yang bisa kamu langsung pake: code-reviewer (review pull request kamu), test-writer (auto-generate unit test), doc-generator (bikin dokumentasi dari kode), performance-analyzer (cari bottleneck), security-audit (OWASP top 10 scan), refactor-pro (safe large refactor).",
+        "Beda dari sub-agent community: Skills library itu official dan terjamin kualitas-nya, tapi koleksi-nya lebih kecil dan general-purpose. Sub-agent community lebih niche tapi quality vary.",
+        "Yang aku pake: doc-generator buat update README repo Haru tiap kali ada major change.",
+      ],
+    },
+    {
+      heading: "5. docs.anthropic.com (paling underrated)",
+      icon: "book",
+      paragraphs: [
+        "Link: docs.anthropic.com",
+        "Kenapa di nomor 5 tapi the most underrated: bukan course panjang yang harus kamu sit through. Ini reference cepet kalo kamu butuh tau parameter spesifik, pattern terbaru, atau best practice. Free, no signup, dan paling up-to-date dari semua resource lain.",
+        "Yang paling worth dibaca: Prompt Engineering page (kalo output kamu masih generic), Tool Use docs (kalo mau bikin Claude pake tools eksternal), MCP docs (kalo mau bikin integration kamu sendiri), Best Practices (antipattern yang most user ga sadar lagi lakuin), API Reference (kalo kamu beneran ngoding pake Claude API).",
+        "Yang aku pake: hampir tiap minggu aku cek docs buat parameter spesifik atau pattern terbaru. Jauh lebih reliable dari YouTube tutorial yang udah outdated 6 bulan.",
+      ],
+    },
+    {
+      heading: "Copy paste prompt: cek tools mana yang kamu butuh",
+      icon: "shield",
+      paragraphs: [
+        "Susah decide mana yang harus kamu install duluan? Paste prompt ini ke Claude buat dapet rekomendasi yang personalized.",
+      ],
+      code: [
+        `Aku mau optimize cara aku pake Claude pake resource gratis. Tolong
+recommend mana yang harus aku setup duluan berdasarkan kerjaan aku.
+
+KONTEKS AKU:
+- Role aku: [contoh: founder startup B2B SaaS / mahasiswa skripsi /
+  content creator / marketer / engineer]
+- 3 task yang paling sering aku kerjain di Claude:
+  1. [contoh: research kompetitor]
+  2. [contoh: draft email cold outreach]
+  3. [contoh: analisa data customer]
+- Tools utama yang aku pake sekarang: [contoh: Notion, Slack, Gmail,
+  Stripe, Google Drive]
+- Comfort level coding: [contoh: ga bisa coding sama sekali / bisa baca
+  kode / bisa modify kode / bisa nulis kode dari nol]
+- Waktu yang aku punya buat setup: [contoh: 30 menit / 2 jam / 1 minggu]
+
+5 RESOURCE GRATIS YANG ADA:
+1. anthropic-cookbook (code recipe siap pakai)
+2. awesome-mcp-servers (200+ connector ke aplikasi)
+3. awesome-claude-code-subagents (100+ spesialis agent)
+4. Anthropic Skills Library (skill official)
+5. docs.anthropic.com (reference)
+
+TOLONG KASIH AKU:
+1. Urutan setup yang paling masuk akal buat aku (bukan urutan default,
+   tapi yang spesifik buat use case aku).
+2. 2 sampe 3 item spesifik yang aku install duluan dari resource yang
+   relevan (contoh: "install Stripe MCP server" bukan cuma "pake
+   awesome-mcp-servers").
+3. Apa yang bisa aku skip dulu dan kenapa.
+4. Estimasi waktu setup buat masing-masing.
+
+Jujur aja kalo ada resource yang ga relevan buat aku.`,
+      ],
+      cta: {
+        label: "Follow @hollynst di Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Output yang kamu dapet bakal personalized berdasarkan profile kamu. Mau breakdown AI yang konkret tiap minggu? Ikutin di sana.",
+      },
+    },
+    {
+      heading: "Realistic setup order buat beginner",
+      icon: "refresh",
+      paragraphs: [
+        "Kalo kamu bingung di mana mulai dan ga mau pake prompt di atas, ini urutan default yang aku recommend:",
+        "Hari 1 (30 menit): setup 1 MCP server yang paling relevan sama tool kamu (Notion, Gmail, atau Drive).",
+        "Hari 2 (45 menit): install 1 sub-agent dari awesome-claude-code-subagents yang relevan.",
+        "Hari 3 (1 jam): browse anthropic-cookbook dan adapt 1 recipe buat use case kamu.",
+        "Hari 4 (30 menit): install 1-2 skill dari Anthropic official library.",
+        "Ongoing: bookmark docs.anthropic.com dan baca section yang relevan tiap kamu nemu pattern baru.",
+        "Total 3 jam dalam 4 hari, dan kamu udah punya Claude setup yang 10x lebih powerful dari default.",
+      ],
+    },
+  ],
+  "claude-calendar": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment 'CALENDAR' di video.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-calendar/hero.png",
+          alt: "2 hours back per week after Claude handles calendar",
+          caption: "2 jam per minggu balik ke aku setelah Claude handle calendar Haru.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa calendar itu black hole produktivitas",
+      icon: "alert",
+      paragraphs: [
+        "Aku ga ngitung berapa jam yang aku abis tiap minggu cuma buat ngatur calendar Haru. Bikin event, paste detail dari WhatsApp, copy lokasi, set reminder, undang attendee, ulang lagi minggu depan. Ribuan klik kecil yang individually ga kerasa tapi kalo dijumlahin makan 2 jam lebih per minggu.",
+        "Setelah aku connect Claude ke calendar dan setup 3 cara di bawah ini, 2 jam itu balik ke aku. Aku ga ngarang, aku timer-in literally.",
+      ],
+    },
+    {
+      heading: "Step 0 wajib: connect calendar dulu",
+      icon: "plug",
+      paragraphs: [
+        "Sebelum tips apapun bisa jalan, kamu wajib connect calendar kamu ke Claude.",
+        "Buka claude.ai dan masuk ke akun kamu. Klik profile kamu di pojok kiri bawah, pilih Settings. Cari tab Integrations atau Connectors. Pilih Google Calendar atau Outlook Calendar, klik Connect. Login dan grant permission, pastikan kamu kasih akses Read + Write, bukan cuma Read.",
+        "Tanpa permission Write, Claude cuma bisa baca calendar kamu tapi ga bisa bikin event baru. 90 persen tips di bawah ga jalan kalo step ini ke-skip.",
+      ],
+    },
+    {
+      heading: "Cara 1: voice command lewat mobile",
+      icon: "mic",
+      paragraphs: [
+        "Ini cara yang aku pake waktu lagi commute atau lagi ga di depan laptop. Buka Claude app di HP kamu, klik icon mic, dan ngomong natural.",
+        "Contoh yang aku pake: 'Jadwalin meeting sama tim ops Senin jam 10 pagi, durasi 45 menit, undang Bayu, Tania, sama Reza, taro agenda meeting di description, kasih reminder 15 menit sebelumnya.'",
+        "Claude bakal parse semua detail dari kalimat itu dan langsung bikin event di calendar kamu. Kamu ga perlu klik apapun setelahnya.",
+        "Tips: makin spesifik kamu, makin akurat hasilnya. Sebutin nama orangnya (bukan 'tim ops'), durasi spesifik (bukan 'sebentar'), dan apapun yang penting kayak lokasi atau link Zoom.",
+      ],
+    },
+    {
+      heading: "Cara 2: screenshot WhatsApp atau iMessage",
+      icon: "camera",
+      paragraphs: [
+        "Ini favorit aku karena 80 persen koordinasi di Indonesia masih via WhatsApp. Daripada manual extract detail dari chat, kamu screenshot conversation-nya dan kirim ke Claude app.",
+        "Contoh use case: kamu chat sama temen soal dinner Jumat malam. Mereka kirim 'OK, Senopati Lounge ya jam 7, aku book meja buat 4 orang.' Daripada manual bikin event, screenshot chat itu, kirim ke Claude, dan dia parse jadi calendar event lengkap dengan lokasi, waktu, dan jumlah orang.",
+        "Bonus: kalo screenshot kamu nge-capture nomor HP atau email orang lain, Claude bisa otomatis undang mereka ke event juga.",
+      ],
+    },
+    {
+      heading: "Cara 3: kasih link website (paling hack)",
+      icon: "link",
+      paragraphs: [
+        "Ini cara yang most underrated. Banyak event yang detail-nya ada di website tapi ga ada feed calendar yang bisa kamu subscribe. Contohnya website sekolah anak, kalender acara komunitas, atau jadwal konferensi.",
+        "Cara pakenya: kirim link website-nya ke Claude app dengan instruksi: 'Tolong scrape semua event dari [URL website] dan tambahin ke calendar aku. Tag mereka pake kategori sekolah-anak.'",
+        "Claude bakal buka website, baca semua event, dan populate calendar kamu sekaligus. Aku pake ini buat website sekolah temen aku dan 12 event masuk dalam 30 detik tanpa aku input satu-satu.",
+      ],
+    },
+    {
+      heading: "Copy paste prompt: setup calendar assistant",
+      icon: "shield",
+      paragraphs: [
+        "Paste prompt ini di Custom Instructions atau di awal chat baru kamu biar Claude lebih akurat handle calendar request kamu. Ganti bagian dalam kurung sama info kamu sendiri.",
+      ],
+      code: [
+        `Kamu adalah calendar assistant aku. Setiap kali aku minta kamu bikin,
+update, atau cek event di calendar, follow aturan berikut:
+
+KONTEKS AKU:
+- Timezone aku [contoh: GMT+7 Jakarta]
+- Jam kerja aku [contoh: Senin sampe Jumat, 9 pagi sampe 6 sore]
+- Default reminder yang aku mau [contoh: 15 menit sebelum]
+- Orang yang sering aku undang [contoh: Bayu (bayu@haru.id), Tania
+  (tania@haru.id), Reza (reza@haru.id)]
+- Lokasi default kalo aku ga sebut [contoh: Haru office, Senopati]
+
+ATURAN KAMU:
+1. Kalo aku ga sebut durasi, default 30 menit buat meeting internal dan
+   60 menit buat external.
+2. Kalo aku ga sebut waktu spesifik, suggest 3 slot kosong di calendar
+   aku dan tanya aku pilih yang mana.
+3. Kalo aku undang lebih dari 1 orang, check ketersediaan mereka dulu
+   sebelum konfirmasi event.
+4. Jangan bikin event yang overlap sama existing event tanpa kasih
+   tau aku.
+5. Untuk event recurring, tanya aku berapa kali dan ending date-nya.
+6. Setiap kali kamu bikin event, kasih aku konfirmasi singkat: nama
+   event, waktu, peserta, lokasi.
+
+Konfirmasi kamu ngerti aturan ini, baru aku kasih request pertama.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Setelah Claude konfirmasi, kamu bisa langsung request natural kayak 'jadwalin lunch sama Bayu minggu depan' dan dia bakal handle semua detail-nya.",
+      ],
+    },
+    {
+      heading: "Kapan kamu ga perlu pake Claude buat calendar",
+      icon: "clock",
+      paragraphs: [
+        "Real talk, ga semua interaksi calendar butuh Claude. Buat event simpel kayak 'remind aku meeting jam 3 besok', ya tinggal kamu ketik sendiri di calendar app, 5 detik selesai.",
+        "Pake Claude buat: event yang butuh extract info dari chat panjang, multi-attendee scheduling yang butuh cek ketersediaan, bulk event creation dari website atau dokumen, recurring event yang punya banyak detail, reschedule chain (geser meeting A bikin meeting B juga geser).",
+        "Buat one-off simple event, tetep manual aja, ga usah over-engineer.",
+      ],
+      cta: {
+        label: "Follow @hollynst di Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Mau breakdown workflow Haru dan AI lainnya tiap minggu? Ikutin di sana.",
+      },
+    },
+  ],
   "ai-5-levels": [
     {
       paragraphs: [
