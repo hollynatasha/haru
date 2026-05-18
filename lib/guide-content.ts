@@ -281,36 +281,36 @@ selesai.`,
       ],
     },
     {
-      heading: "2. awesome-mcp-servers (GitHub)",
+      heading: "2. Anthropic Skills Library (claude.ai)",
+      icon: "sparkles",
+      paragraphs: [
+        "Link: claude.ai/customize/skills",
+        "Kenapa di nomor 2: ini koleksi skill resmi dari Anthropic. Plug ke chat kamu kayak install app, dan Claude langsung jadi spesialis di task itu.",
+        "Yang bisa kamu langsung pake: code-reviewer (review pull request kamu), test-writer (auto-generate unit test), doc-generator (bikin dokumentasi dari kode), performance-analyzer (cari bottleneck), security-audit (OWASP top 10 scan), refactor-pro (safe large refactor).",
+        "Beda dari sub-agent community: Skills library itu official dan terjamin kualitas-nya, tapi koleksi-nya lebih kecil dan general-purpose. Sub-agent community lebih niche tapi quality vary.",
+        "Yang aku pake: doc-generator buat update README repo Haru tiap kali ada major change.",
+      ],
+    },
+    {
+      heading: "3. awesome-mcp-servers (GitHub)",
       icon: "plug",
       paragraphs: [
         "Link: github.com/punkpeye/awesome-mcp-servers",
-        "Kenapa di nomor 2: MCP itu Model Context Protocol, protocol yang nge-connect Claude ke literally apapun. Repo ini punya 200 lebih server siap pakai. Notion, Linear, Stripe, Slack, Drive, sampe printer di rumah kamu, semua udah ada.",
+        "Kenapa di nomor 3: MCP itu Model Context Protocol, protocol yang nge-connect Claude ke literally apapun. Repo ini punya 200 lebih server siap pakai. Notion, Linear, Stripe, Slack, Drive, sampe printer di rumah kamu, semua udah ada.",
         "Yang bisa kamu langsung pake (paling populer): Notion MCP (Claude baca dan tulis ke workspace Notion kamu), Stripe MCP (Claude akses revenue, customer, transaksi), Linear MCP (Claude baca dan bikin ticket), Postgres MCP (Claude query database kamu langsung), Filesystem MCP (Claude akses folder lokal kamu).",
-        "Yang aku pake: aku connect Claude ke Stripe Haru lewat MCP. Sekarang tiap pagi Claude kirim summary revenue 24 jam terakhir ke Slack DM aku tanpa aku login dashboard Stripe sama sekali.",
+        "Yang aku pake: aku connect Claude ke Stripe bisnis lewat MCP. Sekarang tiap pagi dia kasih revenue summary tanpa aku login dashboard Stripe sama sekali.",
         "Beda dari Anthropic connector official: connector official di claude.ai cuma cover ~10 apps populer. MCP cover 200+ termasuk niche tools dan setup custom.",
       ],
     },
     {
-      heading: "3. awesome-claude-code-subagents (GitHub)",
+      heading: "4. awesome-claude-code-subagents (GitHub)",
       icon: "users",
       paragraphs: [
         "Link: github.com/hesreallyhim/awesome-claude-code-subagents",
-        "Kenapa di nomor 3: 100 lebih sub-agent yang community bikin gratis. Tiap sub-agent itu basically Claude yang udah di-training khusus buat task spesifik. Ga generic kayak default Claude, tapi laser-focused.",
+        "Kenapa di nomor 4: 100 lebih sub-agent yang community bikin gratis. Tiap sub-agent itu basically Claude yang udah di-training khusus buat task spesifik. Ga generic kayak default Claude, tapi laser-focused.",
         "Yang bisa kamu langsung pake: cv-screener (review dan rank CV berdasarkan job desc), security-auditor (scan codebase kamu buat vulnerability), doc-writer (generate dokumentasi dari kode), refactor-pro (refactor large codebase secara aman), test-writer (generate unit test otomatis).",
         "Yang aku pake: cv-screener buat review 50 CV per minggu di Haru. Ranked output dengan skor 1-10 plus alasan. 4 menit total vs 6 jam manual.",
         "Caveat: karena community-built, kualitasnya bervariasi. Cek star count dan last-updated date sebelum install.",
-      ],
-    },
-    {
-      heading: "4. Anthropic Skills Library (claude.ai)",
-      icon: "sparkles",
-      paragraphs: [
-        "Link: claude.ai/customize/skills",
-        "Kenapa di nomor 4: ini koleksi skill resmi dari Anthropic. Plug ke chat kamu kayak install app, dan Claude langsung jadi spesialis di task itu.",
-        "Yang bisa kamu langsung pake: code-reviewer (review pull request kamu), test-writer (auto-generate unit test), doc-generator (bikin dokumentasi dari kode), performance-analyzer (cari bottleneck), security-audit (OWASP top 10 scan), refactor-pro (safe large refactor).",
-        "Beda dari sub-agent community: Skills library itu official dan terjamin kualitas-nya, tapi koleksi-nya lebih kecil dan general-purpose. Sub-agent community lebih niche tapi quality vary.",
-        "Yang aku pake: doc-generator buat update README repo Haru tiap kali ada major change.",
       ],
     },
     {
@@ -348,9 +348,9 @@ KONTEKS AKU:
 
 5 RESOURCE GRATIS YANG ADA:
 1. anthropic-cookbook (code recipe siap pakai)
-2. awesome-mcp-servers (200+ connector ke aplikasi)
-3. awesome-claude-code-subagents (100+ spesialis agent)
-4. Anthropic Skills Library (skill official)
+2. Anthropic Skills Library (skill official plug-and-play)
+3. awesome-mcp-servers (200+ connector ke aplikasi)
+4. awesome-claude-code-subagents (100+ spesialis agent)
 5. docs.anthropic.com (reference)
 
 TOLONG KASIH AKU:
