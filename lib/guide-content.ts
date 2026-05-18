@@ -197,7 +197,7 @@ Konfirmasi dulu kamu ngerti aturan ini, baru aku approve kamu mulai.`,
       icon: "file-text",
       paragraphs: [
         "Buat semua prompt di bawah, aku pake format Harvard Resume sebagai contoh. Format Harvard itu standar emas yang dipake students Harvard Business School dan kebanyakan top universities. Strukturnya simpel: single column, no tables, no graphics, action verb di tiap bullet, angka di mana mungkin.",
-        "Aku bakal pake CV fiktif 'Sarah, freshgrad Marketing dari UI' sebagai contoh di semua prompt di bawah biar kamu bisa liat langsung gimana hasilnya.",
+        "Aku bakal pake CV fiktif 'Julia, freshgrad Marketing dari UI' sebagai contoh di semua prompt di bawah biar kamu bisa liat langsung gimana hasilnya.",
       ],
       images: [
         {
@@ -235,7 +235,7 @@ Bullet aku yang sekarang:
     },
     {
       paragraphs: [
-        "Contoh hasil di CV Sarah.",
+        "Contoh hasil di CV Julia.",
         "Sebelum: Membantu tim marketing mencapai target campaign tahunan.",
         "Setelah pake Rewriter: Increased Q3 campaign ROI 40% (Rp 120M revenue) by launching 3 user-generated content campaigns and optimizing paid social spend across Meta and TikTok.",
         "Beda banget kan? Yang kedua punya angka, ada action verb, dan jelas impact-nya.",
@@ -273,7 +273,7 @@ CV aku:
     },
     {
       paragraphs: [
-        "Contoh hasil di CV Sarah. Claude bakal balikin sesuatu kayak gini:",
+        "Contoh hasil di CV Julia. Claude bakal balikin sesuatu kayak gini:",
       ],
       code: [
         `FLAG 1: EDUCATION section — tanggal kamu nulis "2020 - sekarang" tapi
@@ -331,7 +331,7 @@ Job description target:
     },
     {
       paragraphs: [
-        "Contoh hasil di CV Sarah (pivot dari Marketing agency ke Tech B2B).",
+        "Contoh hasil di CV Julia (pivot dari Marketing agency ke Tech B2B).",
         "Sebelum (bahasa marketing agency): Launched 12 brand campaigns for FMCG clients, generating 4.2M social media impressions.",
         "Setelah Translator (bahasa B2B tech): Led 12 go-to-market initiatives across multiple verticals, driving 4.2M qualified audience touchpoints through full-funnel content distribution.",
         "Skill underlying-nya sama (kampanye + reach), tapi bahasanya udah ke-tune buat audience B2B tech.",
