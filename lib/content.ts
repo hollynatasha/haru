@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "fable-5-guide",
+    category: "AI TUTORIAL",
+    title: "PANDUAN FABLE 5: 5 USE CASE + PROMPT",
+    description:
+      "Model paling canggih dari Claude, context 1 juta token. Kuota gratis Pro/Max/Team 50% cuma sampai 7 Juli. Ini 5 use case + prompt copy-paste yang detail biar kamu manfaatin sebelum ditutup.",
+    readMinutes: 9,
+    publishedAt: "2026-07-06",
+  },
+  {
     slug: "5-day-claude-setup",
     category: "WORKFLOW",
     title: "5-DAY CLAUDE SETUP: NOOB KE EXPERT",

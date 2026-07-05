@@ -46,6 +46,342 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "fable-5-guide": [
+    {
+      paragraphs: [
+        "Fable 5 itu model paling canggih sekaligus paling efisien dari Claude. Kuota gratisnya cuma sampai 7 Juli, jadi ini panduan biar kamu langsung bisa manfaatin sebelum window-nya ditutup.",
+        "Semua prompt di bawah tinggal copy-paste. Aku sengaja bikin panjang dan detail, karena Fable 5 itu makin bagus kalau kamu kasih brief yang jelas. Ganti bagian [dalam kurung] sesuai kebutuhan kamu.",
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/01-cover.png",
+          alt: "Fable 5 kebuka — 5 use case worth dicoba",
+          caption: "Fable 5, 1 juta token context. Window gratisnya sampai 7 Juli.",
+        },
+      ],
+    },
+    {
+      heading: "Apa itu Fable 5?",
+      icon: "sparkles",
+      paragraphs: [
+        "Model paling canggih dari Claude, context-nya 1 juta token, jadi sekali jalan dia sanggup pegang seluruh proyek atau dokumen tebel sekaligus. Sempet ditarik paksa pemerintah AS karena kelewat jago, terus balik lagi 1 Juli dengan pengaman jauh lebih ketat.",
+        "Satu hal yang harus kamu inget: sekali jalan Fable 5 makan token berkali lipat dari Opus. Jadi dia bukan buat dipake asal-asalan — simpen buat kerjaan paling berat.",
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/02-what-is-fable.png",
+          alt: "Apa itu Fable 5 — 1 juta token context",
+          caption: "1 juta token = seluruh proyek atau dokumen tebel kebaca sekali jalan.",
+        },
+      ],
+    },
+    {
+      heading: "Cara aktifin (2 menit)",
+      icon: "plug",
+      paragraphs: [
+        "Buka Claude, pilih Fable 5 sebagai model. Tersedia buat plan Pro, Max, sama Team.",
+        "Inget window-nya: 50% kuota Fable 5 gratis sampai 7 Juli. Lewat itu jalan lewat usage credit (harga API-nya kira-kira 2x Opus 4.8).",
+        "Catatan penting: kalau pengamannya ke-trigger pas task sensitif, dia bakal auto-pindah ke Opus 4.8 dan ngasih tau kamu. Jadi jangan kaget kalau tengah jalan modelnya ganti sendiri.",
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/03-pricing-window.png",
+          alt: "Harga dan window gratis Fable 5",
+          caption: "Gratis 50% sampai 7 Juli. Setelah itu lewat usage credit.",
+        },
+      ],
+    },
+    {
+      heading: "Aturan emas: kapan pake, kapan jangan",
+      icon: "alert",
+      paragraphs: [
+        "Karena token-nya boros, pakai Fable 5 dengan disiplin.",
+        "PAKE buat: kerjaan paling berat, task besar sekali jalan, riset mendalam — yang biasanya makan kamu berhari-hari.",
+        "BALIK ke Opus atau Sonnet buat: chat cepet, draft pendek, nulis fungsi kecil. Itu lebih hemat.",
+        "Dan selalu mulai dari brief yang jelas. Tiap bolak-balik itu sama dengan token kebakar.",
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/09-golden-rule.png",
+          alt: "Aturan emas Fable 5 — kapan pake kapan jangan",
+          caption: "Pake buat yang berat. Task ringan balik ke Opus/Sonnet.",
+        },
+      ],
+    },
+    {
+      heading: "1. Bikin app berbayar jadi versi lokal",
+      icon: "zap",
+      paragraphs: [
+        "Arahin Fable ke app langganan (misalnya app streaming kayak Netflix), suruh dia riset arsitekturnya, terus rebuild versi kamu sendiri yang jalan lokal di device.",
+        "Prompt pendek di carousel cuma gist-nya. Ini versi panjang yang aku pake — makin detail brief-nya, makin sekali jadi hasilnya.",
+      ],
+      code: [
+        `Kamu aku posisiin sebagai senior full-stack engineer sekaligus product
+architect. Aku mau kamu kerjain ini sebagai satu proyek utuh, bukan
+tanya-jawab. Jalan sampe selesai, jangan berhenti di tengah buat nanya
+hal kecil — kumpulin semua pertanyaan di awal aja.
+
+TARGET: [app langganan, mis. Netflix]
+TUJUAN AKHIR: aku punya versi lokal-ku sendiri yang jalan 100% di device,
+tanpa langganan, tanpa server berbayar, tanpa akun.
+
+FASE 1 — RISET ARSITEKTUR
+Bedah [app target] dari sisi:
+- Fitur inti (yang bikin orang mau bayar), pisahin dari fitur pinggiran.
+- Data model utama: entitas apa aja, relasinya gimana (mis. User,
+  Profile, Title, Episode, Watchlist, Progress).
+- Flow utama end-to-end: dari buka app, browse, mulai nonton, sampe
+  lanjut nonton di device lain.
+- Stack yang masuk akal buat versi lokal (bukan nebak stack asli mereka).
+
+FASE 2 — BANGUN VERSI LOKAL-KU
+Pakai /goal buat set target: app yang jalan sepenuhnya di localhost.
+- Frontend: [React / Next.js / pilihan kamu], responsive, dark mode.
+- Backend: lokal (mis. Node + SQLite / file JSON), no cloud.
+- Sample data: minimal 20 judul dummy + thumbnail placeholder, 2 profil,
+  1 watchlist, progress nonton yang kesimpen.
+- Fitur minimal yang harus jalan: browse by kategori, search, halaman
+  detail, "lanjut nonton", tandai favorit.
+
+YANG HARUS KAMU KASIH KE AKU
+1. File structure lengkap (tree) + penjelasan singkat tiap folder.
+2. Semua file code yang dibutuhin, komplit, siap jalan.
+3. Cara jalaninnya di localhost step-by-step (install, seed data, run).
+4. Daftar hal yang SENGAJA aku skip biar tetap ringan, plus 3 ide
+   pengembangan lanjutan kalau nanti mau serius.
+
+ATURAN
+- Kalau ada assumption yang kamu butuh, tanya SEKARANG sebelum mulai.
+- Jangan pura-pura punya akses ke kode asli app target. Semua berdasar
+  arsitektur umum yang wajar.
+- Prioritasin "bisa jalan" di atas "fitur lengkap".`,
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/04-usecase-01.png",
+          alt: "Use case 1 — bikin app streaming versi lokal",
+          caption: "Riset arsitektur dulu, terus /goal buat rebuild versi lokal kamu.",
+        },
+      ],
+    },
+    {
+      heading: "2. Riset mendalam selevel dosen PhD",
+      icon: "search",
+      paragraphs: [
+        "Fable nyebar sub-agent paralel, tiap agent ngedalemin satu sudut, terus digabung jadi satu laporan yang udah di-cross-check plus sumbernya.",
+        "Kunci prompt ini: kamu minta dia PECAH dulu jadi beberapa sub-agent, baru gabung. Jangan biarin dia jawab dari satu sudut doang.",
+      ],
+      code: [
+        `Kamu aku posisiin sebagai research lead yang mimpin tim peneliti PhD.
+Aku mau riset selevel akademik beneran soal:
+
+TOPIK: [tulis topik kamu selengkap mungkin, plus kenapa kamu butuh ini]
+
+CARA KERJA (WAJIB)
+1. Pecah topik ini jadi 4-6 sudut/angle yang beda dan saling melengkapi
+   (mis. sudut historis, data/statistik, sudut kritik/kontra, sudut
+   praktis/aplikasi, sudut tren terbaru). Kasih aku daftar angle-nya dulu.
+2. Perlakuin tiap angle kayak dikerjain sub-agent terpisah yang fokus
+   dalem, bukan permukaan. Tiap angle harus punya bukti sendiri.
+3. Setelah semua angle selesai, CROSS-CHECK antar temuan: mana yang
+   saling nguatin, mana yang saling bertentangan. Bahas kontradiksinya,
+   jangan disembunyiin.
+
+OUTPUT AKHIR (SATU LAPORAN)
+- Ringkasan eksekutif 5 kalimat.
+- 5 temuan utama. Tiap temuan WAJIB disertai angka/bukti konkret +
+  sumbernya, bukan klaim umum.
+- 3 argumen tandingan (counter-argument) yang paling kuat terhadap
+  temuan di atas.
+- 1 gap yang belum kejawab / yang masih jadi perdebatan terbuka.
+- Daftar sumber lengkap di akhir.
+
+ATURAN KEJUJURAN
+- Tandain SETIAP klaim yang confidence-nya rendah dengan label
+  [CONFIDENCE RENDAH] dan jelasin kenapa.
+- Kalau kamu ga nemu sumber yang kredibel buat suatu klaim, bilang
+  "belum ada sumber kuat" — JANGAN ngarang sumber, judul paper, atau
+  angka. Ini aturan paling penting.
+- Bedain jelas antara fakta yang ada datanya vs interpretasi kamu.`,
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/05-usecase-02.png",
+          alt: "Use case 2 — riset mendalam selevel PhD",
+          caption: "Sub-agent paralel, tiap agent dalemin satu sudut, terus di-cross-check.",
+        },
+      ],
+    },
+    {
+      heading: "3. Bedah laporan keuangan jadi keputusan",
+      icon: "trending-up",
+      paragraphs: [
+        "Kasih laporan tebel, suruh dia jangan cuma ambil angka. Context 1M-nya baca semua sekaligus, nemuin pola, dan nunjuk keputusan yang harus kamu ambil.",
+        "Ini use case di mana 1 juta token bener-bener kepake: kamu bisa lempar laporan ratusan halaman sekali jalan.",
+      ],
+      code: [
+        `Kamu aku posisiin sebagai CFO sekaligus analis keuangan senior. Aku
+lampirin/paste laporan keuangan di bawah. Jangan cuma ekstrak angka —
+baca SEMUANYA sampe habis, cari cerita di balik angkanya.
+
+LAPORAN: [perusahaan / periode, mis. "Haru Studio, Q1-Q2 2026"]
+KONTEKS AKU: [posisi kamu + keputusan apa yang lagi kamu timbang]
+
+YANG HARUS KAMU LAKUIN
+1. Baca seluruh dokumen, termasuk catatan kaki dan bagian yang
+   gampang dilewatin. Sering red flag ngumpet di situ.
+2. Identifikasi pola penting antar periode: apa yang naik, apa yang
+   turun, dan APA PENYEBABNYA (bukan cuma "revenue naik 10%").
+3. Tandai anomali / red flag: margin aneh, cash flow ga cocok sama
+   profit, beban yang lonjak, piutang numpuk, dsb.
+4. Kasih 3 keputusan konkret yang harus aku ambil, masing-masing
+   dengan reasoning + trade-off + risiko kalau salah ambil.
+
+FORMAT OUTPUT
+- 1 tabel ringkas: metrik kunci (Revenue, Gross/Net Margin, Cash Flow,
+  Burn/Runway kalau relevan) dibanding antar periode + arah tren.
+- Ringkasan eksekutif tepat 5 kalimat, bahasa manusia bukan jargon.
+- Bagian "3 keputusan" dalam bentuk list dengan reasoning tiap poin.
+
+ATURAN
+- Kalau ada angka yang kelihatan ga konsisten antar bagian, FLAG,
+  jangan diem-diem dirata-ratain.
+- Kalau ada data penting yang ga ada di laporan buat ngambil keputusan,
+  bilang "butuh data X" — jangan diisi tebakan.`,
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/06-usecase-03.png",
+          alt: "Use case 3 — bedah laporan keuangan",
+          caption: "Baca semua sekaligus, tarik pola, tunjuk keputusan yang harus diambil.",
+        },
+      ],
+    },
+    {
+      heading: "4. Bikin financial model lebih ngebut",
+      icon: "zap",
+      paragraphs: [
+        "Di kerjaan spreadsheet, Fable ngalahin Opus (sekitar 25-30% lebih cepet). Kasih data mentahmu, dia bangun modelnya lengkap sama rumus, asumsi, dan skenario.",
+        "Yang bikin model ini beneran kepake: minta dia nulis asumsi secara EKSPLISIT. Model tanpa asumsi yang jelas itu ga bisa dipercaya.",
+      ],
+      code: [
+        `Kamu aku posisiin sebagai financial analyst yang biasa bangun model
+buat startup. Aku kasih data mentah di bawah. Bangun financial model
+lengkap yang bisa aku pertanggungjawabin ke investor.
+
+DATA: [paste spreadsheet / angka mentah kamu di sini]
+BISNIS: [jenis bisnis + periode proyeksi, mis. "12 bulan ke depan"]
+
+YANG HARUS KAMU BANGUN
+1. Semua rumus yang dipake, tulis eksplisit (jangan cuma kasih hasil
+   akhir). Aku harus bisa telusuri tiap angka dari mana.
+2. Daftar ASUMSI yang kepake, satu per satu, dengan nilainya (mis.
+   growth rate, conversion, harga rata-rata, churn, biaya per unit).
+   Kalau kamu nebak sebuah asumsi, tandain "[ASUMSI — sesuaikan]".
+3. 3 skenario: PESIMIS, REALISTIS, OPTIMIS. Jelasin apa yang beda di
+   asumsi tiap skenario, jangan cuma kali-kali angka.
+
+OUTPUT PER SKENARIO
+- Proyeksi bulanan/periodik: Revenue, Cost, Profit, dan Margin %.
+- Ringkasan angka akhir tiap skenario dalam 1 tabel perbandingan.
+
+ANALISIS TAMBAHAN
+- Sebutin 2 variabel yang PALING ngefek ke hasil (sensitivity). Kalau
+  variabel itu meleset 10%, hasilnya berubah berapa?
+- 1 paragraf: risiko terbesar dari model ini dan asumsi mana yang
+  paling rapuh.
+
+ATURAN
+- Konsisten satuan dan periode. Kalau data mentahku ga lengkap, list
+  dulu apa yang kurang sebelum ngisi asumsi.`,
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/07-usecase-04.png",
+          alt: "Use case 4 — financial model lebih cepat",
+          caption: "Data mentah masuk, keluar model lengkap: rumus, asumsi, 3 skenario.",
+        },
+      ],
+    },
+    {
+      heading: "5. Bungkus Claude Code jadi dashboard \"agentic OS\"",
+      icon: "brain",
+      paragraphs: [
+        "Buat yang udah sering pake Claude Code — bungkus dia jadi dashboard yang bisa diklik, kerjaan harian jadi skill sekali-klik, plus metrik yang gak keliatan di terminal.",
+        "Ini use case paling teknis. Fable cocok di sini karena dia bisa pegang arsitektur + code MVP sekali jalan tanpa kehilangan konteks.",
+      ],
+      code: [
+        `Kamu aku posisiin sebagai staff engineer yang ahli developer tooling.
+Aku mau bungkus Claude Code aku jadi dashboard "agentic OS" yang bisa
+diklik. Rancang arsitekturnya, terus kasih code MVP-nya.
+
+KONTEKS AKU
+- Kerjaan harian berulang yang mau aku jadiin skill sekali-klik:
+  [list 3-5 tugas kamu, mis. "generate caption", "review PR",
+  "riset kompetitor", "bikin draft newsletter"].
+- Aku mau nyambungin ke: [Notion / Obsidian / pilih salah satu].
+
+YANG HARUS KAMU RANCANG
+1. ARSITEKTUR: gambarin komponennya (UI dashboard, layer yang manggil
+   Claude Code, penyimpanan skill, integrasi Notion/Obsidian). Jelasin
+   alur data dari klik tombol sampe hasil balik + kesimpen.
+2. SKILL SEKALI-KLIK: buat tiap tugas harianku jadi "skill" — satu
+   tombol, input minimal, output langsung kepake. Kasih struktur
+   gimana skill didefinisiin biar gampang nambah yang baru.
+3. METRIK: tampilin hal yang ga keliatan di terminal — mis. berapa
+   task jalan hari ini, waktu kehemat perkiraan, skill paling sering
+   dipake, error terakhir.
+4. INTEGRASI: cara nulis/baca ke [Notion/Obsidian] (hasil otomatis
+   masuk ke sana).
+
+DELIVERABLE
+- Diagram arsitektur (teks/ASCII gpp) + penjelasan tiap komponen.
+- Code MVP yang jalan: pilih stack yang paling simpel buat sekali orang
+  ([mis. Next.js + route handler + local store]). Sertakan cara run.
+- 1 skill contoh yang bener-bener kepasang end-to-end sebagai template.
+
+ATURAN
+- Utamain MVP yang JALAN di atas fitur lengkap. Yang belum kekerjain,
+  taruh di bagian "next steps", jangan dipaksain masuk sekarang.
+- Tandain bagian yang butuh API key / setup manual dari aku.`,
+      ],
+      images: [
+        {
+          src: "/blog/fable-5-guide/08-usecase-05.png",
+          alt: "Use case 5 — dashboard agentic OS dari Claude Code",
+          caption: "Kerjaan harian jadi skill sekali-klik, plus metrik yang ga keliatan di terminal.",
+        },
+      ],
+    },
+    {
+      heading: "Trik hemat token",
+      icon: "check",
+      paragraphs: [
+        "Mulai dari brief yang jelas biar nggak bolak-balik — tiap bolak-balik itu token kebakar. Prompt-prompt panjang di atas justru bikin hemat, karena sekali jalan langsung jadi.",
+        "Task ringan balik ke Opus atau Sonnet. Simpen Fable 5 buat yang berat doang.",
+        "Kalau task-nya besar, minta dia rencanain dulu langkah-langkahnya, baru eksekusi — biar hasilnya sekali jadi.",
+      ],
+    },
+    {
+      heading: "Mau lebih?",
+      icon: "sparkles",
+      paragraphs: [
+        "Semua contoh hasil di panduan ini cuma ilustrasi ya — output aslinya bakal beda tergantung prompt sama data kamu.",
+      ],
+      cta: {
+        label: "Follow @hollynst on Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Aku post breakdown AI, prompt, dan Tsinghua life tiap minggu. Kalo guide ini useful, ikutin biar dapet yang berikutnya duluan.",
+      },
+      images: [
+        {
+          src: "/blog/fable-5-guide/10-cta.png",
+          alt: "Fable 5 — coba sebelum window ditutup",
+          caption: "Window gratisnya sampai 7 Juli. Cobain use case yang paling ngena buat kamu.",
+        },
+      ],
+    },
+  ],
   "5-day-claude-setup": [
     {
       paragraphs: [
