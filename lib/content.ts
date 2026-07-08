@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "claude-weekly-limit",
+    category: "SAVE THIS",
+    title: "3 CARA STOP KENA WEEKLY LIMIT CLAUDE",
+    description:
+      "Kamu pake Claude Pro, ga ngerasa heavy user, tapi tiap Rabu kena limit. Ada 3 hal yang diem-diem ngabisin usage kamu — plus template handoff doc buat pindah chat tanpa kehilangan context.",
+    readMinutes: 9,
+    publishedAt: "2026-07-08",
+  },
+  {
     slug: "fable-5-guide",
     category: "AI TUTORIAL",
     title: "PANDUAN FABLE 5: 5 USE CASE + PROMPT",

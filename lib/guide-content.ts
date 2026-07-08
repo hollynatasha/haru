@@ -46,6 +46,184 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "claude-weekly-limit": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"LIMIT\" di video.",
+        "Kamu pake Claude Pro, kerja normal aja, ga ngerasa heavy user. Tapi tiap Rabu sore kena weekly limit. Atau tiap session 2-jam tiba-tiba kena rolling limit dan harus tunggu 5 jam. Kabar baiknya: fix-nya ga rumit, dan ga butuh upgrade plan.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/hero.png",
+          alt: "Stop kena weekly limit Claude — 3 cara",
+          caption: "3 hal yang diem-diem ngabisin usage kamu — dan cara stop-nya, tanpa upgrade plan.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa kamu sering kena limit tanpa sadar",
+      icon: "help",
+      paragraphs: [
+        "Most orang nyalahin \"limit Claude ketat banget.\" Padahal yang sebenernya kejadian, ada 3 hal yang diem-diem ngabisin usage kamu tanpa kamu sadar.",
+        "Claude punya 2 limit sekaligus: rolling window 5 jam, sama weekly cap. Tiga kebiasaan di bawah ini yang paling sering ngebakar dua-duanya. Aku urutin dari yang paling ngefek.",
+      ],
+    },
+    {
+      heading: "Cara 1: mulai chat baru lebih sering (paling ngefek)",
+      icon: "refresh",
+      paragraphs: [
+        "Ini yang most orang ga tau. Setiap kali kamu kirim message di chat, Claude baca ULANG seluruh percakapan dari awal sampe message kamu yang baru. Bukan baca yang baru aja.",
+        "Jadi makin panjang chat-nya, makin mahal tiap message-nya. Hitungan kasarnya kira-kira gini:",
+      ],
+      code: [
+        `Message ke-1    ->   1x cost
+Message ke-25   ->   ~25x cost   (Claude baca message 1-24 dulu)
+Message ke-50   ->   ~50x cost
+Message ke-100  ->   ~100x cost`,
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/chat-cost.png",
+          alt: "Grafik: makin panjang chat makin mahal, 1x sampai 100x",
+          caption: "Message ke-100 = kamu bayar buat baca 100 message lama tiap turn.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Chat yang panjang itu silent assassin buat usage kamu. Kamu ngerasa cuma 5 message terakhir, padahal kamu bayar buat baca 100 message lama tiap turn.",
+        "Solusinya: mulai chat baru tiap kali kamu pindah ke task yang beda secara konteks. Tapi most orang takut mulai chat baru karena konteks lama ilang. Fix-nya satu — handoff doc.",
+        "Sebelum tutup chat yang udah panjang, paste prompt ini:",
+      ],
+      code: [
+        `Aku mau pindah ke chat baru biar context-nya fresh, tapi aku butuh
+kamu inget gambar besar dari chat ini. Tolong bikin handoff doc dalam
+format markdown yang isinya:
+
+## Goal sesi ini
+[apa yang aku coba achieve]
+
+## Apa yang udah diselesaikan
+[bullet point hasil konkret]
+
+## Decision penting
+[keputusan yang udah kita ambil, plus alasannya]
+
+## Yang belum selesai
+[task yang masih outstanding]
+
+## Context yang harus dibawa ke chat baru
+[file penting, variable name, constraint, atau apapun yang AI baru
+perlu tau]
+
+## Next prompt buat chat baru
+[draft prompt yang langsung bisa aku paste]
+
+Bikin se-concise mungkin, max 300 kata.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Claude bakal generate handoff doc. Copy, mulai chat baru, paste sebagai message pertama. Kamu pindah ke chat baru dengan context window di 1-2% instead of 80%.",
+      ],
+    },
+    {
+      heading: "Cara 2: pake Projects buat apapun yang berulang",
+      icon: "book",
+      paragraphs: [
+        "Ini fitur yang aku kira premium tapi sebenernya udah ada di Claude Pro standard. Yang most orang ga sadar: file dan dokumen yang kamu taro di Project ga ngitung ke context window kamu.",
+        "Artinya kamu bisa upload reference docs 100 halaman ke Project, dan tiap chat di dalem Project itu otomatis punya access ke isinya, tanpa kamu bayar token buat baca ulang setiap kali.",
+        "Cara setup-nya: buka Claude desktop atau web, klik sidebar kiri lalu + New Project, kasih nama (misal \"Mata Kuliah Statistik\" atau \"Konten Holly\"), klik + Add Files buat upload PDF/Word/.md/gambar, terus klik + New Chat di dalem Project. Tiap chat di situ punya akses ke semua file, tapi context window kamu tetep 0% di awal.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/projects.png",
+          alt: "Diagram: file di Project dipake semua chat tanpa ngitung context window",
+          caption: "Upload file sekali ke Project, kepake di semua chat — context window tetep 0% di awal.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Strategi pakenya: bikin Project beda per area. Tiap mata kuliah kalo kamu mahasiswa (upload syllabus, reading, notes). Tiap project klien kalo kamu freelance (brief, brand guidelines, asset). Tiap area kerjaan kalo kamu founder (SOP, vendor list, contract template). Tiap butuh konsultasi soal area itu, mulai chat di Project relevan — Claude tau context tanpa kamu re-explain.",
+        "Tips: update file di Project secara berkala dan hapus yang outdated. Pake heading dan struktur jelas di file Markdown yang kamu upload, biar navigasi Claude lebih akurat. Dan jangan upload file yang kegedean (>50 MB) — bikin loading Project lambat.",
+      ],
+    },
+    {
+      heading: "Cara 3: pake model yang sesuai sama task",
+      icon: "brain",
+      paragraphs: [
+        "Banyak orang default pake Opus 4.7 buat semua chat soalnya itu \"yang paling pinter.\" Yang ga disadar: Opus itu juga yang paling boros, sekitar 5x lebih mahal usage-nya dibanding Sonnet, dan 15x dibanding Haiku.",
+        "PAKE HAIKU 4.5 buat: reformatting text, translate cepet, summarize artikel pendek, brainstorm ide kasar, Q&A simpel yang ga butuh reasoning, cek typo / proofread.",
+        "PAKE SONNET 4.6 buat: drafting email atau pesan, coding bantuan basic, explain konsep, outline content, research dengan source umum. Most daily tasks — default kamu harusnya Sonnet.",
+        "PAKE OPUS 4.7 buat: strategic decision (pricing, hiring, positioning), complex coding, long-form writing yang butuh nuance, research yang butuh deep synthesis, negotiation prep. Intinya apapun yang outcome-nya besar.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/model-picker.png",
+          alt: "Perbandingan model Haiku, Sonnet, Opus dengan biaya usage",
+          caption: "Default kamu harusnya Sonnet — bukan Opus. Turun ke Haiku buat task ringan.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Cara switch model: di Claude desktop/web tinggal klik dropdown di atas chat. Di Claude Code ketik /model haiku-4-5, /model sonnet-4-6, atau /model opus-4-7.",
+        "Contoh workflow hemat aku sehari-hari: brainstorm ide pake Haiku (5 menit), pilih ide bagus terus switch ke Sonnet buat outline, draft scripts pake Sonnet, final review + tone refinement baru switch ke Opus (cuma 5-10 menit). Total usage Opus aku di bawah 10% dari total chat, tapi kerjaan tetep premium quality.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/code-terminal.jpg",
+          alt: "Claude Code di terminal",
+          caption: "Di Claude Code, ganti model tinggal ketik /model — jadi gampang turun ke Sonnet/Haiku pas task-nya ringan.",
+        },
+      ],
+    },
+    {
+      heading: "Bonus: setting yang bantu hemat",
+      icon: "zap",
+      paragraphs: [
+        "Matiin extended thinking buat task simpel. Extended thinking bakar 5-10x token lebih banyak. Nyalain cuma pas kamu beneran butuh reasoning deep.",
+        "Matiin web search kalo ga perlu. Tiap web search jadi extra context yang dimakan. Kalo task kamu purely text-based, matiin.",
+        "Spread heavy work seharian. Kalo kamu slam semua kerjaan ke 1 session 2 jam, gampang kena 5-hour limit. Spread ke pagi/siang/malam, 5-hour limit jarang ketrigger.",
+      ],
+    },
+    {
+      heading: "Quick reference",
+      icon: "check",
+      paragraphs: [
+        "Semua yang di atas, dalam satu tabel:",
+      ],
+      code: [
+        `ISSUE                         FIX                            EFFORT
+----------------------------  -----------------------------  ------------------
+Chat panjang = mahal          Handoff doc + chat baru        2 menit
+File yg sering dipake         Taro di Project                10 mnt, benefit terus
+Default Opus buat semua       Sonnet/Haiku buat task ringan  reflex, 1 minggu
+Extended thinking selalu on   Matiin kecuali butuh banget    1 detik tiap chat
+Slam kerjaan ke 1 session     Spread ke 3 window seharian    schedule habit`,
+      ],
+    },
+    {
+      heading: "Yang harus dihindari",
+      icon: "alert",
+      paragraphs: [
+        "Jangan delete chat lama tanpa save handoff doc. Sekali kamu mulai chat baru, chat lama tetep accessible. Tapi kalo kamu delete, ilang permanent.",
+        "Jangan upload file confidential ke Project yang di-share. Project di Claude Pro personal kamu itu private, tapi jangan share link Project ke orang yang ga seharusnya akses.",
+        "Jangan switch model di tengah-tengah complex task. Bikin reasoning continuity break. Selesain dulu, baru switch buat task baru.",
+      ],
+    },
+    {
+      heading: "Mau lebih?",
+      icon: "sparkles",
+      paragraphs: [],
+      cta: {
+        label: "Follow @hollynst on Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Aku post breakdown AI, workflow, dan Tsinghua life tiap minggu. Kalo guide ini useful, ikutin biar dapet yang berikutnya duluan.",
+      },
+    },
+  ],
   "fable-5-guide": [
     {
       paragraphs: [
