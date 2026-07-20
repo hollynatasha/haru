@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "claude-morning-brief",
+    category: "WORKFLOW",
+    title: "MORNING BRIEF JAM 8 PAGI DI CLAUDE",
+    description:
+      "Tiap jam 8 Claude ngerangkum hari aku jadi satu halaman: cuaca, jadwal, tugas, inbox triage, sampai berita saham. Ini setup lengkapnya + prompt full tinggal copy-paste.",
+    readMinutes: 8,
+    publishedAt: "2026-07-20",
+  },
+  {
     slug: "claude-weekly-limit",
     category: "SAVE THIS",
     title: "3 CARA STOP KENA WEEKLY LIMIT CLAUDE",

@@ -46,6 +46,197 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "claude-morning-brief": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"BRIEF\" di video.",
+        "Sebagai student yang ngurus bisnis juga, pagi aku biasanya udah chaos sebelum jam 9. Jadi aku bikin satu automation: tiap jam 8 pagi, Claude ngerangkum satu hari aku jadi satu halaman — cuaca, jadwal kelas, tugas, email yang dipisah penting vs bisa nunggu, sampai berita saham & AI yang relevan sama kerjaan aku.",
+        "Hasilnya: pas aku duduk di depan laptop, aku udah tau persis mau mulai dari mana. Di bawah ada tutorial setup-nya step by step, plus prompt full yang tinggal kamu copy-paste.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/hero.png",
+          alt: "Morning Brief jam 8 pagi — 7 bagian dalam satu halaman",
+          caption: "Satu halaman, 7 bagian, jalan otomatis tiap jam 08:00.",
+        },
+      ],
+    },
+    {
+      heading: "Kayak gini jadinya",
+      icon: "sparkles",
+      paragraphs: [
+        "Ini contoh brief aku (datanya sample, bukan data asli). Satu halaman, scannable, dibuka langsung keliatan: hari ini ada apa aja, mana yang berat, dan di mana satu-satunya window kosong buat kerja.",
+        "Jadwal kelas ditarik dari Google Calendar, urut jam, lengkap sama ruangan dan seberapa berat load-nya. Free block dikasih tanda sendiri — soalnya itu yang paling penting buat direbut duluan.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/brief-overview.png",
+          alt: "Tampilan Morning Brief: greeting, tanggal, dan jadwal kelas hari ini",
+          caption: "Buka halaman → greeting + jadwal hari ini. Semua data dari Calendar, Gmail, dan Notion kamu.",
+        },
+      ],
+      cta: {
+        label: "Lihat contoh brief-nya live",
+        href: "/morning_brief_holly_2.html",
+        note: "Mau explore versi lengkapnya? Ini contoh brief aku, bisa kamu scroll sendiri (semua datanya sample).",
+      },
+    },
+    {
+      heading: "Cuaca + satu keputusan: keluar atau di rumah",
+      icon: "zap",
+      paragraphs: [
+        "Bagian cuaca bukan cuma angka. Aku minta Claude selalu nutup dengan satu call: hari ini enak buat keluar, atau mending di rumah aja. Keliatannya kecil, tapi satu keputusan yang ga perlu aku mikirin lagi tiap pagi.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/weather.png",
+          alt: "Bagian cuaca Morning Brief dengan verdict keluar atau di rumah",
+          caption: "Angka + verdict. \"Go out, no umbrella needed\" — udah, ga usah buka app cuaca.",
+        },
+      ],
+    },
+    {
+      heading: "Fokus: top 3 prioritas + 1 blok yang harus dijagain",
+      icon: "check",
+      paragraphs: [
+        "Dari Notion to-do database aku, Claude narik 3 prioritas teratas hari ini — lengkap sama progress-nya, jadi keliatan mana yang baru 15% dan mana yang tinggal proofread.",
+        "Terus dia saranin satu blok belajar yang harus diprotect, plus alasannya. Ini bagian favorit aku: dia yang mikirin \"window kosong kamu cuma jam 1 sampai 3, pake buat tugas yang paling berat.\"",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/focus.png",
+          alt: "Bagian fokus: 3 tugas dengan progress dan 1 blok waktu yang diprotect",
+          caption: "3 prioritas dari Notion + 1 protected block dengan alasan kenapa jam itu.",
+        },
+      ],
+    },
+    {
+      heading: "Inbox triage: yang butuh kamu hari ini vs yang bisa nunggu",
+      icon: "message",
+      paragraphs: [
+        "Ini yang bikin aku ga kebanjiran inbox pagi-pagi. Email unread dipisah jadi dua: \"needs me today\" sama \"can wait\" — maksimal 5 tiap kategori, satu baris per email: siapa yang kirim + mereka mau apa.",
+        "Buat aku yang sering dapet email brand deal, aku sekalian minta dia rangkum status tiap deal: mana yang harus dibales hari ini, mana yang lagi nego, mana yang sebaiknya di-pass. Kamu bisa sesuaikan kategorinya sama hidup kamu — recruiter, dosen, client, apapun.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/inbox.png",
+          alt: "Tabel inbox triage: email dipisah berdasarkan urgensi dan status",
+          caption: "Satu baris per email. Yang ga penting cuma disebut sekilas di bawah: \"none need you today.\"",
+        },
+      ],
+    },
+    {
+      heading: "Saham & AI news yang relevan (bukan semua berita)",
+      icon: "trending-up",
+      paragraphs: [
+        "Aku kasih tau Claude ticker yang aku pantau, jadi tiap pagi dia rangkum pergerakan + kenapa geraknya — bukan headline random. Ditambah berita AI yang beneran ngefek ke kerjaan aku, masing-masing satu kalimat kenapa itu relevan.",
+        "Bagian \"kenapa relevan buat kamu\" ini yang bikin beda sama baca portal berita: semua udah difilter lewat konteks hidup kamu.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/markets-news.png",
+          alt: "Bagian saham dan AI news dengan konteks kenapa relevan",
+          caption: "Ticker yang kamu pantau + AI news, tiap item ada satu baris \"kenapa ini penting buat kamu.\"",
+        },
+      ],
+    },
+    {
+      heading: "Ditutup satu kalimat",
+      icon: "edit",
+      paragraphs: [
+        "Bagian terakhir cuma satu kalimat buat mulai hari — bukan quote motivasi generik, tapi satu line yang nyambung sama hari kamu. Kecil, tapi bikin brief-nya kerasa ditulis buat kamu, bukan laporan mesin.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/one-line.png",
+          alt: "Penutup Morning Brief: satu kalimat untuk memulai hari",
+          caption: "\"Thermo at one, before the evening class hands you anything new.\" Satu kalimat, langsung tau prioritas.",
+        },
+      ],
+    },
+    {
+      heading: "Setup satu kali (5 menit)",
+      icon: "plug",
+      paragraphs: [
+        "Biar brief-nya pake data asli kamu (bukan ngarang), Claude harus dikoneksiin dulu ke sumber datanya. Buka Claude → Settings → Connectors, terus connect tiga ini:",
+        "1. Gmail — buat inbox triage. 2. Google Calendar — buat jadwal hari ini. 3. Notion — connect database to-do kamu.",
+        "Habis itu kasih context sekali aja: kota kamu (buat cuaca) dan saham/market yang kamu pantau. Sekali bilang, dia inget — apalagi kalo kamu taro di memory atau di project instructions.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/setup.png",
+          alt: "3 langkah setup: connect sources, kasih context, jadwalin jam 8",
+          caption: "Setup-nya sekali doang. Habis itu tiap pagi tinggal baca.",
+        },
+      ],
+    },
+    {
+      heading: "Jadwalin biar jalan sendiri jam 8",
+      icon: "clock",
+      paragraphs: [
+        "Bagian terakhir yang bikin ini automation, bukan chat biasa: minta Claude jalanin prompt-nya tiap hari jam 08:00.",
+        "Di desktop app: pake Cowork + scheduled task — bilang aja \"jalanin prompt ini setiap hari jam 8 pagi dan kirim hasilnya ke aku.\" Di web: set daily reminder buat trigger prompt-nya. Belum mau ribet? Mulai manual dulu: simpen prompt-nya, paste tiap pagi sambil bikin kopi. Rasain dulu value-nya, baru otomatisin.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-morning-brief/flow.png",
+          alt: "Alur otomatis: jam 8 Claude baca sumber, nulis brief, kirim",
+          caption: "Kamu tidur, dia kerja: jam 8 → baca sumber → nulis brief → kirim.",
+        },
+      ],
+    },
+    {
+      heading: "THE PROMPT — full, tinggal copy-paste",
+      icon: "file-text",
+      paragraphs: [
+        "Ini prompt lengkap yang aku pake. Copy semuanya, ganti [my city] dan [my tickers], selesai.",
+      ],
+      code: [
+        `Every day at 8:00am, write me a Morning Brief and send it to me.
+Keep it to one screen, scannable, warm but efficient — no filler.
+Use my connected sources: Gmail, Google Calendar, and my Notion
+to-do database.
+
+Format it exactly like this:
+
+1. ☀️ Good morning — a one-line greeting + today's date.
+2. Weather — today's weather for [my city], plus a one-line call:
+   good day to go out, or better to stay in?
+3. Today's schedule — my Google Calendar events in order, with times.
+4. Focus — my top 3 priorities for today from Notion, and the one
+   study block I should protect (with a suggested time).
+5. 📧 Inbox triage — split my unread emails into "Needs me today"
+   and "Can wait", max 5 each, one line per email (sender + what
+   they want).
+6. 📈 Markets & AI — 3–4 bullets: relevant stock/market news for
+   [my tickers], and any big AI news that affects my work.
+7. One line — a short, genuine line to start the day well.
+
+Rules: stay factual, cite nothing that isn't in my sources, and if
+a section has nothing new just write "nothing new" for it. Don't
+invent emails, events, or numbers.`,
+      ],
+    },
+    {
+      heading: "Bikin jadi punya kamu",
+      icon: "user-check",
+      paragraphs: [
+        "Ganti [my city] dan [my tickers] sama punya kamu. Ga main saham? Ganti bagian 6 jadi apapun yang kamu pantau: kurs, berita industri kamu, update kampus.",
+        "Kalo mau tulisannya kerasa kayak kamu, tambahin satu baris di akhir prompt: \"match my tone: casual, no corporate speak.\"",
+        "Satu rule yang jangan dihapus: bagian \"don't invent emails, events, or numbers.\" Itu yang bikin brief-nya bisa dipercaya — kalo ga ada yang baru, dia nulis \"nothing new\", bukan ngarang.",
+      ],
+    },
+    {
+      heading: "Mau lebih?",
+      icon: "sparkles",
+      paragraphs: [],
+      cta: {
+        label: "Follow @hollynst on Instagram",
+        href: "https://instagram.com/hollynst",
+        note: "Aku post breakdown AI, workflow, dan Tsinghua life tiap minggu. Kalo guide ini useful, ikutin biar dapet yang berikutnya duluan.",
+      },
+    },
+  ],
   "claude-weekly-limit": [
     {
       paragraphs: [
