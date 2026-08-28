@@ -62,7 +62,7 @@ export const ABOUT_ME = {
     {
       tag: "02",
       title: "creator",
-      points: ["24k on instagram, 1M+ monthly views"],
+      points: ["33k on instagram, 1M+ monthly views"],
     },
     {
       tag: "03",
@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "chatgpt-to-claude",
+    category: "SETUP GUIDE",
+    title: "PINDAH DARI CHATGPT KE CLAUDE",
+    description:
+      "Kalau kamu pindah cold, Claude treat kamu kayak orang asing. Ini 2 step migration (30 menit) buat mindahin profil sama 2 tahun history chat kamu, lengkap sama prompt copy-paste dan checklist tesnya.",
+    readMinutes: 13,
+    publishedAt: "2026-08-28",
+  },
+  {
     slug: "claude-morning-brief",
     category: "WORKFLOW",
     title: "MORNING BRIEF JAM 8 PAGI DI CLAUDE",
@@ -119,8 +128,8 @@ export const GUIDES = [
     category: "SAVE THIS",
     title: "3 CARA STOP KENA WEEKLY LIMIT CLAUDE",
     description:
-      "Kamu pake Claude Pro, ga ngerasa heavy user, tapi tiap Rabu kena limit. Ada 3 hal yang diem-diem ngabisin usage kamu — plus template handoff doc buat pindah chat tanpa kehilangan context.",
-    readMinutes: 9,
+      "Kamu pake Claude Pro, ga ngerasa heavy user, tapi tiap Rabu kena limit. Ada 3 hal yang diem-diem ngabisin usage kamu — plus template handoff doc, cheat sheet buat di-screenshot, dan rencana 7 hari biar ga ngulang.",
+    readMinutes: 13,
     publishedAt: "2026-07-08",
   },
   {
@@ -275,12 +284,24 @@ export const BRAND_KIT = {
 
   workedWith: [
     {
-      name: "Western Sydney University",
-      logoSrc: "/brands/western-sydney.png",
+      name: "Qwen",
+      logoSrc: "/brands/qwen.png",
+    },
+    {
+      name: "Dola AI",
+      logoSrc: "/brands/dola-ai.png",
+    },
+    {
+      name: "HIX AI",
+      logoSrc: "/brands/hix-ai.png",
     },
     {
       name: "Gauth AI",
       logoSrc: "/brands/gauth.png",
+    },
+    {
+      name: "Western Sydney University",
+      logoSrc: "/brands/western-sydney.png",
     },
   ],
 
@@ -309,7 +330,7 @@ export const BRAND_KIT = {
   ],
 
   topStats: [
-    { value: "24K", label: "Followers" },
+    { value: "33K", label: "Followers" },
     { value: "1.59M", label: "Views" },
     { value: "85%", label: "Reach from non-followers" },
   ],
@@ -341,10 +362,59 @@ export const BRAND_KIT = {
   },
 
   videoPortfolio: [
-    { tag: "GAUTH AI", href: INSTAGRAM_URL },
-    { tag: "ICAN EDUCATION", href: INSTAGRAM_URL },
-    { tag: "WESTERN SYDNEY UNI", href: INSTAGRAM_URL },
-    { tag: "MANDARIN MASTERY CIRCLE", href: INSTAGRAM_URL },
+    {
+      tag: "QWEN",
+      category: "AI & Tech",
+      logoSrc: "/brands/qwen.png",
+      href: "https://www.instagram.com/reel/DY6wesYtWiY/",
+      format: "AI tool review",
+    },
+    {
+      tag: "DOLA AI",
+      category: "AI & Tech",
+      logoSrc: "/brands/dola-ai.png",
+      href: "https://www.instagram.com/reel/DbakQQrygoZ/",
+      format: "Brand demonstration",
+    },
+    {
+      tag: "HIX AI",
+      category: "AI & Tech",
+      logoSrc: "/brands/hix-ai.png",
+      href: "https://www.instagram.com/reel/DbDZ962hynG/",
+      format: "Brand demonstration",
+    },
+    {
+      tag: "GAUTH AI",
+      category: "AI & Tech",
+      logoSrc: "/brands/gauth.png",
+      href: INSTAGRAM_URL,
+      format: "Tutorial feature",
+    },
+    {
+      tag: "CHINA LUXE TOUR",
+      category: "Travel & Tour",
+      href: "https://www.instagram.com/reel/DcLpu9khMQi/",
+      format: "Travel feature",
+    },
+    {
+      tag: "SENLY CHINA",
+      category: "Travel & Tour",
+      href: "https://www.instagram.com/reel/DOszhdmCOWw/",
+      format: "Travel feature",
+    },
+    {
+      tag: "WESTERN SYDNEY UNI",
+      category: "Education",
+      logoSrc: "/brands/western-sydney.png",
+      href: INSTAGRAM_URL,
+      format: "Campus feature",
+    },
+    {
+      tag: "ICAN EDUCATION",
+      category: "Education",
+      href: INSTAGRAM_URL,
+      format: "Brand lifestyle",
+    },
   ],
 
   contentTypes: [

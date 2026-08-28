@@ -46,6 +46,373 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "chatgpt-to-claude": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"SWITCH\" di video.",
+        "Most orang yang pindah dari ChatGPT ke Claude bilang hal yang sama setelah 3 hari: \"Claude bagus sih, tapi rasanya kayak mulai chatbot dari nol lagi.\" Terus dalam seminggu mereka balik buka ChatGPT, bukan karena Claude-nya jelek, tapi karena males ngajarin AI baru soal diri sendiri dari awal.",
+        "Masalahnya bukan platform-nya. Masalahnya cara pindahnya. Kalau kamu pindah cold, Claude treat kamu kayak orang asing yang baru kenalan. Semua yang ChatGPT udah tau soal kamu, voice kamu, kerjaan kamu, preferensi tone kamu, itu semua ga otomatis kebawa.",
+        "Yang most orang ga sadar: ada 2 step migration yang bikin Claude masuk hari pertama udah ngerti kamu, kayak ChatGPT setelah 2 tahun. Total 30 menit, dan di bawah ini aku tulis lengkap sampai prompt-nya tinggal copy-paste.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/hero.png",
+          alt: "Pindah dari ChatGPT ke Claude tanpa mulai dari nol",
+          caption: "2 step, 30 menit. Sekali setup, ga usah ngajarin ulang.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa most orang switch terus nyesel di minggu pertama",
+      icon: "help",
+      paragraphs: [
+        "Waktu kamu udah 1-2 tahun pake satu AI, yang kepake sebenernya bukan model-nya doang. Yang kepake itu tumpukan konteks yang kebentuk pelan-pelan: dia tau kamu nulis pake bahasa campur, tau kamu benci kata \"selain itu\", tau project kamu yang mana yang udah di-scrap, tau kamu minta bullet bukan paragraf.",
+        "Tumpukan itu ga keliatan sampai kamu kehilangan. Hari pertama di platform baru, kamu harus jelasin ulang semuanya tiap chat. Jawaban pertama kerasa generic, kamu simpulin \"ah ternyata biasa aja,\" padahal yang kamu bandingin itu Claude hari ke-0 lawan ChatGPT hari ke-700.",
+        "Jadi sebelum ngomongin model mana yang lebih pinter, samain dulu titik startnya. Bawa konteks kamu pindah.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/cold-switch.png",
+          alt: "Yang ketinggalan kalau pindah tanpa migration",
+          caption: "Pindah cold = semua konteks ini ketinggal, dan kamu mulai dari angka nol.",
+        },
+      ],
+    },
+    {
+      heading: "Peta migration: 2 step, 30 menit",
+      icon: "arrow-right",
+      paragraphs: [
+        "Step 1 mindahin PROFIL: siapa kamu, kerjaan kamu, cara kamu mau diajak ngomong. Ini yang bikin tone Claude langsung match.",
+        "Step 2 mindahin HISTORY: percakapan kamu selama ini, biar Claude bisa reference project lama tanpa kamu ceritain ulang. Ini step yang paling sering di-skip, padahal ini yang paling ngefek.",
+        "Dua-duanya sekali jalan. Kamu ga perlu ngulang tiap bulan.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/two-steps.png",
+          alt: "Peta migration: step 1 profil, step 2 history, hasilnya Claude kenal kamu",
+          caption: "Step 1 bikin dia tau siapa kamu. Step 2 bikin dia inget apa yang udah kamu kerjain.",
+        },
+      ],
+    },
+    {
+      heading: "Sebelum mulai: 3 hal yang disiapin dulu",
+      icon: "check",
+      paragraphs: [
+        "Satu, buka ChatGPT di BROWSER, bukan di app HP. Menu export data cuma ada di versi web. Kalau kamu cuma pake app, step 2 bakal buntu.",
+        "Dua, buka Claude di web atau desktop app, bukan mobile. Kamu bakal drag-drop file .json, dan itu jauh lebih gampang di layar gede.",
+        "Tiga, cek dulu setting memory di akun Claude kamu (Settings, terus cari bagian memory / capabilities). Kalau memory-nya ada, nyalain. Kalau di akun kamu belum ada fitur itu, ga masalah, tinggal ganti tempat nyimpen: bikin satu Project khusus, taruh profil kamu di project instructions atau upload sebagai file, dan semua chat di dalem Project itu otomatis punya konteksnya. Aku jelasin lagi di bagian padanan fitur.",
+      ],
+    },
+    {
+      heading: "Step 1: pindahin profil kamu (10 menit)",
+      icon: "user-check",
+      paragraphs: [
+        "Tujuannya: narik semua yang ChatGPT tau soal kamu, jadiin satu dokumen, terus paste ke Claude sebagai memory.",
+        "Buka ChatGPT, mulai chat BARU (jangan nyambung ke chat lama, biar dia narik dari memory bukan dari topik chat itu), terus paste prompt ini.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/profile-10.png",
+          alt: "10 hal yang harus masuk ke dokumen profil kamu",
+          caption: "10 poin ini yang bikin bedanya. Kalau ada yang kosong, Claude bakal nebak.",
+        },
+      ],
+      code: [
+        `Tolong rangkum semua yang kamu tau tentang aku dalam format dokumen
+markdown. Include:
+
+1. Nama, role, sama background aku
+2. Bisnis atau kerjaan aku, plus industri yang aku familiar
+3. Goals jangka pendek (3-6 bulan) yang aku pernah sebut
+4. Goals jangka panjang (1-3 tahun) yang aku pernah sebut
+5. Cara aku komunikasi: tone, formal/casual, bahasa yang aku pake
+6. Format preference aku (bullet vs paragraf, code block, panjang jawaban)
+7. Banned words atau phrase yang aku ga suka
+8. Hal yang aku selalu minta kamu lakuin
+9. Hal yang aku selalu minta kamu jangan lakuin
+10. Constraint aku (timezone, jam kerja, bahasa native)
+11. Apapun yang menurut kamu penting buat AI baru tau soal aku
+
+Aturan:
+- Jangan dirangkum jadi paragraf. Pakai heading + bullet biar gampang
+  di-paste ke tool lain.
+- Kalau ada poin yang kamu ga yakin, tulis "belum pernah disebut"
+  daripada nebak.
+- Kasih contoh konkret kalau ada (misal kalimat yang pernah aku minta
+  kamu hindari).`,
+      ],
+    },
+    {
+      heading: "Paste-nya ke Claude kayak gini",
+      icon: "message",
+      paragraphs: [
+        "ChatGPT bakal ngeluarin dokumen yang isinya basically \"everything I know about you.\" Copy seluruh output-nya, terus buka Claude, mulai chat baru, paste prompt di bawah ini plus dokumen tadi.",
+      ],
+      code: [
+        `Aku baru pindah dari ChatGPT ke Claude. Di bawah ini profil aku yang
+dia rangkum dari 2 tahun percakapan kita. Tolong:
+
+1. Baca semuanya pelan-pelan
+2. Simpan sebagai memory permanen buat semua chat aku ke depan
+3. Konfirmasi balik ke aku apa aja yang kamu pelajarin dari profil ini
+4. Tanya 3-5 follow-up biar kamu lebih kenal aku, khusus di bagian yang
+   masih ambigu atau ketulis "belum pernah disebut"
+
+[Paste isi dokumen dari ChatGPT di sini]`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Setelah Claude konfirmasi udah nyimpen, jawab 3-5 follow-up dia. Jangan di-skip. Ringkasan ChatGPT biasanya masih ketinggian levelnya (\"suka jawaban yang ringkas\"), dan follow-up Claude yang bakal narik detail yang bikin beda (\"ringkas itu maksudnya berapa kalimat? boleh pakai bullet?\").",
+        "Kalau kamu tipe yang detail, ini juga momen buat nambahin hal yang ChatGPT ga pernah tau tapi penting: alat yang kamu pake sehari-hari, deadline besar bulan ini, atau nama orang-orang yang sering kamu sebut.",
+      ],
+    },
+    {
+      heading: "Sebelum paste: edit dulu 2 menit",
+      icon: "shield",
+      paragraphs: [
+        "Jangan langsung paste mentah. Buka dokumennya, baca sekali, terus buang yang ini: project yang udah di-scrap dan ga akan kamu terusin, hal personal yang kamu ga mau muncul lagi di chat kerja, nama orang lain atau data klien yang bukan hak kamu buat pindahin, dan tebakan ChatGPT yang salah soal kamu.",
+        "Yang terakhir ini penting. Kalau ChatGPT salah nangkep sesuatu soal kamu dan kamu paste apa adanya, salahnya ikut pindah dan jadi permanen di platform baru. Migration itu kesempatan bersih-bersih, bukan cuma copy-paste.",
+      ],
+    },
+    {
+      heading: "Biar profil kamu ga generic",
+      icon: "edit",
+      paragraphs: [
+        "Kalau hasil rangkuman ChatGPT kerasa hambar (\"kamu suka jawaban yang jelas dan terstruktur\" - ya semua orang juga), berarti percakapan kamu selama ini emang ga banyak nunjukin voice kamu. Fix-nya gampang: kasih dia bahan dulu sebelum minta rangkum.",
+        "Sebelum jalanin prompt step 1, paste 3-5 sample tulisan kamu: caption IG, email yang pernah kamu kirim, draft pesan panjang ke temen, atau bagian dari tugas kuliah. Terus minta dia baca pola-nya duluan.",
+      ],
+      code: [
+        `Sebelum aku minta kamu rangkum profil aku, aku mau kamu baca 5 tulisan
+aku dulu. Dari tulisan ini, catat:
+
+- Panjang kalimat rata-rata aku
+- Kata dan frasa yang sering aku pakai
+- Tingkat formalitas (dan kapan berubah)
+- Campuran bahasa yang aku pakai
+- Cara aku buka dan nutup tulisan
+
+Habis itu, masukin hasil analisisnya ke bagian "cara aku komunikasi"
+di rangkuman profil aku nanti. Jangan dipoles jadi lebih formal dari
+aslinya.
+
+[Paste 3-5 tulisan kamu di sini]`,
+      ],
+    },
+    {
+      heading: "Step 2: pindahin history chat (15 menit)",
+      icon: "refresh",
+      paragraphs: [
+        "Ini step yang paling sering di-skip, dan ini yang paling bikin Claude cepet kenal kamu. Tujuannya bawa full conversation history dari ChatGPT, biar Claude bisa reference percakapan lama kamu, bukan cuma ringkasan tentang kamu.",
+        "Bedanya kerasa di pertanyaan kayak \"waktu itu aku milih pendekatan yang mana buat project X?\" Profil doang ga bisa jawab itu. History bisa.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/export-flow.png",
+          alt: "7 langkah export data dari ChatGPT sampai dapet conversations.json",
+          caption: "Semua ini cuma bisa dari browser. App HP ga ada menu-nya.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Urutannya: buka ChatGPT di browser, klik nama kamu di kiri bawah, pilih Settings, masuk ke tab Data Controls, scroll ke bawah, klik Export Data, terus konfirmasi.",
+        "ChatGPT bakal kirim email berisi link download dalam 5-10 menit (kadang lebih lama kalau history kamu gede). Link-nya cuma valid 24 jam, jadi jangan ditunda. Download file .zip-nya, extract, dan dari semua isinya kamu cuma butuh satu file: conversations.json.",
+        "File lain kayak chat.html atau user.json ga usah dipake. chat.html itu versi baca-nya, dan ukurannya biasanya jauh lebih gede tanpa nambah informasi yang berguna buat Claude.",
+      ],
+    },
+    {
+      heading: "Import ke Claude",
+      icon: "plug",
+      paragraphs: [
+        "Buka Claude (web atau desktop), mulai chat baru, drag file conversations.json ke kolom chat, terus paste prompt ini.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/import-flow.png",
+          alt: "Alur import: drag conversations.json ke Claude, jadi theme dan memory",
+          caption: "Yang kamu mau bukan Claude hafal isi chat, tapi Claude nangkep polanya.",
+        },
+      ],
+      code: [
+        `Ini full conversation history aku dari ChatGPT 2 tahun terakhir.
+Tolong:
+
+1. Parse seluruh file ini
+2. Identify theme utama yang sering muncul (kerjaan, project, keputusan
+   besar, topik yang aku berkali-kali balik lagi)
+3. Catat pola cara aku minta bantuan: aku biasanya minta apa, dan
+   biasanya aku ga puas kalau jawabannya gimana
+4. Simpan hasilnya sebagai memory permanen
+5. Kasih aku summary singkat: kira-kira berapa total chat, theme
+   utamanya apa, dan pola apa yang kamu nangkep soal aku
+
+Jangan baca semuanya verbatim dan jangan kutip isi chat panjang-panjang.
+Fokus ke pola dan konteks.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Claude bakal proses ini sekitar 1-2 menit. Hasilnya semacam potret 2 tahun terakhir kerjaan kamu. Baca summary-nya, dan kalau ada yang meleset, koreksi langsung di chat itu juga: \"project A itu udah aku stop dari Maret, jangan dijadiin konteks aktif.\"",
+        "Jangan tutup chat ini. Kasih judul yang gampang dicari (misal \"MIGRATION - master context\") karena kamu bakal balik ke sini kalau ada yang perlu dikoreksi nanti.",
+      ],
+    },
+    {
+      heading: "Kalau file conversations kamu kegedean",
+      icon: "alert",
+      paragraphs: [
+        "Kalau file-nya lebih dari sekitar 50 MB, biasanya bakal lemot atau ketolak. Ini normal buat orang yang udah 2 tahun pake tiap hari.",
+        "Cara paling gampang: buka conversations.json di text editor (VS Code, Sublime), hapus chat yang lebih tua dari 6 bulan. Yang lebih tua dari itu biasanya udah ga relevan sama kerjaan kamu sekarang.",
+        "Kalau kamu ga nyaman ngedit JSON manual, jalanin script kecil ini di Terminal (butuh Python, udah kepasang default di Mac). Simpan sebagai filter.py di folder yang sama sama conversations.json, terus jalanin dengan: python3 filter.py",
+      ],
+      code: [
+        `import json, time
+
+BULAN = 6  # ubah kalau mau lebih pendek/panjang
+batas = time.time() - BULAN * 30 * 24 * 60 * 60
+
+with open("conversations.json") as f:
+    data = json.load(f)
+
+baru = [c for c in data if (c.get("create_time") or 0) >= batas]
+
+with open("conversations-recent.json", "w") as f:
+    json.dump(baru, f)
+
+print(f"{len(data)} chat -> {len(baru)} chat kesimpen")`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Hasilnya file conversations-recent.json yang jauh lebih kecil. Itu yang kamu drag ke Claude.",
+        "Kalau masih kegedean juga, turunin BULAN jadi 3. Lebih baik 3 bulan yang ke-parse penuh daripada 2 tahun yang gagal ke-upload.",
+      ],
+    },
+    {
+      heading: "Padanan fitur: kebiasaan ChatGPT kamu di Claude",
+      icon: "link",
+      paragraphs: [
+        "Setengah rasa \"aneh\" pas pindah itu sebenernya cuma soal nama fitur yang beda. Hampir semua yang kamu andelin di ChatGPT ada padanannya.",
+        "Yang paling penting dipahami: Projects. Kalau di ChatGPT kamu bikin Custom GPT buat kerjaan yang berulang, di Claude kamu bikin Project. Bedanya, file yang kamu taro di Project ga ngitung ke context window tiap chat, jadi kamu bisa upload brand guideline atau materi kuliah 100 halaman sekali, dan semua chat di dalem Project itu otomatis punya aksesnya.",
+        "Cara bikinnya: di sidebar kiri klik Projects, terus New Project, kasih nama, upload file yang jadi konteks tetap, dan isi bagian instruction-nya sama aturan main kamu. Habis itu chat-nya dibikin DI DALEM project, bukan di chat biasa.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/feature-mapping.png",
+          alt: "Padanan fitur ChatGPT ke Claude",
+          caption: "Namanya beda, fungsinya sama. Yang paling kepake: Projects.",
+        },
+      ],
+    },
+    {
+      heading: "Checklist setelah migration",
+      icon: "check",
+      paragraphs: [
+        "Ini bagian yang paling sering di-skip, padahal cuma 2 menit. Jangan tes di chat yang sama dengan chat migration, karena di situ semua konteks masih nempel dan kamu bakal ketipu ngerasa berhasil. Buka chat BARU, terus tes.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/checklist.png",
+          alt: "5 cek setelah migration",
+          caption: "Lolos semua = migration kamu beneran jalan, bukan cuma kerasa jalan.",
+        },
+      ],
+      code: [
+        `Tes 1: "Tanpa aku jelasin lagi, apa goal utama aku 6 bulan ke depan?"
+Tes 2: "Sebutin 2-3 project yang pernah aku kerjain."
+Tes 3: "Aku paling ga suka jawaban kayak gimana?"
+Tes 4: "Tulis 3 kalimat pembuka caption pakai gaya nulis aku."
+Tes 5: "Ada info soal aku yang menurut kamu masih kurang?"`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalau ada satu yang gagal, balik ke chat migration, kasih koreksinya, terus minta dia simpan ulang: \"catat ini ke memory aku, dan pastiin kepake di chat baru.\"",
+        "Tes 5 itu favorit aku. Jawabannya sering nunjukin lubang yang kamu sendiri ga sadar, dan biasanya itu hal yang emang belum pernah kamu ceritain ke AI manapun.",
+      ],
+    },
+    {
+      heading: "4 kesalahan yang bikin migration gagal",
+      icon: "alert",
+      paragraphs: [
+        "Kesalahan 1: pindah tanpa export history. Profil doang ga cukup. Yang bikin AI kerasa kenal kamu itu history percakapan, bukan ringkasan tentang kamu.",
+        "Kesalahan 2: paste profil yang generic. Kalau rangkuman ChatGPT generic karena percakapan kamu selama ini juga generic, hasil migration-nya ya generic. Kasih sample tulisan dulu.",
+        "Kesalahan 3: ga tes setelah migration. Most orang langsung kerja dan baru sadar seminggu kemudian kalau Claude sebenernya ga inget apa-apa. Tes di chat baru, sehari setelah setup.",
+        "Kesalahan 4: mindahin semua tanpa filter. Chat pribadi, project yang udah mati, atau data orang lain ga perlu ikut pindah. Edit dokumennya dulu.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/mistakes.png",
+          alt: "4 kesalahan paling sering waktu migration",
+          caption: "Migration gagal hampir selalu karena step 2 di-skip, bukan karena Claude-nya.",
+        },
+      ],
+    },
+    {
+      heading: "Bonus: bikin profil yang self-updating",
+      icon: "sparkles",
+      paragraphs: [
+        "Setelah migration selesai, mulai chat baru dan paste ini sekali:",
+      ],
+      code: [
+        `Mulai sekarang, setiap kali aku koreksi cara kamu jawab, atau aku
+kasih preferensi baru, simpan itu otomatis ke memory aku.
+
+Kalau aku bilang "stop X" atau "aku lebih suka Y", catat di memory dan
+apply ke chat-chat berikutnya tanpa aku perlu ingetin lagi.
+
+Tiap kali kamu nyimpen sesuatu yang baru, kasih tau aku satu baris di
+akhir jawaban: "tersimpan: [apa yang disimpan]" - biar aku bisa koreksi
+kalau kamu salah nangkep.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Baris konfirmasi terakhir itu yang bikin sistemnya kepake beneran. Tanpa itu, kamu ga pernah tau apa yang dia simpen, dan kesalahan kecil bisa numpuk diem-diem.",
+        "Setelah 2-3 minggu, profil kamu di Claude biasanya udah lebih akurat daripada yang di ChatGPT, karena yang di sini kebentuk dari koreksi, bukan cuma dari tebakan.",
+      ],
+    },
+    {
+      heading: "Minggu pertama di Claude: 4 kebiasaan kecil",
+      icon: "trending-up",
+      paragraphs: [
+        "Satu, mulai chat baru tiap ganti topik. Chat panjang bikin tiap message makin mahal, dan Claude jadi lebih lemot nangkep maksud kamu.",
+        "Dua, kerjaan yang berulang taro di Project, jangan di chat lepas. Sekali setup, konteksnya kepake terus.",
+        "Tiga, tiap kali jawabannya kurang pas, jangan cuma ulang prompt-nya. Bilang apa yang salah (\"kepanjangan\", \"terlalu formal\"), karena itu yang masuk ke memory dan benerin jawaban-jawaban berikutnya.",
+        "Empat, jangan langsung hapus akun ChatGPT. Kasih jeda 2 minggu. Kalau ada konteks yang ternyata ketinggalan, kamu masih bisa balik ambil.",
+      ],
+    },
+    {
+      heading: "Berapa lama total",
+      icon: "clock",
+      paragraphs: [
+        "Realistisnya 30 menit, dan setengahnya cuma nunggu email export.",
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-to-claude/timeline.png",
+          alt: "Timeline 30 menit: 5 menit profil, 10 menit paste, 10 menit export, 5 menit import",
+          caption: "Setengah jam sekarang, atau seminggu ngajarin AI baru dari nol.",
+        },
+      ],
+    },
+    {
+      heading: "Pertanyaan yang paling sering masuk",
+      icon: "help",
+      paragraphs: [
+        "\"Chat lama aku ikut pindah ga?\" Ga. Yang pindah itu konteks dan pola, bukan chat-nya satu-satu. Kamu ga bakal bisa buka chat ChatGPT bulan Maret di dalem Claude, tapi Claude bakal tau apa yang kamu kerjain bulan Maret.",
+        "\"Aman ga upload conversations.json?\" Itu data kamu sendiri, dan kamu yang milih apa yang masuk. Tapi tetep: buang bagian yang sensitif atau yang menyangkut data orang lain sebelum upload, dan sempetin cek bagian privacy di Settings akun kamu biar tau data kamu dipake buat apa aja.",
+        "\"Harus langganan?\" Buat step 1 ga harus. Buat step 2, file gede dan memory lebih enak di plan berbayar. Kalau kamu masih di free plan, pecah file-nya jadi 3 bulan terakhir aja, atau simpen profil kamu di Project instructions.",
+        "\"Boleh tetep pake dua-duanya?\" Boleh banget, dan justru itu yang paling masuk akal di 2 minggu pertama. Yang ga masuk akal itu pindah setengah-setengah tanpa mindahin konteks, terus nyimpulin platform barunya ga bagus.",
+        "\"Kalau nanti Claude lupa gimana?\" Balik ke chat migration kamu, minta dia re-save. Itu alasan kenapa dari awal aku bilang chat-nya jangan dihapus.",
+      ],
+      cta: {
+        label: "Baca full setup guide Claude",
+        href: "/ai-resources/claude-full-setup",
+        note: "Udah pindah? Lanjut ke setup lengkapnya: Chat, Cowork, Code, sama Design, biar 30 menit tadi ga berhenti di migration doang.",
+      },
+    },
+  ],
   "claude-morning-brief": [
     {
       paragraphs: [
@@ -227,6 +594,28 @@ invent emails, events, or numbers.`,
       ],
     },
     {
+      heading: "Rencana 7 hari biar ini jadi kebiasaan",
+      icon: "calendar",
+      paragraphs: [
+        "Jangan ubah semuanya sekaligus, nanti balik lagi ke pola lama dalam 3 hari. Urutannya gini:",
+        "Hari 1-2: satu aturan doang, tiap ganti topik = chat baru. Belum usah mikirin model.",
+        "Hari 3: bikin 2 Project buat area yang paling sering kamu tanyain, upload file yang selama ini kamu upload berulang-ulang.",
+        "Hari 4-5: pindahin default kamu ke Sonnet. Naik ke Opus cuma pas keputusannya beneran mahal.",
+        "Hari 6: matiin extended thinking, nyalain lagi cuma pas butuh reasoning berat.",
+        "Hari 7: evaluasi. Kalau biasanya kamu kena limit Rabu dan minggu ini masih aman sampai Sabtu, kebiasaannya udah jalan.",
+      ],
+    },
+    {
+      heading: "Pertanyaan yang sering masuk",
+      icon: "help",
+      paragraphs: [
+        "\"Hapus chat lama bisa balikin usage ga?\" Ga bisa. Usage yang udah kepake ga balik. Dan chat lama yang cuma kamu diemin juga ga makan usage, yang makan itu message BARU di chat yang udah panjang.",
+        "\"Chat panjang bikin Claude lebih pinter ga?\" Ga otomatis. Yang nolong itu konteks yang relevan, bukan konteks yang banyak. Chat 100 message isinya 4 topik beda malah bikin jawabannya lebih ngawur, sekaligus lebih mahal.",
+        "\"Upgrade plan worth it ga?\" Coba dulu satu minggu pake cara-cara di atas. Most orang yang aku temenin ternyata ga butuh upgrade, cuma butuh berhenti pake satu chat buat segalanya. Kalau setelah seminggu masih mentok, baru upgrade masuk akal.",
+        "\"Aku pake buat coding, beda ga?\" Prinsipnya sama, malah lebih kerasa. Simpen konteks project di file (README, catatan arsitektur), jangan di history chat. Terus turunin model buat kerjaan mekanis kayak rename variable atau nulis test sederhana.",
+      ],
+    },
+    {
       heading: "Mau lebih?",
       icon: "sparkles",
       paragraphs: [],
@@ -257,6 +646,35 @@ invent emails, events, or numbers.`,
       paragraphs: [
         "Most orang nyalahin \"limit Claude ketat banget.\" Padahal yang sebenernya kejadian, ada 3 hal yang diem-diem ngabisin usage kamu tanpa kamu sadar.",
         "Claude punya 2 limit sekaligus: rolling window 5 jam, sama weekly cap. Tiga kebiasaan di bawah ini yang paling sering ngebakar dua-duanya. Aku urutin dari yang paling ngefek.",
+      ],
+    },
+    {
+      heading: "Anatomi limit Claude: 2 meteran yang jalan bareng",
+      icon: "clock",
+      paragraphs: [
+        "Sebelum masuk ke fix-nya, kamu perlu tau kamu lagi kena yang mana. Claude punya dua meteran yang jalan barengan, dan pemicunya beda.",
+        "Meteran pertama, rolling window 5 jam. Ini mulai jalan pas kamu kirim message pertama dan nutup sekitar 5 jam kemudian. Kalau kamu kerja nonstop 2-3 jam di satu chat panjang, biasanya ini yang duluan kena.",
+        "Meteran kedua, weekly cap. Yang ini ga peduli kamu kerjanya kapan, semua message kamu seminggu ngitung ke satu jatah yang sama. Kalau Senin sama Selasa kamu bakar setengahnya, Rabu sore kamu mentok, dan sisa minggu kamu ga bisa ngapa-ngapain.",
+        "Kenapa ini penting: kalau yang kena rolling window, kamu cukup spread kerjaan ke beberapa waktu. Kalau yang kena weekly cap, yang harus berubah cara pakenya, bukan jadwalnya.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/limits-anatomy.png",
+          alt: "Dua limit Claude: rolling window 5 jam dan weekly cap",
+          caption: "Dua meteran, dua pemicu beda. Tau kamu kena yang mana = tau fix-nya yang mana.",
+        },
+      ],
+    },
+    {
+      heading: "5 tanda kamu lagi bakar usage tanpa sadar",
+      icon: "alert",
+      paragraphs: [
+        "Satu: kamu masih di chat yang sama sejak 3 hari lalu, dan di dalemnya udah ganti topik 4 kali.",
+        "Dua: file yang sama (CV, brief, syllabus, brand guideline) kamu upload ulang tiap buka chat baru.",
+        "Tiga: model picker kamu ga pernah kamu sentuh sejak hari pertama langganan.",
+        "Empat: extended thinking nyala terus, termasuk pas kamu cuma minta benerin typo.",
+        "Lima: kamu kerja bareng Claude 2-3 jam nonstop sekali duduk, terus ilang seharian.",
+        "Kalau kamu kena 3 dari 5, kamu bukan heavy user. Kamu cuma lagi bocor, dan tiga cara di bawah ini nutup bocornya.",
       ],
     },
     {
@@ -316,6 +734,14 @@ Bikin se-concise mungkin, max 300 kata.`,
     {
       paragraphs: [
         "Claude bakal generate handoff doc. Copy, mulai chat baru, paste sebagai message pertama. Kamu pindah ke chat baru dengan context window di 1-2% instead of 80%.",
+        "Ini kebiasaan yang paling murah efeknya: 2 menit nulis handoff, dan tiap message kamu setelah itu balik ke harga normal.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/handoff.png",
+          alt: "Alur handoff doc: chat lama 85% context jadi chat baru 2% context",
+          caption: "Konteksnya kebawa, biayanya ditinggal.",
+        },
       ],
     },
     {
@@ -380,6 +806,34 @@ Bikin se-concise mungkin, max 300 kata.`,
       ],
     },
     {
+      heading: "Minggu boros vs minggu hemat",
+      icon: "trending-up",
+      paragraphs: [
+        "Biar kebayang bedanya, ini pola dua minggu dengan beban kerja yang sama persis.",
+        "Minggu boros: semua ditumpuk di chat panjang, Opus buat semua task, file di-upload ulang tiap chat. Senin sampai Rabu jatah mingguan habis, dan Kamis sampai Minggu kamu balik kerja manual.",
+        "Minggu hemat: kerjaan sama banyaknya, tapi tiap ganti topik bikin handoff terus chat baru, Sonnet jadi default, file tinggal di Project. Minggu malam masih sisa jatah.",
+        "Angka di grafik ini ilustrasi buat gambaran pola, bukan data resmi. Tapi bentuknya persis yang aku lihat di diri sendiri sebelum dan sesudah ganti kebiasaan.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/week-compare.png",
+          alt: "Perbandingan pola usage minggu boros dan minggu hemat",
+          caption: "Beban kerja sama. Yang beda cuma tiga kebiasaan di atas.",
+        },
+      ],
+    },
+    {
+      heading: "Kalau kamu udah terlanjur kena limit hari ini",
+      icon: "zap",
+      paragraphs: [
+        "Empat hal yang bisa kamu lakuin sekarang, bukan minggu depan.",
+        "Satu, cek dulu limitnya kena di semua model atau cuma di model yang paling berat. Kalau biasanya kamu pake yang paling premium, coba turun satu tingkat, sering masih bisa jalan.",
+        "Dua, tulis handoff doc dari chat yang lagi kamu kerjain, selagi masih sempet. Jadi pas limit reset kamu tinggal lanjut, bukan mulai dari awal.",
+        "Tiga, geser ke kerjaan yang emang ga butuh AI: baca sumber, nyusun outline manual, ngerapihin file. Balikin ke Claude pas meteran udah reset.",
+        "Empat, sambil nunggu, bikin Project buat topik yang bikin kamu boros minggu ini. Sekali setup, minggu depan kamu ga ngulang kesalahan yang sama.",
+      ],
+    },
+    {
       heading: "Quick reference",
       icon: "check",
       paragraphs: [
@@ -393,6 +847,13 @@ File yg sering dipake         Taro di Project                10 mnt, benefit ter
 Default Opus buat semua       Sonnet/Haiku buat task ringan  reflex, 1 minggu
 Extended thinking selalu on   Matiin kecuali butuh banget    1 detik tiap chat
 Slam kerjaan ke 1 session     Spread ke 3 window seharian    schedule habit`,
+      ],
+      images: [
+        {
+          src: "/blog/claude-weekly-limit/cheatsheet.png",
+          alt: "Cheat sheet 5 fix buat stop kena limit Claude",
+          caption: "Screenshot yang ini. Nomor 1 doang udah motong sebagian besar usage kamu.",
+        },
       ],
     },
     {
