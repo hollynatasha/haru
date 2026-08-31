@@ -5,6 +5,7 @@ import { useState } from "react";
 type Brand = {
   name: string;
   logoSrc?: string;
+  logoWide?: boolean;
   category?: string;
 };
 
@@ -14,7 +15,11 @@ function BrandLogo({ brand }: { brand: Brand }) {
   return (
     <div className="flex flex-col items-center gap-3 text-center">
       {brand.logoSrc && ok ? (
-        <div className="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border border-line bg-white p-3">
+        <div
+          className={`flex h-14 sm:h-16 items-center justify-center rounded-2xl border border-line bg-white p-3 ${
+            brand.logoWide ? "w-28 sm:w-32" : "w-14 sm:w-16"
+          }`}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={brand.logoSrc}

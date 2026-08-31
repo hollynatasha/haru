@@ -296,6 +296,11 @@ export const BRAND_KIT = {
       logoSrc: "/brands/hix-ai.png",
     },
     {
+      name: "Trip.com",
+      logoSrc: "/brands/tripcom.png",
+      logoWide: true,
+    },
+    {
       name: "Gauth AI",
       logoSrc: "/brands/gauth.png",
     },
@@ -391,14 +396,24 @@ export const BRAND_KIT = {
       format: "Tutorial feature",
     },
     {
+      tag: "TRIP.COM",
+      category: "Travel & Tour",
+      logoSrc: "/brands/tripcom.png",
+      logoWide: true,
+      href: "https://www.instagram.com/reel/DcqKGRgp4j2/",
+      format: "Travel feature",
+    },
+    {
       tag: "CHINA LUXE TOUR",
       category: "Travel & Tour",
+      logoSrc: "/brands/china-luxe-tour.png",
       href: "https://www.instagram.com/reel/DcLpu9khMQi/",
       format: "Travel feature",
     },
     {
       tag: "SENLY CHINA",
       category: "Travel & Tour",
+      logoSrc: "/brands/senly-china.png",
       href: "https://www.instagram.com/reel/DOszhdmCOWw/",
       format: "Travel feature",
     },
