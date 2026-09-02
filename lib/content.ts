@@ -308,6 +308,11 @@ export const BRAND_KIT = {
       name: "Western Sydney University",
       logoSrc: "/brands/western-sydney.png",
     },
+    {
+      name: "ICAN Education",
+      logoSrc: "/brands/ican.png",
+      logoWide: true,
+    },
   ],
 
   funnel: {
@@ -427,6 +432,8 @@ export const BRAND_KIT = {
     {
       tag: "ICAN EDUCATION",
       category: "Education",
+      logoSrc: "/brands/ican.png",
+      logoWide: true,
       href: INSTAGRAM_URL,
       format: "Brand lifestyle",
     },
