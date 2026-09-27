@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "opus-5-5-test",
+    category: "AI TUTORIAL",
+    title: "OPUS 5.5: 3 TES + PROMPT COPY-PASTE",
+    description:
+      "Claude baru rilis Opus 5.5, tapi banyak orang ngetesnya pakai cara yang salah. Ini apa yang beneran berubah (angka resminya), 4 kesalahan paling sering, plus 3 tes lengkap sama prompt copy-paste dan rubrik buat nilainya.",
+    readMinutes: 18,
+    publishedAt: "2026-09-27",
+  },
+  {
     slug: "chatgpt-to-claude",
     category: "SETUP GUIDE",
     title: "PINDAH DARI CHATGPT KE CLAUDE",
