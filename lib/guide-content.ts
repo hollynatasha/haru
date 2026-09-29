@@ -46,6 +46,219 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "chatgpt-7-fitur": [
+    {
+      paragraphs: [
+        "Kebanyakan orang berhenti di kolom chat, padahal enam surface lainnya kepakai buat hal yang beda-beda.",
+        "Panduan ini disusun dari masalah yang lagi kamu hadapi, bukan dari daftar fiturnya. Soalnya masalah itu yang bikin kamu inget pas lagi butuh, dan daftar fitur ga pernah nyangkut lama di kepala."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/hero.png",
+          alt: "Tujuh surface ChatGPT dan kerjaan yang cocok buat masing-masing",
+          caption: "Tujuh surface, tujuh kerjaan beda. Ga ada yang wajib kamu pakai semuanya."
+        }
+      ]
+    },
+    {
+      heading: "Mulai dari masalah kamu",
+      icon: "help",
+      paragraphs: [
+        "Sebelum masuk satu-satu, ini peta cepatnya. Cari situasi yang paling mirip sama kamu sekarang, terus lompat ke bagian itu.",
+        "Stuck dan butuh mikir bareng atau ngerangkum sesuatu, itu Chat. Butuh visual tapi kamu ga bisa desain, itu Images. Ada kerjaan yang kamu ulang tiap minggu, itu Scheduled. Datanya ada di Drive, Canva, atau Notion kamu, itu Plugins.",
+        "Tugas panjang yang hasil akhirnya harus bisa direview, itu Work. Lebih gampang ngomong daripada ngetik, itu Voice. Ada bug atau codebase yang mau kamu ngerti, itu Codex."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/matrix.png",
+          alt: "Tabel situasi yang lagi kamu hadapi dan fitur ChatGPT yang kepakai buat masing-masing",
+          caption: "Screenshot bagian ini kalau kamu cuma mau nyimpen satu gambar dari guide ini."
+        }
+      ]
+    },
+    {
+      heading: "1. Chat",
+      icon: "message",
+      paragraphs: [
+        "Yang paling sering dipakai, dan yang paling sering dipakai setengah-setengah. Bedanya jawaban bagus sama jawaban generik itu hampir selalu ada di seberapa spesifik kamu ngasih konteks di awal.",
+        "Pola yang selalu jalan: kasih perannya, kasih konteksnya, kasih batasannya, terus bilang bentuk output yang kamu mau."
+      ],
+      code: [
+        "Aku lagi [situasi kamu, 1-2 kalimat konteks].\nYang aku butuhin: [hasil yang kamu mau].\nBatasannya: [waktu, budget, panjang, tingkat kesulitan pembaca].\nKasih jawabannya dalam bentuk [bullet / tabel / draft jadi], maksimal [panjang].\nKalau ada yang kurang jelas dari brief aku, tanya dulu sebelum jawab."
+      ]
+    },
+    {
+      paragraphs: [
+        "Kalimat terakhir itu yang paling ngaruh. Tanpa itu dia bakal nebak konteks yang hilang, dan kamu baru sadar tebakannya salah setelah baca satu halaman.",
+        "Yang sering salah: minta “tolong perbaiki” tanpa bilang perbaikan ke arah mana. Bilang mau lebih pendek, lebih formal, lebih konkret, atau lebih gampang dipahami orang awam."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/chat-brief.png",
+          alt: "Empat bagian brief yang bikin jawaban Chat beda: peran, hasil, batasan, bentuk output",
+          caption: "Empat bagian ini plus satu baris penutup. Itu aja polanya."
+        }
+      ]
+    },
+    {
+      heading: "2. Images",
+      icon: "camera",
+      paragraphs: [
+        "Buat bikin gambar dari deskripsi, dan buat ngedit gambar yang udah ada. Deskripsi yang bagus urutannya: subjek, gaya, komposisi, cahaya, rasio, terus hal-hal yang kamu ga mau ada."
+      ],
+      code: [
+        "[Subjek dan apa yang lagi terjadi]. Gaya [editorial / ilustrasi flat / foto realistis].\nKomposisi [close-up / wide, subjek di kiri / tengah]. Cahaya [pagi hangat / studio lembut].\nRasio [9:16 / 1:1 / 16:9]. Tanpa teks, tanpa watermark, tanpa [yang kamu ga mau].",
+        "Dari gambar ini, ganti [bagian spesifik] jadi [yang kamu mau].\nPertahankan komposisi, warna, dan pencahayaan yang sekarang."
+      ]
+    },
+    {
+      paragraphs: [
+        "Yang kedua itu buat ngedit. Jangan generate ulang dari nol, sebutin bagian yang mau diubah dan biarin sisanya.",
+        "Yang sering salah: nulis deskripsi panjang yang isinya adjective semua. Yang bikin gambarnya berubah itu subjek, komposisi, dan cahaya, bukan tambahan kata “indah” atau “estetik”."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/images-urutan.png",
+          alt: "Urutan enam bagian deskripsi gambar, dari subjek sampai larangan",
+          caption: "Urutannya ngaruh. Subjek duluan, larangan paling belakang."
+        }
+      ]
+    },
+    {
+      heading: "3. Scheduled",
+      icon: "calendar",
+      paragraphs: [
+        "Buat tugas yang kamu ulang terus dengan pola yang sama. Kamu setup sekali, terus hasilnya masuk sendiri sebagai chat baru pas waktunya.",
+        "Yang cocok itu tugas yang outputnya pendek dan berulang, misalnya rekap mingguan, checklist pagi, atau draft yang formatnya selalu sama."
+      ],
+      code: [
+        "Setiap [hari] jam [waktu], [tugas yang harus dia kerjain].\nFormatnya: [bentuk output, dibuat persis sama tiap kali].\nMaksimal [panjang]. Kalau ga ada yang berubah dari minggu lalu, bilang tidak ada perubahan."
+      ]
+    },
+    {
+      paragraphs: [
+        "Baris terakhir itu yang bikin kamu beneran baca hasilnya. Tanpa itu, tiap minggu kamu dikirimin rekap yang isinya keliatan penuh padahal ga ada yang baru.",
+        "Yang sering salah: ngejadwalin tugas yang butuh data yang dia ga punya aksesnya. Cek dulu sumber datanya kebaca atau engga sebelum kamu jadwalin."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/scheduled-ritme.png",
+          alt: "Alur Scheduled: setup sekali, kunci formatnya, hasilnya masuk tiap minggu",
+          caption: "Sebelah kiri yang cocok dijadwalin, sebelah kanan yang bakal bikin kamu kecewa."
+        }
+      ]
+    },
+    {
+      heading: "4. Plugins",
+      icon: "plug",
+      paragraphs: [
+        "Buat nyambungin ChatGPT ke aplikasi lain yang kamu udah pakai, misalnya Canva, Google Drive, atau Notion. Kamu connect sekali dari plugin directory, terus kepakai di semua chat setelahnya.",
+        "Yang bikin hasilnya beda itu nyebut sumbernya persis."
+      ],
+      code: [
+        "Dari [aplikasi], buka [nama file atau folder persis].\nAmbil [bagian yang kamu butuhin], terus [apa yang harus dia lakuin sama data itu].\nSebutin nama file dan bagian mana yang kamu pakai buat tiap poin.\nKalau file yang aku sebut ga ketemu, bilang, jangan pakai file lain yang mirip."
+      ]
+    },
+    {
+      paragraphs: [
+        "Yang sering salah: bilang “ambil dari Drive aku” doang. Kalau namanya ga disebut, dia bakal milih file yang menurutnya paling relevan, dan kamu ga tau dia baca yang mana."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/plugins-sumber.png",
+          alt: "Perbandingan permintaan yang samar versus yang nyebut nama file persis",
+          caption: "Dua permintaan yang sama niatnya, beda satu baris, beda hasilnya."
+        }
+      ]
+    },
+    {
+      heading: "5. Work",
+      icon: "file-text",
+      paragraphs: [
+        "Buat tugas panjang yang jalan beberapa langkah sampai ada hasil yang bisa kamu review, misalnya riset, analisis file, atau nyusun deck. Ini yang paling ngaruh kalau brief-nya rapi, dan paling berantakan kalau brief-nya asal."
+      ],
+      code: [
+        "Tugas: [hasil akhir yang kamu mau, sespesifik mungkin].\nBahan: [file yang kamu lampirin, sebutin isinya apa].\nSebelum mulai, kasih rencana langkahnya dulu dan tunggu aku approve.\nSelama ngerjain, tandai setiap tempat yang butuh keputusan aku, jangan diputusin sendiri.\nHasil akhirnya dalam bentuk [format file], plus daftar asumsi yang kamu pakai.\nKalau ada data yang bentrok antar file, berhenti dan tanya, jangan dipilih salah satu."
+      ]
+    },
+    {
+      paragraphs: [
+        "Dua kalimat soal keputusan dan data bentrok itu inti dari fitur ini. Yang bikin hasil kerjaan panjang ga kepakai biasanya satu asumsi salah di tengah yang kebawa sampai akhir, dan kualitas tulisannya sendiri jarang jadi masalah.",
+        "Yang sering salah: ngasih tugas besar tanpa minta rencana dulu. Lima menit baca rencana jauh lebih murah daripada baca hasil jadi yang arahnya salah."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/work-rambu.png",
+          alt: "Empat rambu buat tugas panjang: rencana dulu, tandai keputusan, stop kalau data bentrok, daftar asumsi",
+          caption: "Empat rambu ini yang misahin hasil yang kepakai sama hasil yang harus diulang."
+        }
+      ]
+    },
+    {
+      heading: "6. Voice",
+      icon: "mic",
+      paragraphs: [
+        "Buat diskusi dan ngarahin tugas lewat suara. Paling kepakai pas kamu lagi mikir dan belum tau mau nulis apa, atau pas tangan kamu lagi ga bebas.",
+        "Tiga cara pakai yang beneran ngaruh:"
+      ],
+      code: [
+        "Aku mau ngomong sekitar 2 menit soal [topik]. Dengerin dulu sampai selesai.\nAbis itu tanya 3 pertanyaan yang paling nunjukin lubang di argumen aku.\nJangan kasih saran sebelum aku jawab ketiganya.",
+        "Aku lagi latihan presentasi. Kamu jadi audiens yang skeptis tapi sopan.\nDengerin, terus kasih satu keberatan yang paling mungkin muncul beneran.",
+        "Aku lagi jalan dan ga bisa ngetik. Aku diktein poin-poinnya, kamu rapiin jadi\n[email / outline / to-do list], terus bacain ulang biar aku bisa koreksi."
+      ]
+    },
+    {
+      paragraphs: [
+        "Yang sering salah: dipakai kayak ngetik, cuma pakai mulut. Kelebihannya itu di bolak-balik cepat dan mikir sambil ngomong, bukan di ngedikte perintah panjang."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/voice-3cara.png",
+          alt: "Tiga cara pakai Voice: uji argumen, latihan ngomong, diktein sambil jalan",
+          caption: "Tiga-tiganya sama-sama ngandelin kamu ngomong duluan, bukan dia."
+        }
+      ]
+    },
+    {
+      heading: "7. Codex",
+      icon: "zap",
+      paragraphs: [
+        "Buat baca codebase, debug, nulis kode, sampai review perubahan. Yang bikin jawabannya kepakai itu kamu bilang apa yang kamu harapin terjadi dan apa yang beneran terjadi."
+      ],
+      code: [
+        "Masalahnya: [apa yang kamu lakuin] -> harusnya [yang kamu harapin],\ntapi yang terjadi [yang beneran terjadi].\nFile yang kemungkinan terkait: [path kalau kamu tau].\nCari penyebabnya dulu dan jelasin ke aku sebelum ngubah apa-apa.\nAbis diperbaiki, jelasin kenapa itu yang bikin error, bukan cuma nunjukin kodenya."
+      ]
+    },
+    {
+      paragraphs: [
+        "Minta penjelasan itu bukan formalitas. Bug yang kamu ngerti penyebabnya ga bakal kamu bikin lagi bulan depan.",
+        "Yang sering salah: nempel error message doang tanpa konteks apa yang lagi kamu jalanin. Error yang sama bisa punya tiga penyebab beda."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/codex-bug.png",
+          alt: "Bentuk laporan bug: yang kamu lakuin, yang harusnya terjadi, yang beneran terjadi",
+          caption: "Tiga baris ini yang misahin tebakan sama diagnosa."
+        }
+      ]
+    },
+    {
+      heading: "Kalau kamu cuma mau mulai dari satu",
+      icon: "arrow-right",
+      paragraphs: [
+        "Ambil satu kerjaan yang minggu ini kamu ulang, terus pindahin ke Scheduled. Itu yang paling cepat kerasa bedanya karena kamu langsung dapet waktunya balik, dan setup-nya cuma sekali.",
+        "Abis itu baru Work, pas ada tugas yang kamu tunda-tunda soalnya kebayang panjangnya. Sisanya nyusul sendiri begitu kamu kebiasa mikir dari masalah dulu, baru milih fiturnya.",
+        "Ga harus pakai semuanya, dan yang ga kepakai buat kerjaan kamu ya emang ga usah dipakai."
+      ],
+      images: [
+        {
+          src: "/blog/chatgpt-7-fitur/mulai.png",
+          alt: "Urutan mulai: Scheduled minggu ini, Work sesudahnya, sisanya nyusul",
+          caption: "Satu kerjaan berulang yang pindah minggu ini udah lebih berguna dari tujuh fitur yang kamu hafal."
+        }
+      ]
+    }
+  ],
   "opus-5-5-test": [
     {
       paragraphs: [

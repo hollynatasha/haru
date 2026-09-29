@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "chatgpt-7-fitur",
+    category: "AI TUTORIAL",
+    title: "CHATGPT: 7 FITUR DAN KAPAN KEPAKAI",
+    description:
+      "Kebanyakan orang berhenti di kolom chat, padahal enam surface lainnya kepakai buat hal yang beda-beda. Disusun dari masalah yang lagi kamu hadapi, lengkap sama prompt copy-paste tiap fitur.",
+    readMinutes: 11,
+    publishedAt: "2026-09-29",
+  },
+  {
     slug: "opus-5-5-test",
     category: "AI TUTORIAL",
     title: "OPUS 5.5: 3 TES + PROMPT COPY-PASTE",
