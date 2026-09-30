@@ -46,6 +46,193 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "study-with-chatgpt": [
+    {
+      paragraphs: [
+        "Kamu bisa bikin slash command kamu sendiri di ChatGPT, dan ini yang aku pakai buat fisika sama machine learning di Tsinghua.",
+        "Caranya kamu tempel satu kali aja di awal chat, terus abis itu kamu tinggal ngetik pendek. Ada 13 command di bawah. Tiga yang ada di video aku bahas paling detail, sepuluh sisanya lengkap di blok setup-nya."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/hero.png",
+          alt: "Tiga belas slash command dikelompokin jadi pahami, cek, mulai, latihan, dan bikin",
+          caption: "Dikelompokin dari yang kamu butuhin saat itu, soalnya itu cara kamu bakal nyarinya."
+        }
+      ]
+    },
+    {
+      heading: "Langkah 1 — tempel ini sekali",
+      icon: "edit",
+      paragraphs: [
+        "Taruh di paling atas chat baru, atau di Customize ChatGPT bagian Custom Instructions, atau di instruksi sebuah Project biar permanen.",
+        "Ini yang bikin commandnya jalan sama persis tiap kali, bukan dia ngarang sendiri tiap chat."
+      ],
+      code: [
+        "From now on, treat any message starting with / as a command. Use SI units\nthroughout and state every assumption you make. Here they are:\n\n/breakdown [equation] - Go term by term. For each symbol: what it physically\nrepresents, its SI units, and what happens in the real world if I double it -\ngive the factor the output changes by. End with one plain sentence for what the\nwhole equation says, and name the regime where it stops being valid.\n\n/derive [result] - Derive it step by step from the governing equation. After each\nline, one sentence on why that step is allowed and which assumption it uses. Flag\nevery place something is dropped, linearised or approximated, and say at what\npoint that approximation breaks.\n\n/units [equation or answer] - Dimensional analysis only. Reduce both sides to base\nSI dimensions and show they match. If they don't, tell me which term is wrong.\nThen give the relevant dimensionless group if one exists.\n\n/fbd [problem] - Define the system boundary and list what crosses it: every force,\nmoment, flow and heat term, with direction and sign convention stated. Describe\nthe free body diagram in words precise enough for me to draw it. Do NOT solve it.\n\n/sanity [my answer] - Order-of-magnitude check. Is this physically plausible?\nCompare it to a number I already know from the real world. Check the units, the\nsign, and the limiting cases (what should happen as a variable goes to 0 and to\ninfinity). Say plausible or not, and why.\n\n/3pass [topic] - Explain in three passes: (1) intuition, zero maths, (2) a worked\nexample with numbers small enough to check by hand, (3) the general formula.\nEnd with the one thing students get wrong.\n\n/quizme [topic] - Ask me 5 questions, one at a time, easy to hard. WAIT for my\nanswer before the next. After each, tell me what I got wrong and which concept\nthat gap points to. Never give the answer before I try.\n\n/firststep [problem] - Give me the FIRST step only, then stop and wait. Name what\nthe remaining steps will be, but do not do them. Do not solve it.\n\n/breakit [method] - Show it failing. A concrete setup or dataset where it performs\nbadly, the physical or statistical reason it fails there, and what to use instead.\n\n/vs [A] vs [B] - One sentence separating them, then a concrete problem where\nconfusing the two gives the wrong answer, with both numbers worked out.\n\n/sketch [topic] - A labelled hand-drawn style diagram, the way a tutor sketches\nwhile explaining. Arrows for relationships, mark what is held constant vs varying,\nlabel the axes.\n\n/code [method] - Implement it in Python (numpy/scipy) or MATLAB. Comment every\nline with the physics or maths it corresponds to, not with what the syntax does.\nEnd with one test case whose answer I can verify by hand.\n\n/examhack [past questions] - Find the pattern in what this professor tests, then\nwrite 5 new questions in the same style and difficulty, with a marking scheme.\n\nConfirm you've got these, then wait."
+      ]
+    },
+    {
+      paragraphs: [
+        "Dua baris paling atas itu yang diem-diem kerja: satuan SI terus, dan semua asumsi harus disebut. Tanpa itu kamu bisa dapet jawaban yang bener tapi di satuan yang bukan kamu pakai, dan kamu baru sadar pas ngumpulin."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/setup.png",
+          alt: "Tiga tempat buat naruh blok setup: chat baru, custom instructions, atau project",
+          caption: "Tiga-tiganya jalan. Custom Instructions kalau mau kepakai di semua chat, Project kalau mau belajar ga campur sama yang lain."
+        }
+      ]
+    },
+    {
+      heading: "Langkah 2 — tinggal ngetik",
+      icon: "zap",
+      paragraphs: [
+        "Udah, itu doang alurnya. Ini 13 contohnya, satu buat tiap command:"
+      ],
+      code: [
+        "/breakdown δ = FL³ / (3EI)\n/derive persamaan momentum Navier-Stokes dari control volume\n/units Re = ρvD/μ\n/fbd rangka batang sendi, 5 kN di joint C, tumpuan di A sama E\n/sanity koefisien perpindahan kalor 12000 W/m²K buat konveksi alami di udara\n/3pass root locus\n/quizme respon transien orde dua\n/firststep [tempel soalnya]\n/breakit beda hingga buat ODE yang stiff\n/vs stress vs strain hardening\n/sketch lingkaran Mohr\n/code Runge-Kutta 4 buat osilator teredam\n/examhack [tempel soal ujian tahun lalu]"
+      ]
+    },
+    {
+      heading: "Kapan pakai yang mana",
+      icon: "help",
+      paragraphs: [
+        "Mulai dari kondisi kamu sekarang, bukan dari daftar commandnya.",
+        "Bengong liat rumus dan ga ngerti artinya itu /breakdown. Dosen nge-skip turunannya itu /derive. Jawaban kayaknya salah tapi ga ketemu di mana itu /units terus /sanity. Gayanya banyak dan bingung mulai dari mana itu /fbd. Topik yang baru banget itu /3pass.",
+        "Ujian tiga hari lagi itu /quizme terus /examhack. Dua konsep yang selalu ketuker itu /vs. Pengen ngerti metode numerik beneran itu /breakit. Ada PR tapi pengen ngerti bukan nyontek itu /firststep. Laporan praktikum atau simulasi itu /code."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/matrix.png",
+          alt: "Sepuluh situasi belajar dan command yang cocok buat masing-masing",
+          caption: "Screenshot yang ini. Cuma bagian ini yang perlu kamu buka pas lagi ngerjain."
+        }
+      ]
+    },
+    {
+      heading: "1. /breakdown — apa yang berubah kalau dikaliin dua",
+      icon: "search",
+      paragraphs: [
+        "Yang bikin command ini beda itu satu kalimat di dalamnya: apa yang berubah di dunia nyata kalau simbol itu aku kaliin dua, dan sebutin angka penggandanya.",
+        "Coba jalanin di rumus lendutan kantilever δ = FL³/(3EI). Dia bakal jalan simbol per simbol: F beban dalam newton, L panjang dalam meter, E modulus Young dalam pascal, I momen inersia penampang dalam meter pangkat empat."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/breakdown-x8.png",
+          alt: "Tiap suku rumus lendutan kantilever dikaliin dua dan angka pengganda hasilnya",
+          caption: "Beban dua kali, lendutan dua kali. Tapi panjang dua kali, lendutannya delapan kali."
+        }
+      ]
+    },
+    {
+      paragraphs: [
+        "Bebannya kamu kaliin dua, lendutannya jadi dua kali. Tapi panjangnya yang kamu kaliin dua, lendutannya jadi delapan kali, soalnya L-nya pangkat tiga dan 2 pangkat tiga itu 8.",
+        "Buku teks cuma ngasih tau artinya apa, dan yang kamu butuhin itu tau efeknya apa. Angka delapan itu yang nyangkut di kepala pas kamu lagi di ruang ujian, bukan definisi momen inersia."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/cantilever.png",
+          alt: "Dua batang kantilever, yang bawah dua kali lebih panjang dan melendut delapan kali lebih besar",
+          caption: "Dua batang yang sama persis, bedanya cuma panjang. Ini yang bikin angkanya ga bisa kamu lupain."
+        }
+      ]
+    },
+    {
+      heading: "2. /quizme — dia nungguin kamu jawab dulu",
+      icon: "users",
+      paragraphs: [
+        "Dia bakal nanya lima soal satu-satu, dan yang bikin ini jalan itu satu baris di commandnya: WAIT for my answer before the next.",
+        "Tanpa baris itu, kelima soalnya keluar sekaligus, kamu baca jawabannya, terus ga ada yang nyantol. Bedanya cuma satu kalimat tapi hasilnya beda total."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/quizme.png",
+          alt: "Soal pertama tentang damping ratio, status nunggu jawaban, terus diagnosis konsep yang bolong",
+          caption: "Dia nahan soal 2 sampai 5 sampai kamu jawab yang pertama."
+        }
+      ]
+    },
+    {
+      paragraphs: [
+        "Abis kamu jawab, dia bukan cuma bilang salah. Dia nyebut konsep mana yang bolong, misalnya kamu keliru soal arah overshoot pas damping ratio dinaikin, berarti yang bolong itu definisi ζ-nya sendiri, bukan hitungannya.",
+        "Ini yang paling ngaruh sebelum ujian, karena yang bikin nempel itu pas kamu narik jawabannya dari kepala kamu sendiri. Dan salah duluan itu bagian dari caranya kerja, bukan tanda kamu ga siap."
+      ]
+    },
+    {
+      heading: "3. /firststep — langkah satu doang, terus berhenti",
+      icon: "shield",
+      paragraphs: [
+        "Kamu tempel soalnya, dan dia cuma boleh kasih langkah pertama terus berhenti. Sisanya dia sebut ada apa aja, tapi ga boleh dikerjain.",
+        "Misalnya soal siklus Rankine ideal dengan tekanan boiler 8 MPa dan kondensor 10 kPa. Dia bakal bilang mulai dari pompa, ambil h1 sebagai cairan jenuh di 10 kPa, terus hitung kerja pompanya. Abis itu berhenti."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/firststep.png",
+          alt: "Langkah pertama soal Rankine kebuka, langkah dua sampai empat terkunci",
+          caption: "Dia tau sisanya. Kamu yang nyuruh dia buat ga ngasih."
+        }
+      ]
+    },
+    {
+      paragraphs: [
+        "Langkah dua sampai empat tetep kelihatan judulnya, tapi terkunci. Jadi kamu tau arahnya ke mana tanpa dikasih jawabannya.",
+        "Kamu tetep ngerjain sendiri, dan ini yang ngebedain kamu kelar ngerjain PR sama kamu beneran ngerti. Command ini yang ngubah dia dari mesin jawaban jadi semacam asisten dosen."
+      ]
+    },
+    {
+      heading: "Empat yang khusus anak teknik",
+      icon: "alert",
+      paragraphs: [
+        "Empat command ini ga ada di daftar prompt yang umum beredar, dan justru ini yang nangkep kesalahan beneran.",
+        "/units — analisis dimensi doang. Dua sisi diturunin ke satuan dasar SI, terus dicek cocok apa engga. Ini nangkep kira-kira separuh salah aljabar sebelum kamu masukin satu angka pun, dan kalau ga cocok dia nyebut suku mana yang salah.",
+        "/fbd — kebanyakan soal statika sama termo itu susah cuma gara-gara batas sistemnya ga pernah digambar. Command ini maksa batas sistem sama konvensi tandanya ada dulu sebelum ada yang dihitung, dan dia dilarang nyelesein soalnya.",
+        "/code — komentarnya dikasih per baris pakai fisikanya, bukan pakai sintaksnya. Jadi scriptnya sekalian jadi catatan revisi buat metodenya."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/eng-four.png",
+          alt: "Empat command khusus teknik: units, fbd, sanity, dan code",
+          caption: "Empat command yang ga bakal kamu dapet dari daftar prompt umum."
+        }
+      ]
+    },
+    {
+      paragraphs: [
+        "/sanity — ngecek jawaban kamu ke angka yang ada di dunia nyata, plus kondisi batasnya pas variabelnya nol dan pas tak hingga.",
+        "Misalnya kamu dapet koefisien perpindahan kalor 12.000 W/m²K buat konveksi alami di udara. Konveksi alami di udara itu mentok sekitar 25, jadi jawaban kamu meleset seribu kali lipat. Ini yang ngasih tau kamu jam 1 pagi, bukan asdos yang ngasih tau minggu depan."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/sanity-scale.png",
+          alt: "Skala log koefisien konveksi, dengan klaim 12.000 jatuh tiga dekade di atas konveksi alami udara",
+          caption: "Angka 12.000 itu duduk di wilayah mendidih, bukan di wilayah udara diem."
+        }
+      ]
+    },
+    {
+      heading: "Bikin buat mata kuliah kamu",
+      icon: "brain",
+      paragraphs: [
+        "Karena kamu yang bikin sendiri, kamu bisa bikin buat mata kuliah kamu apapun itu. Polanya sama: kasih nama, bilang harus ngapain persis, bilang isinya wajib apa, terus bilang yang ga boleh."
+      ],
+      code: [
+        "/[nama] [input] - [harus ngapain persis]. [Isinya wajib apa]. [Yang GA boleh dia lakuin]."
+      ]
+    },
+    {
+      paragraphs: [
+        "Bagian yang ga boleh itu yang paling sering kelewat, dan justru itu yang bikin commandnya bagus. /quizme cuma berguna gara-gara ada never give the answer before I try. /fbd cuma berguna gara-gara ada do NOT solve it.",
+        "Jadi kalau command bikinan kamu hasilnya hampir bener tapi selalu meleset dikit, biasanya yang kurang itu satu kalimat soal apa yang dia harus berhenti lakuin, bukan tambahan penjelasan soal yang kamu mau."
+      ],
+      images: [
+        {
+          src: "/blog/study-with-chatgpt/anatomy.png",
+          alt: "Empat bagian command bikinan sendiri, dengan bagian yang ga boleh disorot",
+          caption: "Empat bagian. Yang terakhir itu yang nentuin commandnya kepakai apa engga."
+        }
+      ]
+    }
+  ],
   "chatgpt-7-fitur": [
     {
       paragraphs: [

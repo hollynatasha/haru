@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "study-with-chatgpt",
+    category: "SAVE THIS",
+    title: "CHATGPT BUAT BELAJAR: 13 SLASH COMMAND",
+    description:
+      "Kamu bisa bikin slash command kamu sendiri di ChatGPT. Ini 13 command yang aku pakai buat fisika sama machine learning di Tsinghua: tempel sekali di awal, abis itu tinggal ngetik /breakdown, /quizme, atau /firststep. Lengkap sama blok setup-nya.",
+    readMinutes: 12,
+    publishedAt: "2026-09-30",
+  },
+  {
     slug: "chatgpt-7-fitur",
     category: "AI TUTORIAL",
     title: "CHATGPT: 7 FITUR DAN KAPAN KEPAKAI",
