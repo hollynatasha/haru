@@ -46,6 +46,682 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "arena-skill": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"ARENA\" di video.",
+        "Namanya Arena Skill, dibikin Jake Schincariol, dan dia jalan di Claude Code. Idenya satu kalimat: daripada kamu ngetik \"coba lagi\" lima kali ke jawaban yang sama-sama generic, dia bikin N versi Claude ngerjain task itu bareng-bareng, terus diadu sampai tinggal satu.",
+        "Default-nya 100 agent, 7 ronde. Ada mode --quick yang 16 agent buat sehari-hari. Skill-nya MIT license alias gratis, tapi yang jalan tetep kuota Claude kamu, jadi angka-angkanya perlu kamu tau dulu sebelum mencet enter.",
+        "Satu catatan jujur di depan: aku belum pernah ngejalanin turnamennya sendiri sampai selesai. Semua angka dan mekanisme di bawah ini aku ambil dari README, SKILL.md, rubric.md, sama bracket.py di repo aslinya, bukan dari hasil run aku. Begitu aku udah nge-run, bagian hasilnya aku update.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/hero.png",
+          alt: "Jumlah agent yang masih hidup tiap ronde: 100, 50, 25, 13, 7, 4, 2, 1",
+          caption: "Tangga ini bukan ilustrasi. Ini output persis dari perintah plan-nya buat 100 agent.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa ini beda dari nge-regenerate",
+      icon: "brain",
+      paragraphs: [
+        "Pas kamu bilang \"coba lagi\", Claude ngerjain task yang sama dengan cara mikir yang kurang lebih sama juga. Makanya jawaban kedua sering cuma versi lain dari jawaban pertama, bukan pendekatan lain.",
+        "Arena maksa variasinya dari luar. Task-nya dikasih identik ke semua agent, byte per byte. Yang dibikin beda satu hal: kartu strategi. Tiap agent dapet satu kartu yang isinya tiga bagian, dan tiga bagian itu yang nentuin dia nyerang task-nya dari mana.",
+        "Reasoning mode itu cara dia mikir. Ada 15, dari first principles, inversion, adversarial, contrarian, sampai expert panel. Workflow itu urutan kerjanya, ada 12: draft-critique-rewrite, outline first, test first, build-then-break, dan seterusnya. Strategy itu yang dia menangin pas ketemu trade-off, ada 12 juga: simplest thing that works, maximal rigour, edge cases first, concrete specifics.",
+        "Dikaliin jadi 2.160 kombinasi, dan bracket.py bagiin tanpa ada yang kembar. Jadi di turnamen 100 agent, kamu beneran dapet 100 cara ngerjain satu soal, bukan 100 jawaban mirip.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/kartu.png",
+          alt: "Tiga bagian kartu strategi: 15 reasoning mode, 12 workflow, 12 strategy",
+          caption: "Kartu ini ada di file strategies.json. Kamu bisa nambahin sendiri, dan dealer-nya langsung ikut pakai.",
+        },
+      ],
+    },
+    {
+      heading: "Isi satu match",
+      icon: "users",
+      paragraphs: [
+        "Yang bikin ini bukan sekadar \"bikin 100 jawaban terus pilih\" itu ada di ronde-nya. Tiap pasangan ngelewatin empat fase, dan tiga di antaranya butuh subagent sendiri.",
+        "Fase serang: dua agent baca solusi lawannya, bukan punya sendiri. Mereka cuma boleh nulis kesalahan yang konkret dan bisa dicek, maksimal 7, dan tiap serangan dilabel FATAL, MAJOR, atau MINOR. Muji dilarang. Nyerang pendekatan lawan juga dilarang, cuma boleh nyerang yang salahnya.",
+        "Fase bertahan: tiap serangan harus dijawab satu per satu, CONCEDE atau REBUT. Ini bagian yang menurutku paling pinter desainnya: ngaku salah terus benerin itu dinilai lebih tinggi daripada ngotot. Dan rebuttal yang isinya cuma \"ga kok, punyaku udah bener\" dihitung sebagai ngaku salah. Abis itu dia nulis ulang solusinya lengkap dari nol, bukan nempelin tambalan.",
+        "Fase judge: ada agent ketiga yang cuma jadi juri. Dia baca dua solusi revisi, terus ngecek sendiri tiap serangan tadi dan ngelabelin FIXED, REBUTTED, atau STANDING. Jawaban yang bilang \"udah dibenerin\" ga dianggap bukti, dia harus liat sendiri. Dia juga ga dikasih tau kartu strategi siapa pun.",
+        "Fase eliminasi: yang skornya lebih tinggi lanjut, yang satu keluar. Ga ada seri.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/ronde.png",
+          alt: "Empat fase satu match: attack, defend, judge, eliminasi",
+          caption: "Satu match makan 5 subagent call. Itu kenapa 100 agent bisa nyampe 595.",
+        },
+      ],
+    },
+    {
+      heading: "Rubrik yang dipakai jurinya",
+      icon: "check",
+      paragraphs: [
+        "Juri ga nilai pakai selera. Ada satu file rubrik, sama buat semua match, dengan lima kriteria dan bobot yang udah fix.",
+        "Correctness bobot 30, completeness 25, robustness 20, specificity 15, clarity 10. Totalnya 100. Robustness itu yang bikin bagian serang tadi ada gunanya: skornya diukur dari seberapa banyak serangan di match itu yang beneran kelar.",
+        "Ada satu aturan yang nabrak semua skor: fatal. Kalau juri nemu cacat yang udah dia verifikasi dan bikin solusinya salah atau ga kepake, solusi itu ga bisa menang lawan solusi yang ga fatal, seberapa pun totalnya.",
+        "Dan ada daftar hal yang sengaja ga dikasih nilai: panjang, nada percaya diri, pendekatan yang dipakai, dan kalimat-kalimat yang muji diri sendiri kayak \"solusi komprehensif ini\". Jawaban pendek yang memenuhi semua syarat ngalahin jawaban panjang yang memenuhi syarat yang sama.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/rubrik.png",
+          alt: "Lima kriteria rubrik dengan bobotnya: correctness 30, completeness 25, robustness 20, specificity 15, clarity 10",
+          caption: "Bobotnya ada di rubric.md. Kamu bisa edit kalau kriteria kamu beda.",
+        },
+      ],
+    },
+    {
+      heading: "Install, dua cara",
+      icon: "plug",
+      paragraphs: [
+        "Syaratnya: Claude Code dengan akun Claude yang aktif, dan Python 3.8 ke atas. Ga ada package tambahan yang perlu di-install. Arena butuh Agent tool-nya Claude Code, jadi nempelin ini ke chat Claude biasa di web ga bakal jalan.",
+        "Cara pertama, salin foldernya langsung. Ini yang bikin command-nya jadi /arena:",
+      ],
+      code: [
+        `git clone https://github.com/Jakeschincariol/arena-skill.git
+cp -r arena-skill/skills/arena ~/.claude/skills/`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Cara kedua, lewat plugin marketplace:",
+      ],
+      code: [
+        `/plugin marketplace add Jakeschincariol/arena-skill
+/plugin install arena-skill@arena-skill`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Satu beda yang gampang bikin bingung: kalau kamu install sebagai plugin, command-nya jadi /arena-skill:arena, bukan /arena. Yang /arena cuma jalan di instalasi folder.",
+        "Kalau kamu lebih suka Claude Code yang ngerjain, buka folder kerja baru terus tempel ini. Aku sengaja nulis \"jangan mulai turnamen dulu\" biar dia ga langsung ngabisin kuota:",
+      ],
+      code: [
+        `https://github.com/Jakeschincariol/arena-skill
+
+Install Arena skill ini ke folder .claude/skills/ di project ini.
+Cek dulu Python 3.8 atau yang lebih baru ada apa ngga. Jelasin
+file apa aja yang bakal kamu tambahin, baru install, terus
+konfirmasi /arena udah kebaca.
+
+Jangan mulai turnamen dulu.`,
+      ],
+    },
+    {
+      heading: "Pilih ukurannya dulu, sebelum enter",
+      icon: "zap",
+      paragraphs: [
+        "Ini bagian yang paling gampang bikin kaget. Default /arena itu 100 agent, dan 100 agent itu 595 subagent call.",
+        "Kalau kamu baru nyoba, mulai dari --quick. 16 agent, 4 ronde, 91 call. Itu udah cukup buat ngerasain apakah mekanismenya ngebantu buat task kamu atau ngga.",
+        "Angka wave itu yang nentuin berapa lama kamu nunggu. Claude Code jalanin maksimal 10 subagent sekaligus, jadi 100 agent itu 70 gelombang yang harus nunggu satu-satu. Bukan 100 agent jalan barengan.",
+        "Angka-angka ini bukan perkiraan aku. Semuanya keluar dari perintah plan di bracket.py-nya sendiri. Yang ga bisa aku kasih: berapa lama persisnya dan berapa kuota yang kepake, soalnya itu tergantung panjang task sama panjang jawabannya.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/ukuran.png",
+          alt: "Tabel ukuran turnamen: 8, 16, 32, 64, dan 100 agent dengan ronde, subagent call, dan wave-nya",
+          caption: "Kalau ada draft lama yang mau dikalahin, tambah 1 call lagi buat perbandingan akhirnya.",
+        },
+      ],
+    },
+    {
+      heading: "Satu file yang nentuin hasilnya",
+      icon: "file-text",
+      paragraphs: [
+        "Kalau kamu cuma inget satu hal dari guide ini, inget yang ini: subagent ga bisa liat chat kamu.",
+        "Semua competitor, attacker, dan judge cuma baca satu file, .arena/task.md. Konteks yang kamu kasih tiga pesan sebelumnya, file yang kamu sebut tadi, preferensi yang kamu bilang minggu lalu, semuanya ga ada buat mereka kecuali ditulis di situ.",
+        "Jadi file itu harus berdiri sendiri. Isinya: request-nya pakai kata kamu sendiri, semua batasan yang pernah kamu sebut di mana pun (audiens, panjang, format, nada, deadline, apa yang ga boleh diubah), konteks yang orang asing butuhin (path file lengkap, data yang ditempel, produk kamu apa), dan definisi \"selesai\" kalau kamu punya.",
+        "Ada satu larangan yang menarik di instruksinya: jangan nulis pendapat kamu soal jawaban yang bener ke dalam task file. Alasannya masuk akal, itu bakal nyetir 100 agent ke arah yang sama, dan itu justru ngebatalin gunanya.",
+        "Kalau ada jawaban lama yang kamu ga puas, simpen apa adanya di .arena/baseline.md. Nanti di akhir ada satu juri terpisah yang bandingin juara sama draft lama itu, dan dia ga dikasih tau mana yang mana.",
+      ],
+      images: [
+        {
+          src: "/blog/arena-skill/task-file.png",
+          alt: "Chat yang tidak terbaca, file task.md, dan 100 salinan identik ke tiap agent",
+          caption: "Hasil jelek hampir selalu balik ke file ini, bukan ke jumlah agent-nya.",
+        },
+      ],
+    },
+    {
+      heading: "Contoh lengkap: pitch acara kampus",
+      icon: "edit",
+      paragraphs: [
+        "Ini contoh brief yang aku pakai buat ngetes. Dipilih karena hasilnya gampang dinilai: pitch yang generic kerasa banget bedanya sama yang spesifik.",
+        "Simpen dulu draft awal kamu di baseline-pitch.txt, biar ada pembandingnya. Terus tempel yang di bawah ini, ganti bagian kurung siku sama detail beneran:",
+      ],
+      code: [
+        `/arena --quick
+
+Tulis pitch 150-180 kata dalam Bahasa Indonesia buat ngajak
+[calon partner] ndukung acara sharing session kampus.
+
+Konteks yang udah pasti:
+- Acara 90 menit buat 30 mahasiswa yang baru mulai bikin proyek.
+- Tim pelaksana 3 orang.
+- Total budget maksimal Rp1.500.000.
+- Dukungan yang dibutuhin: [isi kebutuhan nyata].
+- Manfaat buat partner yang bisa beneran kami kasih: [isi manfaat nyata].
+- Nama, tanggal, dan tempat acara: [isi detail atau tulis belum ditentukan].
+
+Draft awal ada di baseline-pitch.txt. Pakai itu sebagai baseline
+pembanding, bukan sesuatu yang harus dipertahanin.
+
+Yang aku butuhin:
+1. Satu pitch final yang siap aku revisi sebelum dikirim.
+2. Pembuka yang spesifik buat partner ini dan acara ini.
+3. Permintaan dukungan yang jelas, alasan kecocokan partner, dan
+   langkah berikutnya yang gampang dijawab.
+4. Nada hangat dan profesional, tanpa bahasa klise atau pujian generik.
+5. Jangan ngarang sponsor, hasil acara, angka engagement, atau
+   pengalaman pribadi. Pakai placeholder kalau detailnya belum ada.
+
+Pastiin task file memuat semua konteks dan batasan ini, karena
+subagent ga baca seluruh chat.
+
+Setelah turnamen, tunjukin winning output, critique yang berhasil
+dijawab, dan perbandingan skornya sama draft awal. Lapor apa adanya
+kalau draft awal malah dapet skor lebih tinggi. Jangan kirim pitch
+ini ke siapa pun.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Dua kalimat terakhir itu yang paling sering orang lupa. Yang pertama nutup kemungkinan dia ngarang hasil yang enak didenger. Yang kedua nutup kemungkinan dia ngirim beneran, karena skill-nya sendiri mewanti-wanti: kalau solusinya ngubah file di project kamu, jangan diterapin, tanya dulu.",
+      ],
+    },
+    {
+      heading: "Cara baca hasilnya",
+      icon: "trending-up",
+      paragraphs: [
+        "Selama turnamen jalan, kamu ga bakal dikasih liat apa-apa selain satu baris per ronde, kayak \"Ronde 2 selesai: 25 dari 100 tersisa\". Itu disengaja. Ada ratusan file solusi, serangan, dan verdict, dan yang ngejalanin turnamen emang dilarang bacain satu-satu.",
+        "Di akhir kamu dapet lima hal: solusi juaranya lengkap, daftar serangan yang dia lewatin, kartu strateginya satu baris, jumlah ronde, dan kalau ada baseline, skor perbandingan akhirnya.",
+        "Yang paling penting dari lima itu menurutku yang terakhir. Instruksinya jelas: kalau jawaban lama skornya lebih tinggi, bilang terus terang dan tunjukin dua-duanya. Jadi turnamen ini bisa aja nyimpulin bahwa draft kamu udah lebih bagus, dan itu hasil yang valid.",
+        "Semua rekaman lengkapnya tetep ada di folder .arena/ kalau kamu mau ngubek sendiri.",
+      ],
+    },
+    {
+      heading: "Yang perlu kamu tau sebelum mulai",
+      icon: "alert",
+      paragraphs: [
+        "Satu, jurinya AI juga. Mereka lebih teliti dari satu jawaban sekali jalan karena ada rubrik dan ada verifikasi, tapi mereka tetep bisa salah. Juara turnamen artinya jawaban itu ngalahin 99 yang lain menurut rubrik itu, bukan artinya jawaban itu bener. Cek sendiri sebelum dipakai.",
+        "Dua, subagent nulis banyak file ke folder .arena/. Di mode permission default, itu satu approval per file, dan di run gede jadi ratusan. Skill-nya sendiri nyaranin kamu nyalain accept-edits mode (Shift+Tab) selama run, dan dia ga bakal ngubah setelan kamu sendirian.",
+        "Tiga, ini bukan buat semua pertanyaan. Nanya definisi atau minta caption pendek ga butuh 16 agent. Yang kepake itu buat task yang punya banyak cara ngerjain dan kamu ga puas sama yang pertama.",
+        "Empat, kalau konteks kamu ke-compact di tengah jalan, ga ada yang ilang. Statusnya ada di disk, tinggal jalanin status terus next dan lanjut.",
+        "Lima, kamu bisa berhentiin kapan aja dan dilanjut nanti.",
+      ],
+    },
+    {
+      heading: "Yang bakal aku update",
+      icon: "refresh",
+      paragraphs: [
+        "Guide ini aku tulis dari dokumentasi dan kodenya, bukan dari hasil run aku sendiri. Yang belum ada di sini: berapa lama --quick jalan di akun aku, berapa kuota yang kebakar, dan apakah juaranya beneran lebih spesifik dari draft awal buat brief pitch di atas.",
+        "Begitu aku udah ngerekam satu run beneran, bagian itu aku tambahin lengkap sama skor sebelum-sesudahnya, termasuk kalau ternyata hasilnya mengecewakan.",
+      ],
+      cta: {
+        label: "Buka repo Arena Skill",
+        href: "https://github.com/Jakeschincariol/arena-skill",
+        note: "Repo asli Jake Schincariol. MIT license, gratis diambil, dan kodenya bisa kamu baca sendiri sebelum install.",
+      },
+    },
+  ],
+  "dots-setup": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"DOTS\" di video.",
+        "OpenAI baru ngeluarin dots di DevDay 2026. Singkatnya: agent yang tetep kerja walaupun chat-nya kamu tutup. Dia punya komputer cloud sendiri lengkap sama browser, dan bisa nyambung ke app yang kamu pilih.",
+        "Tapi bagian yang nentuin ini kepake atau cuma mainan sehari itu bukan fiturnya. Itu cara kamu nyetelnya di prompt pertama. Di bawah ini aku tulis polanya, prompt lengkapnya, sama cara nilai hasilnya.",
+        "Jujur di depan: dots masih rolling out dan aku belum ngejalanin satu dot sampai selesai. Yang di bawah ini aku susun dari pengumuman resmi OpenAI, halaman dokumentasinya, sama guide setup-nya Daniel Ch. Bagian hasil tes aku tambahin nanti, setelah aku rekam sendiri.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/hero.png",
+          alt: "Empat hal yang bikin dots beda: komputer cloud sendiri, app yang kamu pilih, Custom Rules, dan Activity View",
+          caption: "Empat ini yang perlu kamu ngerti sebelum nulis prompt pertama.",
+        },
+      ],
+    },
+    {
+      heading: "Kesalahan setup nomor satu",
+      icon: "alert",
+      paragraphs: [
+        "Hal pertama yang orang lakuin pas dapet agent baru: ngasih daftar tugas. Riset kompetitor, bikin draft newsletter, rapihin Drive, cari ide konten.",
+        "Masalahnya bukan dia ga sanggup. Masalahnya daftar kayak gitu ga punya standar dan ga punya kapan selesai. Lima pekerjaan beda, lima standar beda, dan kamu ga nulis satu pun. Jadi dia nebak semuanya, dan kamu ga punya cara buat bilang hasilnya bagus atau ngga.",
+        "Yang dipakai di guide Daniel Ch itu kebalikannya: satu tanggung jawab yang jalan terus. Contoh dari use case kreator di pengumumannya: tiap ada transkrip wawancara baru masuk, dot-nya nyiapin ide klip, show notes, sama draft post buat kamu review.",
+        "Bedanya kelihatan di kata \"tiap ada\". Itu bukan tugas yang selesai hari ini, itu pekerjaan yang punya pemicu. Dan karena pemicunya jelas, standarnya bisa kamu tulis sekali buat selamanya.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/satu-tugas.png",
+          alt: "Perbandingan daftar tugas acak dengan satu tanggung jawab yang punya enam bagian",
+          caption: "Mulai dari yang berulang, bisa dicek, dan risikonya kecil. Jangan inbox pribadi atau akun yang ada duitnya.",
+        },
+      ],
+    },
+    {
+      heading: "Pilih tanggung jawab pertamanya",
+      icon: "search",
+      paragraphs: [
+        "Tiga syarat: berulang, bisa diverifikasi, dan risikonya kecil.",
+        "Yang cocok buat percobaan pertama: ngecek pengumuman resmi kampus, halaman beasiswa yang publik, release notes sebuah produk, atau halaman status sebuah proyek. Semuanya sumber publik, jadi kamu bisa cek sendiri dalam 30 detik apakah dia ngarang atau ngga.",
+        "Yang jangan dulu: inbox pribadi, akun finansial, rekam medis, dan izin buat publish apa pun. Bukan karena dia pasti ngaco, tapi karena kamu belum tau polanya. Naikin aksesnya setelah kamu liat dia kerja beberapa putaran.",
+      ],
+    },
+    {
+      heading: "Delapan blok yang harus ada di prompt pertama",
+      icon: "edit",
+      paragraphs: [
+        "Tiap blok di bawah ini nutup satu cara dia bisa ngarang atau kelewat batas. Kalau kamu ngilangin satu, biasanya itu yang jadi masalah di hari ketiga.",
+        "Yang paling sering dilupain: blok standar dan contoh. Kalau kamu cuma bilang \"bikin yang natural\", dia harus nebak natural itu apa. Kasih satu dua output yang kamu udah setujui, terus jelasin kenapa yang itu lulus. Kalau kamu ga punya contohnya, suruh dia nanya ke kamu, jangan biarin dia nebak.",
+        "Yang kedua paling sering dilupain: bedain izin app sama izin aksi. App yang nyambung bukan berarti dia boleh ngelakuin semua hal di dalam app itu. Dua hal itu diatur terpisah di dots, dan prompt kamu harusnya ikut mempertegas.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/anatomi.png",
+          alt: "Delapan blok prompt: tanggung jawab, kenapa penting, standar, sumber, ritme, format, otonomi, batas approval",
+          caption: "Blok terakhir yang paling sering kepake: minta dia nunjukin plan dulu sebelum gerak.",
+        },
+      ],
+    },
+    {
+      heading: "Prompt lengkapnya, tinggal copy",
+      icon: "file-text",
+      paragraphs: [
+        "Ganti yang di kurung siku sama detail kamu. Prompt ini tetep berguna walaupun kamu belum punya dots, tapi dengan satu catatan yang penting: nempelin ini ke chat ChatGPT biasa cuma ngasih kamu satu brief sekali jalan. Chat biasa ga bakal mantau sendiri.",
+      ],
+      code: [
+        `Aku mau kamu pegang satu tanggung jawab yang jalan terus:
+[HAL SPESIFIK YANG DIPANTAU].
+
+Kenapa ini penting: [KEPUTUSAN ATAU KERJAAN YANG KEBANTU].
+Buat siapa: [SIAPA YANG BACA DAN APA YANG BISA MEREKA LAKUIN].
+
+Standar: [APA YANG HARUS ADA DI UPDATE YANG BAGUS, DAN APA YANG
+HARUS DIHINDARI]. Ini [SATU ATAU DUA CONTOH YANG AKU SETUJUI] dan
+alasan kenapa itu memenuhi standar. Kalau contohnya belum ada,
+tanya aku, jangan nebak sendiri arti kata kayak "natural" atau
+"bagus".
+
+Sumber yang boleh: [URL RESMI YANG PUBLIK ATAU APP YANG UDAH AKU
+SETUJUI]. Pakai cuma ini sampai kamu minta izin nambah. Taruh link
+sumber langsung di sebelah tiap klaim faktual. Kalau sumbernya
+ga bisa diakses atau ambigu, bilang.
+
+Ritme cek: Mulai dari satu brief baseline sekarang. Habis itu
+lanjut pantau kalau ada perubahan yang berarti. Kasih tau aku kapan
+kamu bakal cek lagi. Lapor cuma kalau perubahannya ngubah tindakan
+atau keputusan nyata. Kalau ga ada yang berarti, cukup satu baris
+atau diem aja. Jangan bilang kamu udah ngecek sebuah sumber kalau
+kamu ga bisa ngaksesnya.
+
+Format tiap update yang berarti:
+1) Apa yang berubah, sama link resmi dan tanggalnya.
+2) Apa yang bisa aku lakuin beda gara-gara itu, plus syarat aksesnya.
+3) Satu cara 30 detik buat aku cek sendiri.
+4) Apa yang masih ga pasti atau butuh keputusan aku.
+
+Otonomi: Kamu boleh riset, analisis, rapihin, dan bikin draft privat
+pakai sumber dan app yang udah disetujui. App yang nyambung bukan
+berarti kamu dapet izin buat semua aksi di dalamnya.
+
+Batas approval: Jangan publish, posting, DM, email, share file,
+keluar duit, hapus data, edit halaman live atau file aku, nyambungin
+app baru, login ke website, atau ngubah setelan tanpa minta izin aku
+dulu. Kalau sebuah aksi butuh akses yang kamu ga punya, tanya.
+Pakai safeguard bawaan kamu juga, bukan cuma instruksi ini.
+
+Sebelum mulai, tunjukin plan kamu: tanggung jawabnya, sumber dan app
+plus izin yang dibutuhin, apa yang bakal kamu kerjain sendiri, ritme
+update kamu, dan di titik mana kamu bakal berhenti minta approval.
+Jangan mulai aksi apa pun ke luar sebelum aku review plan itu.
+Habis itu baru bikin brief baseline-nya.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalimat paling berguna di situ ada di paragraf terakhir: tunjukin plan dulu. Itu yang bikin kamu bisa ngecek izin apa aja yang dia minta sebelum dia nyentuh apa pun, bukan setelahnya.",
+        "Kalimat kedua paling berguna agak terselip: \"jangan bilang kamu udah ngecek sebuah sumber kalau kamu ga bisa ngaksesnya\". Ini nutup kegagalan yang paling susah ketahuan, yaitu update yang kedengeran rapi padahal sumbernya ga kebuka.",
+      ],
+    },
+    {
+      heading: "Custom Rules: empat level, per jenis aksi",
+      icon: "shield",
+      paragraphs: [
+        "Di luar prompt, dots punya sistem aturannya sendiri. Dan ini bukan satu saklar on-off. Kamu nempelin satu dari empat perilaku ke tiap jenis tindakan, misalnya kirim pesan ke pelanggan atau hapus file project bersama.",
+        "Empatnya: jalan tanpa nanya, jalan cuma pas kamu bilang, minta izin dulu, atau balikin ke kamu buat dikerjain sendiri.",
+        "Di atas itu semua ada auto-review. Tiap aksi yang bisa ngaruh ke akun kamu atau nyebarin informasi dicek dulu ke instruksi kamu, izin app-nya, Custom Rules, sama syarat safety bawaannya. Hasilnya nentuin dia jalan sendiri, minta approval, atau nyerahin ke kamu. Ganti password itu contoh yang selalu diserahin ke kamu.",
+        "Satu hal yang ga bisa kamu matiin: konfirmasi buat login yang tersimpan. Custom Rules ga bisa ngelewatin itu. Dan di workspace, admin bisa matiin Custom Rules sepenuhnya, yang artinya aturan tersimpan jadi ga bisa diedit.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/custom-rules.png",
+          alt: "Empat level Custom Rules dari jalan sendiri sampai dibalikin ke kamu",
+          caption: "Izin app ngatur dia bisa nyentuh apa. Custom Rules ngatur kapan dia boleh gerak. Dua hal yang beda.",
+        },
+      ],
+    },
+    {
+      heading: "Siapa yang udah bisa pakai",
+      icon: "users",
+      paragraphs: [
+        "Dot pertama udah termasuk tanpa biaya tambahan di ChatGPT Pro 100, Pro 200, Pro 500, sama Business Premium.",
+        "Bikinnya di app desktop atau di ChatGPT lewat browser desktop. Setelah setup, dot yang sama bisa kamu buka di app mobile. Mobile web belum didukung.",
+        "OpenAI bilang nanti bakal ada opsi nambah dot dan bayar buat naikin kecepatan atau beban kerja bulanannya, tapi harganya belum diumumin. Jadi buat sekarang: satu dot dulu.",
+        "Rollout-nya bertahap, jadi kalau belum kelihatan di akun kamu, itu normal, bukan berarti setupnya salah.",
+        "Satu nuansa yang sering kelewat soal komputer cloud-nya: dia emang jalan waktu laptop kamu mati, tapi itu komputer cloud-nya, bukan komputer kamu. Tugas yang butuh komputer lokal kamu ga bisa jalan kalau komputer itu lagi mati.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/akses.png",
+          alt: "Daftar ketersediaan dots dan hal-hal yang perlu diingat",
+          caption: "Dicek 2 Oktober 2026. Rollout-nya masih gerak, jadi cek halaman resminya kalau ada yang berubah.",
+        },
+      ],
+    },
+    {
+      heading: "Cara nilai hasilnya",
+      icon: "check",
+      paragraphs: [
+        "Tulis kriteria ini sebelum dia jalan, bukan setelah kamu baca jawabannya. Kalau dibikin belakangan, kamu bakal nyocokin kriteria ke jawaban, bukan sebaliknya.",
+        "Empat kriterianya: sumber, kegunaan, tindak lanjut, dan izin. Yang keempat paling penting di awal, karena itu yang ngasih tau kamu apakah batas yang kamu tulis beneran dia ikutin.",
+        "Buat laporan hasilnya, pakai satu kalimat yang susah dibantah: aku kasih dot satu tanggung jawab, dia ngelakuin ini, aku cek di sumber atau Activity, dan menurutku lulus atau belum, karena alasan yang bisa diliat.",
+      ],
+      images: [
+        {
+          src: "/blog/dots-setup/nilai.png",
+          alt: "Tabel empat kriteria penilaian: sumber, kegunaan, tindak lanjut, dan izin",
+          caption: "Kalau satu baris di kolom kanan kejadian, berhenti dulu dan perketat prompt-nya sebelum nambah akses.",
+        },
+      ],
+    },
+    {
+      heading: "Yang bakal aku update",
+      icon: "refresh",
+      paragraphs: [
+        "Yang belum ada di guide ini: hasil run aku sendiri. Berapa lama dia nyiapin brief baseline, apakah dia beneran berhenti minta izin di titik yang aku tulis, dan apakah update keduanya masih berguna atau udah mulai ngulang.",
+        "Begitu aku udah ngerekam satu tanggung jawab jalan beberapa putaran, bagian itu aku tambahin lengkap sama screenshot Activity-nya, termasuk kalau hasilnya ga sebagus yang diharepin.",
+      ],
+      cta: {
+        label: "Baca halaman kontrol dots",
+        href: "https://learn.chatgpt.com/docs/dots/controls",
+        note: "Dokumentasi resmi buat Custom Rules, izin app, auto-review, sama Activity View.",
+      },
+    },
+  ],
+  "stop-upload-pdf": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"PDF\" di video.",
+        "Tiap kamu upload PDF ke Claude, kamu lagi ngebakar kuota kamu sendiri lebih cepet dari yang kamu kira. Dan alesannya bukan karena PDF-nya gede, tapi karena cara PDF diproses.",
+        "Di bawah ini: kenapa mahal (pakai angka dari dokumentasi resminya), tool gratis dari Microsoft buat benerin, satu hal yang sering salah dikira soal MCP, dan kapan kamu justru harus tetep pakai PDF aslinya.",
+      ],
+      images: [
+        {
+          src: "/blog/stop-upload-pdf/hero.png",
+          alt: "Satu halaman PDF diubah jadi gambar dan teks, dua-duanya dihitung token",
+          caption: "Satu halaman masuk dua kali: sebagai gambar, dan sebagai teks hasil ekstraksi.",
+        },
+      ],
+    },
+    {
+      heading: "Kenapa PDF mahal",
+      icon: "alert",
+      paragraphs: [
+        "Pas sebuah PDF dikirim, sistemnya ngelakuin dua hal buat tiap halaman. Pertama, halamannya dikonversi jadi gambar. Kedua, teksnya diekstrak dan dikasih bareng gambar halaman itu.",
+        "Itu desain yang masuk akal, dan emang ada gunanya: itu yang bikin kamu bisa nanya soal grafik, diagram, dan isi visual lain di dokumen. Tapi konsekuensinya satu halaman dihitung dua kali.",
+        "Angka resminya: biaya token teks itu kira-kira 1.500 sampai 3.000 token per halaman, tergantung padet atau ngganya isinya. Biaya token gambarnya dihitung terpisah, pakai perhitungan yang sama kayak gambar biasa.",
+        "Jadi dokumen 20 halaman itu udah 30.000 sampai 60.000 token cuma dari sisi teksnya, sebelum token gambarnya masuk. Dan itu kekirim ulang tiap kamu mulai chat baru dengan file yang sama.",
+      ],
+      images: [
+        {
+          src: "/blog/stop-upload-pdf/hitungan.png",
+          alt: "Estimasi token buat 1, 10, dan 20 halaman PDF",
+          caption: "Angka ini estimasi dari rentang resmi, bukan hasil pengukuran aku. Kalau mau yang persis, pakai token counting.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Satu catatan biar adil: angka-angka itu dari dokumentasi PDF support buat API-nya Anthropic. Aplikasi Claude yang kamu pakai sehari-hari ga nampilin hitungan tokennya ke kamu, jadi yang bisa aku bilang dengan yakin itu mekanismenya, bukan angka persis buat tiap upload kamu di app.",
+        "Yang ga berubah di dua-duanya: makin banyak lapisan yang harus diproses ulang, makin mahal. Dan Markdown ga punya lapisan gambar sama sekali.",
+      ],
+    },
+    {
+      heading: "MarkItDown, dari Microsoft",
+      icon: "sparkles",
+      paragraphs: [
+        "MarkItDown itu utilitas Python kecil dari Microsoft yang ngubah macem-macem file jadi Markdown. Alesannya ditulis terang-terangan di repo-nya: model-model besar udah fasih banget sama Markdown, jadi formatnya natural buat mereka dan hemat token.",
+        "Yang didukung: PDF, Word, PowerPoint, Excel, gambar, audio, HTML, CSV, JSON, XML, ZIP, EPUB, sampai URL YouTube.",
+        "Satu hal yang perlu kamu tau sejak awal, dan ini ditulis sendiri sama mereka: hasilnya dibikin buat dibaca tool analisis teks, bukan buat jadi konversi dokumen yang mirip aslinya. Dia mentingin struktur, bukan tampilan. Buat dipakai sama Claude itu justru yang kamu mau.",
+      ],
+      images: [
+        {
+          src: "/blog/stop-upload-pdf/markitdown.png",
+          alt: "Belasan format file dikonversi jadi satu file Markdown",
+          caption: "Jalannya di laptop kamu. File-nya ga dikirim ke mana-mana kecuali kamu nyalain opsi layanan cloud-nya.",
+        },
+      ],
+    },
+    {
+      heading: "Install dan pakai",
+      icon: "plug",
+      paragraphs: [
+        "Butuh Python. Install semuanya sekaligus:",
+      ],
+      code: [
+        `pip install 'markitdown[all]'`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalau mau yang ringan, install cuma yang kepake. Grup yang ada antara lain pdf, docx, pptx, xlsx, xls, outlook, audio-transcription, sama youtube-transcription:",
+      ],
+      code: [
+        `pip install 'markitdown[pdf, docx, pptx]'`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Habis itu satu baris per file:",
+      ],
+      code: [
+        `markitdown dokumen.pdf > dokumen.md
+
+# atau dengan flag output
+markitdown dokumen.pdf -o dokumen.md
+
+# atau lewat pipe
+cat dokumen.pdf | markitdown`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalau kamu lebih nyaman manggil dari Python, misalnya buat convert banyak file sekaligus lewat loop:",
+      ],
+      code: [
+        `from markitdown import MarkItDown
+
+md = MarkItDown(enable_plugins=False)
+result = md.convert("laporan.xlsx")
+print(result.markdown)`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Buat PDF hasil scan yang teksnya ga bisa diekstrak, kamu butuh OCR. Ada plugin resminya, markitdown-ocr, yang nambahin OCR lewat LLM vision. Ada juga opsi Azure Document Intelligence kalau kamu udah punya endpoint-nya.",
+      ],
+    },
+    {
+      heading: "Soal MCP: ini yang perlu aku luruskan",
+      icon: "shield",
+      paragraphs: [
+        "Di video aku bilang connect MCP server-nya sekali terus semua upload ke-convert otomatis. Itu ga tepat, dan ini versi benernya.",
+        "Server MCP-nya, namanya markitdown-mcp, ngasih satu tool: convert_to_markdown(uri). Tool itu dipanggil buat satu file atau satu URL, pas diminta. Nerima skema http, https, file, sama data.",
+        "Artinya nyambungin server-nya sekali ga bikin semua upload kamu otomatis berubah. Ga ada yang nyegat upload kamu. Yang kamu dapet itu kemampuan buat bilang \"convert file ini dulu\", dan Claude manggil tool-nya.",
+        "Bedanya tetep kerasa, karena kamu ga perlu bolak-balik ke terminal. Tapi \"otomatis\" itu kata yang salah, dan aku lebih milih ngakuin daripada ngebiarin.",
+      ],
+      images: [
+        {
+          src: "/blog/stop-upload-pdf/mitos.png",
+          alt: "Mitos MCP auto-convert dibandingkan dengan tool convert_to_markdown yang dipanggil per file",
+          caption: "Satu tool, dipanggil per file atau per URL. Bukan pencegat upload.",
+        },
+      ],
+    },
+    {
+      paragraphs: [
+        "Install server-nya:",
+      ],
+      code: [
+        `pip install markitdown-mcp`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Konfigurasi yang didokumentasikan buat Claude Desktop pakai Docker, ditaruh di claude_desktop_config.json:",
+      ],
+      code: [
+        `{
+  "mcpServers": {
+    "markitdown": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "markitdown-mcp:latest"]
+    }
+  }
+}`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalau kamu install lewat pip tadi dan ga mau ribet sama Docker, perintahnya jalan sebagai STDIO server, jadi kamu bisa arahin command-nya langsung ke markitdown-mcp. Dua catatan keamanan dari mereka: server-nya ga punya autentikasi dan jalan dengan hak akses user kamu, dan kalau kamu pakai mode HTTP, jangan di-bind ke interface selain localhost kecuali kamu paham risikonya.",
+      ],
+    },
+    {
+      heading: "Kapan jangan di-convert",
+      icon: "help",
+      paragraphs: [
+        "Markdown bukan jawaban buat semua PDF, dan ini bagian yang sering dilewatin orang pas ngerekomendasiin tool kayak gini.",
+        "Convert duluan kalau isinya teks: paper, kontrak, modul, notulen, deck yang kamu butuh isinya. Apalagi kalau file itu bakal kamu tanyain berkali-kali di chat yang beda-beda, atau mau kamu simpen di Project biar bisa dicari.",
+        "Pakai PDF aslinya kalau kamu lagi nanya soal grafik, diagram, atau tata letaknya, kalau posisi visual ikut nentuin arti, atau kalau itu hasil scan yang butuh OCR duluan. Dan kalau filenya cuma sehalaman dan sekali pakai, convert malah nambah langkah.",
+        "Kalau ragu: convert dulu, terus cek satu bagian yang kamu udah tau isinya. Sepuluh detik, dan kamu langsung tau hasilnya kepake atau ngga.",
+      ],
+      images: [
+        {
+          src: "/blog/stop-upload-pdf/kapan.png",
+          alt: "Daftar kapan sebaiknya convert ke Markdown dan kapan tetap pakai PDF aslinya",
+          caption: "Yang paling sering kelewat: PDF hasil scan. Teksnya ga kebaca tanpa OCR.",
+        },
+      ],
+    },
+    {
+      heading: "Urutan yang aku saranin",
+      icon: "arrow-right",
+      paragraphs: [
+        "Satu, install markitdown. Dua, convert satu file yang teksnya jelas, terus buka hasilnya bareng aslinya dan bandingin satu bagian. Tiga, kalau hasilnya kepake, baru convert yang lain atau pasang MCP-nya.",
+        "Jangan kebalik. Pasang MCP duluan tanpa pernah liat hasil konversinya itu cara paling cepet buat ngerasa setupnya gagal padahal yang bermasalah file pertamanya.",
+      ],
+      cta: {
+        label: "Buka repo MarkItDown",
+        href: "https://github.com/microsoft/markitdown",
+        note: "Repo resmi Microsoft. Ada file contoh buat kamu tes dulu sebelum pakai dokumen sendiri.",
+      },
+    },
+  ],
+  "ai-agent-itu-apa": [
+    {
+      paragraphs: [
+        "Meta ngerilis Muse awal September. Beberapa hari lalu OpenAI ngenalin dots. Dua-duanya disebut AI agent.",
+        "Tapi kata \"agent\" ini dipakai di mana-mana sampai artinya kabur. Jadi sebelum kamu mutusin mau pakai yang mana, atau mau bayar atau ngga, ini penjelasan pelan-pelannya: agent itu sebenernya ngapain, dan apa bedanya sama AI yang kamu pakai sekarang.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-agent/hero.png",
+          alt: "Perbandingan chatbot yang ngasih jawaban dengan agent yang ngerjain langkah-langkahnya",
+          caption: "Bedanya bukan di pinternya. Bedanya di siapa yang ngerjain langkah-langkah di tengah.",
+        },
+      ],
+    },
+    {
+      heading: "Contoh paling gampang",
+      icon: "message",
+      paragraphs: [
+        "Bayangin kamu bilang: aku mau ke Bali Jumat sore, budget segini, jangan transit, dan harus dapet bagasi.",
+        "Kalau kamu cuma nanya ke AI biasa, dia mungkin ngasih daftar flight dari yang dia tau. Setelah itu kerjaannya balik ke kamu: buka situsnya, cek jamnya, bandingin bagasinya, pastiin harganya masih sama.",
+        "Agent yang kamu kasih akses bisa ngerjain bagian tengah itu. Buka website-nya, cek jam dan harga, bandingin mana yang bagasinya udah termasuk, terus milih opsi yang beneran cocok sama kriteria kamu. Dia bahkan bisa ngisi form booking-nya.",
+        "Terus pas udah waktunya bayar, dia balik ke kamu buat minta persetujuan.",
+        "Titik berhenti itu bukan karena dia ga sanggup. Itu karena kamu yang naruh batasnya di situ.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-agent/contoh.png",
+          alt: "Delapan langkah dari satu goal, dengan langkah terakhir berhenti meminta izin",
+          caption: "Tujuh langkah jalan sendiri, satu langkah balik ke kamu. Garis itu yang kamu yang gambar.",
+        },
+      ],
+    },
+    {
+      heading: "Loop-nya cuma empat langkah",
+      icon: "refresh",
+      paragraphs: [
+        "Yang bikin agent keliatan pinter bukan satu jawaban panjang. Itu loop kecil yang diulang.",
+        "Kamu kasih goal, bukan langkah-langkahnya. Dia pakai tool: buka web, baca file, isi form, manggil app. Dia cek hasilnya ke batasan yang kamu kasih. Kalau cocok lanjut, kalau ngga dia balik cari opsi lain.",
+        "Bagian terakhir itu yang paling bikin beda. AI yang cuma ngejawab ga punya kesempatan buat nyadar jawabannya salah. Agent punya, karena dia ngeliat hasil tiap langkah sebelum lanjut.",
+        "Contoh kedua yang polanya sama: inbox kamu lagi penuh. Agent bisa nyari email yang penting, kumpulin informasi yang dibutuhin, terus nyiapin draft balasan. Kamu review dulu sebelum dikirim.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-agent/loop.png",
+          alt: "Loop empat langkah: goal, tool, cek, lanjut, dengan panah balik ke awal",
+          caption: "Satu putaran loop ini yang ngebedain agent dari satu jawaban sekali jalan.",
+        },
+      ],
+    },
+    {
+      heading: "Yang paling sering kelewat",
+      icon: "shield",
+      paragraphs: [
+        "Dia ga otomatis punya akses ke semuanya. Ini bagian yang bikin orang takut duluan atau malah kelewat santai, dan dua-duanya salah paham yang sama.",
+        "Ada dua saklar yang beda. Saklar pertama: app mana yang boleh dia sentuh. Kamu yang nyambungin satu-satu, dan kamu bisa cabut. Saklar kedua: aksi mana yang boleh dia lakuin sendiri, dan mana yang harus minta izin dulu.",
+        "Dua saklar itu ga nyambung otomatis. App yang nyambung bukan berarti dia boleh ngelakuin semua hal di dalam app itu. Riset dan bikin draft itu satu hal, ngirim dan publish itu hal lain.",
+        "Patokan yang aman buat mulai: biarin dia riset, analisis, dan nyiapin draft. Minta izin dulu buat semua yang keluar ke orang lain atau yang susah dibalikin, yaitu ngirim, posting, bayar, hapus, dan ngubah halaman yang udah live.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-agent/kendali.png",
+          alt: "Dua saklar: akses app dan izin aksi, dengan contoh mana yang jalan sendiri dan mana yang nanya dulu",
+          caption: "Naikin aksesnya pelan-pelan, setelah kamu liat polanya beberapa putaran.",
+        },
+      ],
+    },
+    {
+      heading: "Dua yang lagi rame, buat gambaran",
+      icon: "trending-up",
+      paragraphs: [
+        "Meta ngumumin Muse tanggal 8 September 2026. Dia disebut personal AI agent yang bisa ngerjain tugas panjang, dan nyambung ke beberapa kategori hidup digital kamu: email, kalender, pembayaran, kesehatan, belanja, sama smart home. Rilisnya di Amerika Serikat, lewat iOS, Android, dan web, dengan tier gratis plus paket berbayar.",
+        "OpenAI ngenalin dots di DevDay 2026. Yang beda: tiap dot punya komputer cloud sendiri lengkap sama browser, jadi dia bisa kerja pas laptop kamu mati. Dot pertama udah termasuk di Pro 100, Pro 200, Pro 500, sama Business Premium, dan rollout-nya masih bertahap.",
+        "Aku belum nyobain dua-duanya, jadi ini bukan rekomendasi mana yang lebih bagus. Ini cuma buat kamu punya gambaran kenapa kata \"agent\" tiba-tiba ada di mana-mana bulan ini.",
+      ],
+      images: [
+        {
+          src: "/blog/ai-agent/lanskap.png",
+          alt: "Perbandingan fakta dasar Meta Muse dan OpenAI dots",
+          caption: "Dicek 2 Oktober 2026. Dua-duanya masih baru dan masih gerak, jadi cek halaman resminya sebelum ngandelin satu detail.",
+        },
+      ],
+    },
+    {
+      heading: "Satu kalimat buat dibawa pulang",
+      icon: "check",
+      paragraphs: [
+        "AI agent itu AI yang bisa bantu nyelesein tugas, bukan cuma ngasih jawaban.",
+        "Kamu kasih goal, dia pakai tools buat ngerjain langkahnya, cek hasilnya, lalu lanjut. Kalau ada yang ga cocok, dia cari opsi lain. Dan dia berhenti di tempat yang kamu tentuin, bukan di tempat dia ngerasa cukup.",
+        "Satu hal terakhir yang aku rasa penting: karena dia ngerjain langkah-langkah di tengah, kesalahannya juga ada di tengah, di tempat yang ga kamu liat. Makanya bagian approval itu bukan formalitas. Itu satu-satunya tempat kamu ngecek sebelum ada yang keluar ke dunia.",
+      ],
+    },
+  ],
   "study-with-chatgpt": [
     {
       paragraphs: [

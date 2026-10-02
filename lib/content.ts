@@ -106,6 +106,42 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "arena-skill",
+    category: "AI TUTORIAL",
+    title: "ARENA: 100 AGENT CLAUDE DIADU JADI 1 JAWABAN",
+    description:
+      "Daripada ngetik \"coba lagi\" lima kali, Arena Skill bikin 100 agent ngerjain task yang sama persis dengan 100 strategi beda, terus diadu sampai tinggal satu. Ini cara install-nya, angka biayanya yang sebenernya, dan satu file yang nentuin hasilnya.",
+    readMinutes: 14,
+    publishedAt: "2026-10-02",
+  },
+  {
+    slug: "dots-setup",
+    category: "SETUP GUIDE",
+    title: "OPENAI DOTS: CARA SETUP + PROMPT LENGKAP",
+    description:
+      "Dots tetep kerja walau chat-nya kamu tutup. Yang nentuin kepake atau ngga bukan fiturnya, tapi prompt pertamanya. Ini 8 blok yang harus ada, prompt copy-paste lengkapnya, 4 level Custom Rules, dan cara nilai hasilnya.",
+    readMinutes: 12,
+    publishedAt: "2026-10-02",
+  },
+  {
+    slug: "stop-upload-pdf",
+    category: "SAVE THIS",
+    title: "STOP UPLOAD PDF KE CLAUDE",
+    description:
+      "Satu halaman PDF masuk dua kali: sebagai gambar, dan sebagai teks. 1.500 sampai 3.000 token per halaman menurut dokumentasi resminya. Ini cara benerin pakai MarkItDown dari Microsoft, plus satu hal soal MCP yang perlu aku luruskan.",
+    readMinutes: 10,
+    publishedAt: "2026-10-02",
+  },
+  {
+    slug: "ai-agent-itu-apa",
+    category: "AI TUTORIAL",
+    title: "AI AGENT ITU SEBENARNYA APA",
+    description:
+      "Meta rilis Muse, OpenAI ngenalin dots, dua-duanya disebut agent. Ini penjelasan pelan-pelannya: loop empat langkah yang bikin agent beda dari chatbot, dan dua saklar izin yang paling sering kelewat.",
+    readMinutes: 7,
+    publishedAt: "2026-10-02",
+  },
+  {
     slug: "study-with-chatgpt",
     category: "SAVE THIS",
     title: "CHATGPT BUAT BELAJAR: 13 SLASH COMMAND",
