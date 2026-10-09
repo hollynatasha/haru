@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "fog-mirror",
+    category: "COPY PASTE",
+    title: "FOG MIRROR: PROMPT LENGKAPNYA, TINGGAL COPY",
+    description:
+      "Kaca kamar mandi yang ngembun, di satu tab browser. Hembus napas, gambar pakai ujung jari, hapus pakai telapak. Halaman ini isinya satu hal: prompt build lengkapnya, siap kamu kasih ke AI coding agent.",
+    readMinutes: 15,
+    publishedAt: "2026-10-08",
+  },
+  {
     slug: "arena-skill",
     category: "AI TUTORIAL",
     title: "ARENA: 100 AGENT CLAUDE DIADU JADI 1 JAWABAN",
