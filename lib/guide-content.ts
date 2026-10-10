@@ -49,36 +49,15 @@ export const GUIDE_BODIES: Record<string, Section[]> = {
   "fog-mirror": [
     {
       paragraphs: [
-        "Halaman ini isinya cuma satu hal: prompt-nya. Jadi intronya aku bikin pendek.",
-        "Fog Mirror itu kaca kamar mandi yang ngembun, tapi di tab browser. Webcam kamu jadi cerminnya. Kamu tahan spasi, embunnya mekar dari arah mulut kamu. Kamu jepit jempol sama telunjuk, terus gambar pakai ujung jari, dan yang kamu lewatin jadi bening sampai muka kamu kelihatan. Titik-titik air ngumpul di garis itu terus ngalir turun. Kamu buka lima jari dan sapu, kehapus lebar kayak dilap lengan baju.",
-        "Hasilnya satu file HTML. Ga ada npm, ga ada build step, ga ada framework. Dan ga ada satu frame pun yang keluar dari laptop kamu.",
-        "Satu syarat yang sering bikin orang nyerah di menit pertama: getUserMedia cuma jalan di https atau localhost. Dobel klik file-nya ga bakal bisa. Jalanin python3 -m http.server 8787 di folder itu, terus buka http://localhost:8787/fog.html.",
+        "Halaman ini isinya cuma satu hal: prompt-nya.",
+        "Fog Mirror itu kaca kamar mandi yang ngembun, tapi di tab browser. Tahan spasi buat ngembun, jepit jempol sama telunjuk buat gambar, buka lima jari buat ngehapus lebar. Hasilnya satu file HTML, dan ga ada satu frame pun yang keluar dari laptop kamu.",
+        "Satu hal sebelum mulai: getUserMedia cuma jalan di https atau localhost, jadi dobel klik file-nya ga bakal bisa. Jalanin python3 -m http.server 8787 di folder itu, terus buka http://localhost:8787/fog.html.",
       ],
       images: [
         {
           src: "/blog/fog-mirror/hero.png",
           alt: "Tiga kontrol Fog Mirror: tahan space buat ngembun, jepit jempol dan telunjuk buat gambar, lima jari plus swipe buat hapus lebar",
           caption: "Tiga gestur ini semuanya kebaca dari webcam. Ga ada hardware tambahan.",
-        },
-      ],
-    },
-    {
-      heading: "Dua hal yang nentuin jadi apa engga",
-      icon: "alert",
-      paragraphs: [
-        "Prompt-nya panjang karena sebagian besar isinya bukan fitur, tapi kegagalan. Sebelas kegagalan yang semuanya punya bentuk sama: aplikasinya ke-render, console-nya bersih, dan satu-satunya bukti cuma perasaan kamu kalau ada yang aneh. Dua ini yang paling mahal.",
-        "Pertama, yang kehapus itu bukan gambarnya, tapi alpha di canvas mask. Kalau kamu nimpa pakai warna putih atau gambar ulang kameranya, hasilnya cuma coretan putih yang makin lama makin putih. Kedua, semua tes bentuk tangan harus diukur di worldLandmarks yang 3D. Tangan ngegenggam yang ngadep kamera, kalau diukur di koordinat layar, kebaca kayak empat jari kebuka, dan kaca kamu kehapus sendiri tiap kali kamu ngepal.",
-      ],
-      images: [
-        {
-          src: "/blog/fog-mirror/layer.png",
-          alt: "Empat canvas: view, mask, fog, steam, plus dua composite operation destination-in dan destination-out",
-          caption: "Mask ga pernah kelihatan di layar. Dia cuma nyimpen seberapa tebel embun di tiap pixel.",
-        },
-        {
-          src: "/blog/fog-mirror/gesture.png",
-          alt: "Perbandingan satu kepalan tangan diukur di 2D versus 3D, plus tabel tujuh pose tangan dan hasilnya",
-          caption: "Angka 1.89 lawan 0.72 itu kepalan yang sama persis. Cuma cara ngukurnya yang beda.",
         },
       ],
     },
@@ -671,9 +650,8 @@ The architecture is fixed — three layers, mask-as-alpha, \`destination-out\`, 
     },
     {
       paragraphs: [
-        "Bagian paling berguna buat kamu sendiri ada di nomor 16, daftar cara ngetesnya. Tes nomor 3 sama 5 itu yang paling sering gagal: ngepal abis gambar harusnya ga ngapa-ngapain, dan tangan kebuka yang diem di depan kamera juga harusnya ga ngapa-ngapain. Kalau dua itu lolos, gesturnya udah bener.",
-        "Arsitekturnya emang aku kunci, tapi tampilannya engga. Palet, tipografi, dan embunnya itu apa, itu semua punya kamu. Bisa jadi kristal es, bisa jadi hujan di jendela, bisa jadi debu di layar.",
-        "Kalau kamu bikin satu, aku mau liat.",
+        "Bagian nomor 16 itu daftar cara ngetesnya. Mulai dari situ kalau hasilnya kerasa aneh.",
+        "Palet, tipografi, dan embunnya itu apa, semuanya bebas kamu ganti. Kalau kamu bikin satu, aku mau liat.",
       ],
       cta: {
         label: "Kirim hasilnya ke @hollynst",
