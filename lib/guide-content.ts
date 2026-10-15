@@ -46,6 +46,70 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "lockin": [
+    {
+      paragraphs: [
+        "Aku bikin ini karena aku kebiasaan \"belajar\" sambil megang hp selama 40 menit tanpa sadar.",
+        "Cara kerjanya: webcam kamu ngeliatin tangan kamu. Begitu ada tangan keangkat di depan kamera selama 1,2 detik, ada kucing yang muncul di sebelah dan mulai teriak. Dan dia ga berhenti sampai tangannya kamu turunin.",
+        "Gratis, open source, jalan di Mac. Di bawah ini cara pasangnya.",
+      ],
+      images: [
+        {
+          src: "/blog/lockin/hero.jpg",
+          alt: "Dua window: kamera dengan tracking tangan dan muka, plus window kucing teriak dengan caption NOT THE PHONE AGAIN",
+          caption: "Dua window: kamera kamu di kiri, kucing yang ngamuk di kanan. Captionnya ganti-ganti sendiri.",
+        },
+      ],
+    },
+    {
+      heading: "Pasangnya: 3 langkah",
+      icon: "zap",
+      paragraphs: [
+        "Yang kamu butuhin cuma Mac sama Python 3.10 ke atas. Kalau kamu ga mau nyentuh Terminal sama sekali, ga usah, dua langkah terakhir itu tinggal dobel klik.",
+        "Satu: buka repo-nya di GitHub, pencet tombol hijau Code, terus Download ZIP. Unzip di mana aja.",
+        "Dua: dobel klik file setup.command, terus tungguin. Dia bikin virtualenv sendiri, install mediapipe sama opencv, dan narik dua file model yang totalnya sekitar 12MB. Bagian install-nya makan beberapa menit, jadi santai aja.",
+        "Tiga: dobel klik run.command. Launch pertama butuh sekitar 10 detik karena kamera di macOS emang lelet bangun, dan ada layar placeholder biar kamu tau dia idup.",
+      ],
+      images: [
+        {
+          src: "/blog/lockin/langkah.png",
+          alt: "Tiga langkah: download ZIP dari GitHub, dobel klik setup.command, dobel klik run.command",
+          caption: "Kalau kamu lebih suka Terminal, ada perintah manualnya di README.",
+        },
+      ],
+      cta: {
+        label: "Buka repo-nya di GitHub",
+        href: "https://github.com/hollynatasha/lockin",
+        note: "Gratis dan open source. Kalau kamu bikin versi kamu sendiri, aku mau liat.",
+      },
+    },
+    {
+      heading: "Kalau kameranya ga kebuka",
+      icon: "alert",
+      paragraphs: [
+        "Ini masalah nomor satu, dan penyebabnya kekecoh: macOS mintanya izin ke Terminal, bukan ke Python. Jadi kalau kamu nolak sekali, Python-nya keliatan diem aja tanpa error yang jelas.",
+        "Benerinnya: System Settings, Privacy & Security, Camera, terus nyalain Terminal. Abis itu quit Terminal-nya beneran pakai cmd-Q, bukan cuma nutup window-nya, baru jalanin lagi.",
+        "Satu lagi yang sering kejadian: dia bunyi padahal kamu lagi ngetik doang. Itu artinya webcam kamu kebagian liat keyboard kamu. Tinggal miringin layar laptop kamu agak ke belakang, di kebanyakan laptop tangan kamu jadi ga masuk frame kecuali beneran diangkat.",
+      ],
+    },
+    {
+      heading: "Tombol dan cara ganti kucingnya",
+      icon: "sparkles",
+      paragraphs: [
+        "Tombolnya cuma tiga: q atau esc buat keluar, spasi buat pause, f buat ngebalik arah cerminnya.",
+        "Buat ganti kucingnya, taruh video apa aja ke folder clips. Tiap kali kamu ketangkep, dia milih satu secara random dan muter audio aslinya, terus makin keras tiap ngulang selama tangan kamu masih keangkat. Yang paling nendang itu klip pendek, 2 sampai 6 detik. Kalau folder-nya kosong pun tetep jalan, kamu cuma dapet kartu merah polos.",
+        "Satu jebakan: video dari hp biasanya format HEVC dan opencv payah banget bacanya. Convert dulu pakai ffmpeg, perintahnya ada di clips/README.md.",
+        "Kalimat yang muncul di layar itu ada di list CAPTIONS, paling atas di file lockin.py. Punyaku isinya kayak \"GIRL LOCKIN!!!\" sama \"BE SO FOR REAL\". Ganti aja jadi apa pun yang kira-kira bakal dibilang temen kamu ke kamu.",
+        "Kalau mau ngatur sensitivitasnya, dua angka di paling atas file yang sama: GRACE itu berapa lama tangan harus keangkat sebelum dia mulai teriak, defaultnya 1,2 detik. RECOVER itu berapa lama tangannya harus ilang sebelum dia diem, defaultnya 0,6 detik.",
+      ],
+    },
+    {
+      paragraphs: [
+        "Ada juga versi browser-nya di folder web, yang ga usah install apa-apa: jalanin python3 web/serve.py terus buka localhost:8000. Versi itu malah eskalasinya lebih parah, ada sirine sama kucing text-to-speech yang makin lama makin ga waras. Tapi jangan jalanin dua-duanya barengan, nanti mereka rebutan kamera.",
+        "Selain tangan, ada mode kedua yang ngikutin mata sama kepala, dan itu bisa nangkep kamu ketiduran juga. Tapi yang bener-bener kepake sehari-hari ya tangan, karena kamu ga mungkin main hp tanpa tangan.",
+      ],
+    },
+  ],
   "fog-mirror": [
     {
       paragraphs: [

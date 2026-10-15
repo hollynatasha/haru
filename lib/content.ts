@@ -106,6 +106,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "lockin",
+    category: "SETUP GUIDE",
+    title: "LOCK IN: WEBCAM YANG TERIAK KALAU KAMU PEGANG HP",
+    description:
+      "Webcam kamu ngeliatin tangan kamu. Begitu kamu angkat hp, ada kucing yang mulai teriak dan ga berhenti sampai hp-nya kamu taruh. Ini cara pasangnya, 3 langkah, ga usah ngetik satu baris pun.",
+    readMinutes: 7,
+    publishedAt: "2026-10-15",
+  },
+  {
     slug: "fog-mirror",
     category: "COPY PASTE",
     title: "FOG MIRROR: PROMPT LENGKAPNYA, TINGGAL COPY",
