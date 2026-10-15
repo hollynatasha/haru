@@ -106,6 +106,33 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "gemini-4-argon",
+    category: "NEW FEATURE",
+    title: "GEMINI 4 ARGON: ANGKANYA, DAN YANG GA MASUK THREAD HYPE",
+    description:
+      "Google rilis frontier model baru. Dia nomor satu di Vals Index dengan 68,9%, tapi kalah di FrontierSWE v2 sama Terminal-Bench. Ini dua-duanya, plus siapa yang udah bisa pakai.",
+    readMinutes: 6,
+    publishedAt: "2026-10-15",
+  },
+  {
+    slug: "claude-watermark",
+    category: "SAVE THIS",
+    title: "CLAUDE SEKARANG NANDAIN TEKSNYA. INI ARTINYA BUAT TUGAS KAMU",
+    description:
+      "Bukan karakter tersembunyi, tapi pola di pilihan kata, dan ga bisa dimatiin. Ini cara kerjanya, apa yang sebenernya ketahuan dari hasil deteksi, dan workflow proofreading yang prosesnya tetep bisa kamu jelasin.",
+    readMinutes: 9,
+    publishedAt: "2026-10-15",
+  },
+  {
+    slug: "toolkit",
+    category: "WORKFLOW",
+    title: "5 TOOL SEBELUM MULAI PROJECT DI CLAUDE CODE ATAU CODEX",
+    description:
+      "Claude Mem, Find Skills, AnyDoc, Claude Code Setup, sama Agent Skills. Ga satu pun wajib. Ini tugas masing-masing, jalan di client mana, perintah install-nya, dan prompt buat milih yang kamu beneran butuh.",
+    readMinutes: 11,
+    publishedAt: "2026-10-15",
+  },
+  {
     slug: "lockin",
     category: "SETUP GUIDE",
     title: "LOCK IN: WEBCAM YANG TERIAK KALAU KAMU PEGANG HP",

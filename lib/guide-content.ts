@@ -46,6 +46,258 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "toolkit": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"TOOLKIT\" di video.",
+        "Lima tool buat dipertimbangin sebelum kamu mulai project di Claude Code atau Codex. Yang perlu aku tegasin di depan: ga satu pun dari ini wajib. Claude Code sama Codex jalan tanpa semuanya. Ini tambahan, dan kamu pilih berdasarkan kebutuhan project, bukan install semuanya biar lengkap.",
+        "Catatan jujur juga: aku nyusun ini dari repository resmi masing-masing developer, bukan dari hasil install aku sendiri. Perintah di bawah ini buat kamu cek dan jalanin di client yang bener, bukan bukti aku udah nyobain semuanya. Cek README terbaru mereka dulu, karena yang beginian cepet berubah.",
+      ],
+      images: [
+        {
+          src: "/blog/toolkit/hero.png",
+          alt: "Lima tool dengan tugas dan host masing-masing: Claude Mem, Find Skills, AnyDoc, Claude Code Setup, Agent Skills",
+          caption: "Kolom kanan itu yang paling sering salah dikira. Ga semuanya jalan di dua-duanya.",
+        },
+      ],
+    },
+    {
+      heading: "Yang mana jalan di mana",
+      icon: "plug",
+      paragraphs: [
+        "Ini bagian yang paling gampang bikin kamu buang waktu, jadi aku taruh paling atas.",
+        "Claude Mem nyimpen aktivitas sesi kamu, ngerangkum, terus manggil lagi context yang relevan di sesi berikutnya. Repository-nya dokumentasiin Claude Code, dan sekarang juga ngirim metadata plugin buat Codex plus host lain. Yang perlu kamu tau: memory-nya selektif, bukan ingatan sempurna.",
+        "Find Skills nyariin skill yang cocok sama task kamu lewat Skills CLI, dan CLI itu emang eksplisit ngedukung Claude Code sama Codex. Tapi skill yang kamu temuin punya dependency-nya sendiri, jadi tetep dicek dulu.",
+        "AnyDoc itu converter yang berdiri sendiri, bukan plugin Claude. Dia ngubah Word, PowerPoint, Excel, dan beberapa format lain jadi Markdown, dan hasil Markdown-nya bisa kamu kasih ke agent mana pun.",
+        "Claude Code Setup itu plugin resmi Anthropic, dan ini yang paling sering salah dikutip: dia buat Claude Code aja. Jangan nganggep dia native tool buat Codex.",
+        "Agent Skills dari Addy Osmani isinya workflow engineering buat planning, debugging, sampai code review. Repository-nya dokumentasiin cara install buat Claude Code maupun Codex.",
+      ],
+    },
+    {
+      heading: "Perintah install-nya",
+      icon: "zap",
+      paragraphs: [
+        "Claude Mem, di Claude Code. Restart Claude Code setelah install. Repo-nya juga nyediain jalur npx, tapi baca dulu pilihan provider, dependency, alur akun, dan cara dia nyimpen data sebelum kamu jalanin.",
+      ],
+      code: [
+        `/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Find Skills, bisa di Claude Code atau Codex. Pas install, pilih host yang sesuai sama client yang lagi kamu setup.",
+      ],
+      code: [
+        `npx skills add vercel-labs/skills --skill find-skills`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Kalau kamu cuma mau nyari tanpa install skill discovery-nya dulu, bisa langsung:",
+      ],
+      code: [
+        `npx skills find frontend design`,
+      ],
+    },
+    {
+      paragraphs: [
+        "AnyDoc, di terminal biasa. Ganti nama file-nya sama punya kamu. Run pertama bakal download binary-nya dulu.",
+      ],
+      code: [
+        `npx @firecrawl/anydoc project-brief.docx -o project-brief.md`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Dua hal soal AnyDoc yang perlu kamu tau sebelum pakai. Ekstraksi teks biasa itu jalan lokal, tapi OCR buat dokumen hasil scan itu opt-in dan bisa ngirim dokumen kamu ke layanan hosted. Jadi kalau isinya sensitif, cek dulu bagian itu.",
+        "Yang kedua: selalu bandingin tabel sama angka di hasil Markdown-nya lawan file asli, minimal satu tabel. Converter bagus pun bisa ngaco di merged cell atau footnote, dan kalau kamu kasih hasilnya ke agent, salahnya kebawa terus.",
+        "Buat Claude Code Setup, buka plugin marketplace resmi di Claude Code, cari claude-code-setup, terus ikutin README yang dia link. Minta rekomendasi buat project kamu, terus pilih yang beneran kepake. Dia ngerekomendasiin automation, bukan otomatis masang semuanya.",
+        "Buat Agent Skills, buka repository Addy Osmani dan pilih cara install sesuai host kamu. README-nya dokumentasiin install plugin native buat Codex di versi CLI yang kompatibel. Kalau kamu cuma mau satu skill dan bukan semuanya, pakai instruksi per-skill-nya atau selector interaktif di Skills CLI.",
+      ],
+      cta: {
+        label: "Lihat repo Agent Skills",
+        href: "https://github.com/addyosmani/agent-skills",
+        note: "Empat repo lainnya: thedotmack/claude-mem, vercel-labs/skills, firecrawl/anydoc, dan Claude Code Setup yang ada di marketplace resmi Claude Code.",
+      },
+    },
+    {
+      heading: "Prompt buat milih, bukan install semuanya",
+      icon: "edit",
+      paragraphs: [
+        "Prompt ini aku tulis buat satu tujuan: maksa agent-nya mutusin mana yang relevan buat project kamu, dan nyebutin biayanya, sebelum masang apa pun. Ganti bagian kurung siku sama punya kamu.",
+      ],
+      code: [
+        `Aku mau bikin website pendaftaran acara kampus.
+Client yang aku pakai: [Claude Code atau Codex, versi kalau tau].
+Stack: [isi stack yang beneran dipakai].
+Project folder: [isi path].
+
+Brief: halaman harus jelasin acaranya, nampilin field nama sama email
+yang wajib diisi, tombol daftar, validasi input, dan pesan sukses.
+Jangan ngarang backend, sponsor, atau fitur yang belum ada.
+
+Dari Claude Mem, Find Skills, AnyDoc, Claude Code Setup, dan Agent
+Skills dari Addy Osmani, tentuin mana yang relevan buat project ini.
+Cocokin tiap pilihan sama host-nya dan README resmi yang sekarang.
+
+- Kalau yang dibutuhin context antar sesi, jelasin setup memory-nya
+  dan informasi apa aja yang bakal disimpen.
+- Kalau perlu skill frontend, pakai discovery dulu, terus tunjukin
+  skill yang dipilih beserta source sama dependency-nya.
+- Kalau ada brief Word/PowerPoint/Excel, jelasin konversinya pakai
+  AnyDoc dan cek satu tabel atau angka lawan file aslinya.
+- Kalau client-nya Claude Code, pakai Claude Code Setup buat
+  rekomendasi automation sesuai codebase. Jangan tawarin plugin itu
+  sebagai native tool Codex.
+- Pilih satu workflow engineering yang cocok buat planning, debugging,
+  atau code review dari Agent Skills.
+
+Sebutin pilihan yang dibutuhin, jalur install-nya, provider atau biaya
+yang berlaku, dan satu contoh pemakaian. Jangan install semua otomatis.
+
+Setelah aku pilih, bantuin install sesuai host, terus verifikasi
+tool-nya kebaca, dan jalanin satu task nyata. Jangan kirim data ke
+hosted OCR atau provider lain tanpa jelasin file dan tujuannya dulu.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Satu hal terakhir yang gampang kelupaan: biaya model sama layanan tambahan tetep ngikutin setup kamu. Masang tool baru ga bikin pemakaian jadi gratis, dan beberapa di antaranya nambah pemanggilan model.",
+        "Kalau kamu cuma mau ambil satu dari lima ini buat dicoba duluan, ambil yang nyelesain masalah yang kamu beneran kerasa minggu ini. Bukan yang paling banyak bintangnya.",
+      ],
+    },
+  ],
+  "claude-watermark": [
+    {
+      paragraphs: [
+        "Ini guide buat kamu yang udah comment \"WATERMARK\" di video.",
+        "Singkatnya: Anthropic bilang model Claude yang dirilis setelah 2 Agustus 2026 nandain teks yang mereka hasilin. Nyala by default, dan ga ada tombol buat matiin.",
+        "Tapi bentuk tandanya bukan yang kamu bayangin. Ga ada karakter tersembunyi yang diselipin ke teks kamu, jadi ga ada yang bisa kamu hapus pakai find-and-replace.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-watermark/hero.png",
+          alt: "Diagram: saat Claude punya dua pilihan kata yang sama-sama masuk akal, secret key nentuin yang mana yang dipilih, dan pola itu bertahan lewat copy-paste tapi hilang kalau ditulis ulang",
+          caption: "Pendekatannya namanya SynthID-Text, awalnya dari Google DeepMind.",
+        },
+      ],
+    },
+    {
+      heading: "Cara kerjanya, pelan-pelan",
+      icon: "brain",
+      paragraphs: [
+        "Tiap kali Claude nulis satu kata, sebenernya dia lagi milih dari beberapa kemungkinan yang semuanya masuk akal. Mau nulis \"penting\" atau \"krusial\" di kalimat ini, dua-duanya bener.",
+        "Yang dilakuin sistem tandanya: dia pakai secret key plus kata-kata sebelumnya buat ngarahin pilihan kecil itu. Satu kata doang ga keliatan apa-apa. Tapi diulang ratusan kali dalam satu tulisan, pilihan-pilihan itu ninggalin pola statistik yang bisa dicek pakai key yang sama.",
+        "Karena polanya ada di kata yang kepilih, bukan di karakter tambahan, dia kebawa pas kamu copy-paste, ganti format, atau convert ke plain text. Tapi dia juga ilang kalau teksnya ditulis ulang, diterjemahin, atau diedit berat.",
+        "Satu detail yang jarang disebut: di tempat yang jawabannya cuma ada satu, tandanya ga dipasang. Kalau ganti kata bakal bikin fakta jadi salah atau code jadi rusak, ga ada pilihan buat diarahin, jadi ga ada pola di situ.",
+      ],
+    },
+    {
+      heading: "Apa yang sebenernya ketahuan dari hasil deteksi",
+      icon: "shield",
+      paragraphs: [
+        "Ini bagian yang paling sering salah dipahami, dan menurutku paling penting buat kamu yang masih sekolah atau kuliah.",
+        "Tanda itu sinyal kemungkinan teksnya lewat model yang ngasih tanda. Sebatas itu. Dia ga nunjukin siapa yang nulis, berapa banyak kontribusi kamu, apakah isinya bener, atau apakah kamu ngelanggar aturan tugas.",
+        "Dan kebalikannya juga berlaku: ga kedeteksi bukan bukti tulisan kamu 100% manusia. Teks pendek dan editing emang ngelemahin sinyalnya.",
+        "Angka dari rollout OpenAI tanggal 5 Oktober bikin ini kelihatan jelas. Deteksi mereka kena sekitar 80% di teks 200 token dan sekitar 95% di 400 token. Tapi begitu seperempat katanya diganti sinonim, angkanya jatuh ke 17%.",
+        "Jadi hasil deteksi itu petunjuk, bukan vonis. Dan detektor gaya tulisan pihak ketiga yang banyak dipakai sekolah itu beda lagi, dia nebak-nebak dari gaya, bukan baca tanda resmi.",
+      ],
+      images: [
+        {
+          src: "/blog/claude-watermark/batas.png",
+          alt: "Dua kolom: yang ditunjukin oleh tanda versus yang ga ditunjukin, plus angka deteksi dari rollout OpenAI",
+          caption: "Deteksi resminya sendiri masih private preview, belum kebuka buat umum.",
+        },
+      ],
+    },
+    {
+      heading: "Workflow yang prosesnya tetep bisa kamu jelasin",
+      icon: "check",
+      paragraphs: [
+        "Menurutku pertanyaan yang bener bukan \"gimana biar ga ketahuan\", tapi \"kalau ditanya, aku bisa jelasin ga proses nulisku\". Yang kedua itu yang beneran ngelindungin kamu, dan kebetulan juga bikin tulisannya jadi punya kamu.",
+        "Empat langkah: mulai dari outline dan draft kamu sendiri, simpen itu sebelum kamu buka AI sama sekali. Cek dulu aturan tugas atau publikasinya soal proofreading dan penggunaan AI. Minta perubahan yang terbatas, terus baca change log-nya dan putusin sendiri edit mana yang kamu terima. Terakhir simpen versi final sama catatan bantuan AI kalau emang diminta.",
+        "Kenapa proofreading ringan masuk akal di sini: tanda itu cuma bisa muncul dari kata yang Claude pilih. Kalau dia cuma benerin typo sama grammar di draft yang kamu tulis sendiri, kata yang dia pilih jauh lebih sedikit, jadi ruang buat pola itu juga lebih kecil. Ini bukan trik ngehindarin deteksi, ini konsekuensi dari emang nulis sendiri.",
+      ],
+    },
+    {
+      heading: "Prompt proofreading-nya",
+      icon: "file-text",
+      paragraphs: [
+        "Tempel draft kamu di bagian kurung siku. Yang bikin prompt ini kepake itu dua kalimat terakhirnya: minta tabel sebelum-sesudah, dan larangan buat benerin fakta berdasarkan tebakan.",
+      ],
+      code: [
+        `Aku ingin kamu jadi proofreader, bukan nulis ulang argumenku.
+
+Ini draft asli aku:
+[TEMPEL DRAFT KAMU]
+
+Perbaiki cuma typo, grammar, dan kalimat yang ambigu. Pertahankan ide,
+struktur, data, kutipan, dan gaya aslinya. Jangan nambah klaim, sumber,
+atau pengalaman yang ga ada di draft aku.
+
+Kalau ada yang kelihatan salah secara fakta, tandain sebagai pertanyaan
+buat aku. Jangan dibenerin sendiri berdasarkan tebakan.
+
+Kasih aku:
+1) Versi dengan perubahan ditandai.
+2) Tabel sebelum / sesudah / alasan buat tiap edit.
+3) Daftar bagian yang butuh keputusan aku.
+
+Jangan janjiin hasilnya bakal bebas watermark atau lolos AI detector.`,
+      ],
+    },
+    {
+      paragraphs: [
+        "Checklist terakhir sebelum kamu kumpulin: kamu bisa jelasin tiap klaim di situ? Sumber aslinya beneran ngedukung itu? Edit-nya masih nyampein maksud kamu yang awal? Bantuan AI-nya sesuai aturan tugas?",
+        "Satu hal yang beda dan sering ketuker: tanda di teks itu lain dari Content Credentials di file. Yang kedua itu metadata yang nempel di file-nya, dan bisa dicek pakai Claude Content Checker. Itu pemeriksaan file, bukan alat buat ngecek watermark di teks.",
+        "Dan terakhir: jangan percaya prompt atau tool mana pun yang janji bisa bikin tulisan kamu \"lolos semua detector\". Yang bisa kamu kontrol itu proses kamu, dan itu yang kebetulan paling gampang dibuktiin.",
+      ],
+    },
+  ],
+  "gemini-4-argon": [
+    {
+      paragraphs: [
+        "Google baru rilis frontier model baru mereka: Gemini 4 Argon. Diumumin 30 September, dan dibuka buat developer sama bisnis tanggal 13 Oktober.",
+        "Yang dikejar model ini tugas panjang, coding level production, sama reasoning yang berlapis. Dia juga punya output decode window satu juta token, dan itu angka yang belum pernah ada di model lain.",
+        "Headline-nya: dia nomor satu di Vals Index, tes yang ngukur kerjaan nyata di bidang finance, coding, legal, sama tax. Skornya 68,9% dan dia peringkat satu dari 41 model.",
+        "Tapi kalau kamu cuma baca headline itu, kamu dapet setengah gambarnya.",
+      ],
+      images: [
+        {
+          src: "/blog/gemini-4-argon/hero.png",
+          alt: "Gemini 4 Argon nomor satu di Vals Index dengan 68,9 persen, tapi kalah di FrontierSWE v2, Terminal-Bench 4.0, dan Artificial Analysis",
+          caption: "Dua-duanya bener. Yang kedua jarang ikut dikutip.",
+        },
+      ],
+    },
+    {
+      heading: "Nomor satu di satu tes, bukan di semua tes",
+      icon: "trending-up",
+      paragraphs: [
+        "Vals Index itu satu benchmark, bukan ranking umum. Dan di benchmark lain, Argon kalah.",
+        "Di FrontierSWE v2 dia ketinggalan sekitar 10,5 poin dari GPT-6 Astra. Di Terminal-Bench 4.0 dia ketinggalan sekitar 9 poin dari Opus 5.5. Artificial Analysis ngasih dia 52,6 sementara Opus 5.5 dapet 57,6.",
+        "Jadi kalimat yang akurat itu \"nomor satu di Vals Index\", bukan \"model terbaik sekarang\". Bedanya kelihatan sepele tapi penting, karena tiap benchmark ngukur hal yang beda dan Vals Index itu ditimbang berdasarkan kontribusi ekonomi per sektor, bukan kesulitan teknis murni.",
+        "Aku nulis ini bukan buat ngecilin modelnya. Cuma, kalau kamu lagi milih model buat kerjaan tertentu, angka yang relevan itu angka di benchmark yang paling mirip sama kerjaan kamu.",
+      ],
+    },
+    {
+      heading: "Yang bikin aku penasaran: dia bisa bikin apa",
+      icon: "sparkles",
+      paragraphs: [
+        "Bagian demo-nya yang menarik. Argon bisa bikin simulasi interaktif sama visualisasi 3D yang langsung kebuka di browser, dan di beberapa demo resmi Google dia dipakai buat hal yang lebih konkret dari jawaban teks panjang.",
+        "Contoh yang beredar: sketsa 2D kasar diubah jadi desain hardware lengkap sama perhitungan fit dan clearance, game pixel-art yang beneran bisa dimainin, sama rekonstruksi arsitektur 3D yang detail.",
+        "Catatan jujur: aku belum nyobain sendiri. Semua yang aku tulis di atas aku ambil dari pengumuman resmi Google sama laporan benchmark, bukan dari hasil tes aku. Begitu aku udah coba, bagian ini aku update.",
+        "Yang mau aku tes nanti satu hal spesifik: kalau dikasih brief yang beneran kompleks, seberapa jauh dia bisa bangun sesuatu yang kepake, bukan cuma demo yang keliatan bagus di video.",
+      ],
+    },
+    {
+      paragraphs: [
+        "Buat sekarang, Argon udah bisa dipakai lewat app Gemini kalau kamu pengguna Google AI Pro atau Ultra. Lewat API harganya 2 dolar per juta token input dan 10 dolar per juta token output.",
+        "Kalau kamu cuma mau satu kalimat: dia kuat buat kerjaan panjang dan multi-langkah, dan angka nomor satunya itu nyata tapi cuma di satu benchmark.",
+      ],
+    },
+  ],
   "lockin": [
     {
       paragraphs: [
