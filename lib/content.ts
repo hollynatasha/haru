@@ -5,6 +5,7 @@ export const WHATSAPP = {
 
 export const INSTAGRAM_URL = "https://instagram.com/hollynst";
 export const TIKTOK_URL = "https://www.tiktok.com/@hollynst";
+export const YOUTUBE_URL = "https://www.youtube.com/@hollynst";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/holly-natasha-txt/";
 
 export const HERO = {
@@ -598,6 +599,11 @@ export const FOOTER = {
       kind: "tiktok" as const,
       label: "@hollynst",
       href: TIKTOK_URL,
+    },
+    {
+      kind: "youtube" as const,
+      label: "@hollynst",
+      href: YOUTUBE_URL,
     },
     {
       kind: "mail" as const,

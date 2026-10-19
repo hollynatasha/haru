@@ -8,6 +8,7 @@ import {
   VENTURES,
   INSTAGRAM_URL,
   TIKTOK_URL,
+  YOUTUBE_URL,
   LINKEDIN_URL,
   WHATSAPP,
 } from "@/lib/content";
@@ -43,6 +44,7 @@ function useTypewriter(text: string, startDelay = 700, charDelay = 45) {
 const HERO_CONTACTS = [
   { kind: "instagram" as const, label: "Instagram", href: INSTAGRAM_URL },
   { kind: "tiktok" as const, label: "TikTok", href: TIKTOK_URL },
+  { kind: "youtube" as const, label: "YouTube", href: YOUTUBE_URL },
   { kind: "linkedin" as const, label: "LinkedIn", href: LINKEDIN_URL },
   {
     kind: "mail" as const,

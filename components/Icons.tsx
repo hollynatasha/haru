@@ -89,9 +89,30 @@ export function LinkedInIcon({ className, size = 22 }: IconProps) {
   );
 }
 
+export function YouTubeIcon({ className, size = 22 }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+      <path d="M10.4 9.6v4.8l4.3-2.4-4.3-2.4Z" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export const ContactIcons = {
   instagram: InstagramIcon,
   tiktok: TikTokIcon,
+  youtube: YouTubeIcon,
   mail: MailIcon,
   whatsapp: WhatsAppIcon,
   linkedin: LinkedInIcon,
