@@ -36,11 +36,19 @@ type GuideCta = {
   note?: string;
 };
 
+type GuidePrompt = {
+  label: string;
+  title: string;
+  note?: string;
+  body: string;
+};
+
 type Section = {
   heading?: string;
   icon?: GuideIcon;
   paragraphs: string[];
   code?: string[];
+  prompts?: GuidePrompt[];
   images?: GuideImage[];
   cta?: GuideCta;
 };
@@ -289,6 +297,314 @@ Jangan janjiin hasilnya bakal bebas watermark atau lolos AI detector.`,
         "Contoh yang beredar: sketsa 2D kasar diubah jadi desain hardware lengkap sama perhitungan fit dan clearance, game pixel-art yang beneran bisa dimainin, sama rekonstruksi arsitektur 3D yang detail.",
         "Catatan jujur: aku belum nyobain sendiri. Semua yang aku tulis di atas aku ambil dari pengumuman resmi Google sama laporan benchmark, bukan dari hasil tes aku. Begitu aku udah coba, bagian ini aku update.",
         "Yang mau aku tes nanti satu hal spesifik: kalau dikasih brief yang beneran kompleks, seberapa jauh dia bisa bangun sesuatu yang kepake, bukan cuma demo yang keliatan bagus di video.",
+        "Jadi daripada nunggu aku kelar nyobain, aku tulis brief-nya duluan. Empat prompt di bawah ini yang bakal aku pakai, dan kamu bisa jalanin sendiri sekarang.",
+      ],
+    },
+    {
+      heading: "Empat prompt yang bisa kamu copy langsung",
+      icon: "zap",
+      paragraphs: [
+        "Masalah dari semua demo di atas: yang beredar itu hasilnya, bukan prompt-nya. Jadi aku nulis empat prompt yang nyasar persis ke empat kategori demo itu — sketsa 2D jadi arsitektur 3D, sketsa tangan jadi desain hardware, game pixel-art yang bisa dimainin, sama simulasi interaktif. Copy, tempel, isi bagian dalam kurung siku, kirim.",
+        "Kenapa panjang: karena yang ngancurin output model di tugas kayak gini hampir selalu hal yang sama — dia ngarang angka. Dikasih sketsa tanpa skala, dia tetep bakal milih tinggi dinding, dan kalau kamu ga minta dia nyatetin pilihan itu, kamu ga akan pernah tau mana angka yang dibaca dari gambar dan mana yang dikarang. Makanya tiap prompt di bawah maksa tiga hal: ekstrak dulu sebelum bikin, pakai default yang eksplisit kalau datanya ga ada, dan audit sendiri di akhir. Panjangnya bukan buat gaya.",
+        "Aku nulis prompt-nya in English. Bukan karena Indonesia-nya ga bisa, tapi instruksi teknis yang padet gini lebih stabil di English, dan kalau kamu mau penjelasannya Bahasa Indonesia, tinggal tambahin satu baris di akhir: \"Reply in Bahasa Indonesia, but keep all code, identifiers, and units in English.\"",
+        "Satu lagi yang perlu aku bilang jujur: ini prompt yang aku rancang berdasarkan kategori demo di pengumuman resmi Google, bukan transkrip prompt yang dipakai Google di demo mereka. Aku belum tes empat-empatnya di Argon. Strukturnya sendiri aku ambil dari cara aku biasa nyuruh model ngerjain tugas yang hasilnya harus bisa diverifikasi, dan itu jalan di model mana pun yang bisa nulis file panjang.",
+      ],
+      images: [
+        {
+          src: "/blog/gemini-4-argon/prompts.png",
+          alt: "Empat prompt dipetakan ke empat kategori demo Argon: sketsa 2D ke 3D arsitektur, sketsa tangan ke desain hardware, game pixel-art satu file, dan simulasi interaktif yang divalidasi",
+          caption: "Kolom tengah itu yang bikin prompt-nya panjang. Tanpa itu, modelnya ngarang angka.",
+        },
+      ],
+    },
+    {
+      heading: "Prompt 1 — sketsa 2D jadi arsitektur 3D",
+      icon: "camera",
+      paragraphs: [
+        "Ini yang paling sering dipajang di demo, dan juga yang paling gampang ngehasilkan sesuatu yang keliatan bener tapi ukurannya ngawur. Floor plan hampir selalu kurang informasi: tinggi dinding ga ada di gambar denah, dan skala sering cuma bisa ditebak dari lebar pintu.",
+        "Jadi prompt ini motong kerjaannya jadi empat tahap dan maksa model berhenti di tahap satu buat nunjukin tabel ekstraksi — tiap dinding, pintu, jendela, sama posisinya dalam milimeter — sebelum dia boleh nyentuh 3D sama sekali. Kalau tabelnya salah, kamu ketauan di detik ke-30, bukan setelah dia ngeluarin 800 baris kode.",
+        "Yang kamu dapet: satu file index.html yang dibuka dobel-klik, bisa di-orbit, dan bisa kamu jalanin sendiri di dalemnya pakai WASD setinggi mata 1,6 meter. Plus assumption log — daftar tiap angka yang dia karang dan alasannya.",
+      ],
+      prompts: [
+      {
+        label: "PROMPT 1 · 2D KE 3D ARSITEKTUR",
+        title: "Floor plan atau sketsa jadi model 3D yang bisa dijalanin di browser",
+        note:
+          "Isi: jenis gambarnya di baris INPUT. Butuh: satu gambar denah atau sketsa. Output: tabel ekstraksi, satu file index.html, plus assumption log.",
+        body: `ROLE
+You are a senior architectural technologist who turns 2D plan drawings into measured, navigable 3D models. You care about dimensional honesty more than about renders looking pretty. You never invent a dimension silently.
+
+INPUT
+I am attaching one image: [a 2D floor plan / a hand sketch on grid paper / a scanned CAD printout]. Treat that image as the only source of truth for geometry. Where it is ambiguous, use the DEFAULTS block below and log every single use.
+
+STAGE 1 - READ THE DRAWING BEFORE YOU MODEL ANYTHING
+Output a plain-text extraction table, one row per element you can actually see:
+  id | element (exterior wall / interior partition / door / window / stair / column / fixture) | plan position in mm | length | thickness | note
+Then report, explicitly:
+  - the drawing scale you detected, and how you detected it: printed scale bar, a dimension string, door-width inference, or grid-square pitch
+  - floor area per room in m2, plus gross internal area
+  - every line you could not classify
+Show me this table first. If more than 15 percent of elements are unclassified, stop here and ask me instead of guessing.
+
+STAGE 2 - RESOLVE THE GEOMETRY
+Build a clean topological model from that extraction: close every wall loop, snap endpoints that are within 50 mm of each other, merge duplicate collinear segments. Report every snap and every merge you performed. Then, per room, resolve ceiling height, floor level, and whether the space is enclosed or open.
+
+DEFAULTS (only when the drawing is silent, and log each one)
+  1 scene unit = 1 metre. Z is up. Origin at the lower-left of the plan bounding box.
+  Exterior wall 200 mm, interior partition 100 mm, party wall 180 mm.
+  Floor to ceiling 2700 mm, slab 150 mm, so floor to floor 2850 mm.
+  Door leaf 900 x 2100 mm. Window sill 900 mm, head 2100 mm, width as drawn.
+  Stair riser 175 mm, going 280 mm, width 900 mm, minimum headroom 2000 mm.
+  Minimum corridor clear width 1200 mm.
+
+STAGE 3 - BUILD IT
+Deliver ONE self-contained index.html that runs by double-click. No build step, no local asset files.
+  - three.js imported as an ES module from a CDN, pinned to one exact version through an import map. OrbitControls from that same pinned version.
+  - Build walls as segmented boxes around every opening. Do not use CSG, and do not fake openings with transparent textures. I want real holes I can walk through.
+  - Renderer: antialias on, outputColorSpace sRGB, ACESFilmic tone mapping, exposure 1.0, soft shadow map at 2048.
+  - Lighting: one hemisphere light (sky 0xdfe8f0, ground 0x9a8f80, intensity 0.6) and one directional sun whose shadow camera is fitted to the model bounding box, not left at the default range.
+  - Camera: perspective, 55 degree fov, near 0.1, far 500. Two modes on a key toggle: orbit, and first-person walk at eye height 1.6 m with WASD, shift to run, and collision against the wall boxes so I cannot clip through a wall.
+  - Materials: flat and untextured, differentiated only by element class (slab, exterior wall, partition, glazing, joinery). Glazing uses transmission or opacity, never a mirror.
+  - UI panel, top left: toggle roof, toggle each storey, toggle wireframe, toggle room labels, reset view, and a click-to-click measure tool that prints the distance in metres to 2 decimals.
+  - Room labels at the room centroid showing name and area in m2.
+  - Fully parametric: every dimension in the scene must come from one CONFIG object at the top of the script, so changing wall height is a one-line edit.
+
+STAGE 4 - AUDIT YOUR OWN OUTPUT
+After the code, print:
+  a) the assumption log: every dimension you inferred instead of read, and why
+  b) a conflict list: anything in the drawing that is geometrically impossible or does not close
+  c) a sanity table: sum of room areas vs gross internal area, and the delta
+  d) three things I should physically re-measure before trusting this model
+  e) what you would need from me to take this from massing to construction intent
+
+TONE
+No preamble, no apology, no restating the brief. Table, model, audit. If one requirement here is impossible, name it in one line and do the rest anyway.`,
+      },
+      ],
+    },
+    {
+      heading: "Prompt 2 — sketsa tangan jadi desain hardware",
+      icon: "brain",
+      paragraphs: [
+        "Demo yang ini paling berani, karena di bagian mekanikal nebak itu mahal. Lubang yang kurang 0,05 mm artinya part-nya ga masuk, dan kamu baru tau setelah bayar CNC.",
+        "Makanya prompt ini ga minta \"desain\". Dia minta sepuluh hal spesifik, dan tiga di antaranya yang beneran penting: tabel dimensi parametrik di mana tiap angka harus nyebut sumbernya (diukur, disketsa, ditebak, atau dari standar), kelas fit ISO 286 per pasangan part dengan clearance minimum dan maksimumnya, dan tolerance stack-up worst-case plus RSS buat rantai dimensi yang menentukan.",
+        "Bagian yang paling kepake nomor sepuluh: dia harus nyebut tiga cara desain ini gagal di minggu pertama, satu dimensi yang wajib kamu ukur sendiri sebelum keluar duit, dan satu hal di sketsa kamu yang ga masuk akal dan dia diem-diem perbaiki. Yang terakhir itu yang paling sering bikin kaget.",
+        "Outputnya dua file: script CadQuery yang parametrik, sama exploded view three.js buat ngecek ada yang tabrakan apa ga.",
+      ],
+      prompts: [
+      {
+        label: "PROMPT 2 · SKETSA KE DESAIN HARDWARE",
+        title: "Sketsa tangan jadi desain mekanikal lengkap sama fit dan clearance",
+        note:
+          "Isi: fungsi part, jumlah unit, proses produksi, lingkungan, dan satu dimensi yang kamu ukur sendiri. Output: tabel dimensi, analisis fit dan stack-up, BOM, script CadQuery, exploded view.",
+        body: `ROLE
+You are a mechanical design engineer running a first-pass detail design review. Be pedantic about tolerances. Do not invent a dimension without labelling it as an assumption.
+
+INPUT
+Attached: one image, a hand sketch of the part or assembly. Context from me:
+  - what it has to do: [...]
+  - quantity: [one-off prototype / 50 units / 10,000 units]
+  - process I actually have access to: [FDM 3D print / SLA resin / CNC aluminium / laser-cut sheet metal / injection moulding]
+  - environment: [indoor ambient / outdoor -10 to 50 C / wet / food contact / vibration]
+  - the one dimension I truly measured: [e.g. the bore has to fit a 12.00 mm shaft]
+
+UNITS POLICY
+Millimetres to 2 decimals, everywhere. Angles in degrees, forces in newtons, torque in N*m. If I hand you an imperial number, convert it, show the conversion, and keep working in mm.
+
+DELIVER, IN THIS ORDER
+
+1. PARAMETRIC DIMENSION TABLE
+   param | nominal | tolerance | source (measured / sketched / inferred / standard) | why this value
+   Every number used anywhere downstream must appear in this table. Nothing hardcoded later that is not here.
+
+2. FITS
+   For each mating pair: pair | hole | shaft | ISO 286 fit class (e.g. H7/g6) | min clearance | max clearance | interference risk.
+   Say in plain words what each fit is for: free running, locating, or press. If my process cannot hold the tolerance that fit needs - and FDM cannot hold H7 - say so and give me the fix: ream after printing, press in a bushing, or relax the fit and accept the slop.
+
+3. TOLERANCE STACK-UP
+   Pick the two or three dimension chains that actually matter. For each: list the contributors, then give both the worst-case stack and the RSS (root sum square) stack. Tell me which one to design to given my stated quantity, and why. Flag any chain where worst-case produces interference or drops clearance below the stated minimum.
+
+4. CLEARANCE AND MOTION
+   For every moving part: swept volume, minimum clearance at the tightest point, clearance at full travel. For every fastener: the driver access envelope, and whether a human hand can physically reach it. For the assembly as a whole: can it be built in the order you assume, or does one part trap another.
+
+5. LOADS, ROUGHLY BUT HONESTLY
+   Identify the governing load case. Do the hand calculation and show the formula and the substitution, not just the answer: bending stress, bearing stress at the pin or boss, thread pull-out, and the screw torque needed for preload. Compare each against material yield and state the factor of safety. Then label every result as either a real calculation or an order-of-magnitude estimate that needs FEA before anyone relies on it.
+
+6. MATERIAL AND FASTENERS
+   Two material options, with the tradeoff in one line each. Fasteners by standard designation (e.g. M4 x 0.7 x 12, ISO 4762, property class 8.8), recommended torque, and whether a threaded insert is required - which for FDM it usually is.
+
+7. DFM FOR THE PROCESS I NAMED
+   Minimum wall thickness, draft, radii, hole orientation, support strategy, warp risk, and what you would change about my sketch purely so it can be made. Be specific to that one process, not generic advice.
+
+8. BOM
+   item | qty | spec | class of supplier (describe the class, do not name a brand) | note
+
+9. TWO FILES
+   a) a parametric CAD script in CadQuery (Python) that builds the part from the dimension table, with every value read from one dict at the top and comments tying each value back to its table row
+   b) one self-contained index.html with a three.js exploded view: a slider drives explosion distance, clicking a part shows its dimension-table row, three.js pinned to an exact version via import map, no local assets
+
+10. RED TEAM YOUR OWN DESIGN
+   The three most likely ways this fails in its first week of real use. The one dimension I should measure on the physical thing before I spend money. And the one thing in my sketch that does not make sense, which you quietly corrected without telling me.
+
+If any of these ten needs data I did not give you, name it, say what you need, and complete the other nine.`,
+      },
+      ],
+    },
+    {
+      heading: "Prompt 3 — game pixel-art satu file yang beneran enak dimainin",
+      icon: "sparkles",
+      paragraphs: [
+        "Model mana pun bisa ngeluarin platformer yang jalan. Yang bikin beda itu feel-nya, dan feel itu bukan selera — itu daftar angka yang spesifik.",
+        "Jadi prompt ini nyebut angkanya langsung: fixed timestep 60 Hz pakai accumulator biar simulasinya deterministik, jump buffer 8 tick, coyote time 6 tick, apex hang di puncak lompatan, collision swept AABB yang diselesaikan satu axis dulu baru axis kedua biar kamu ga nyangkut di sambungan tile, kamera pakai deadzone plus lookahead yang disnap ke pixel bulat biar ga getar. Itu semua hal yang ga akan muncul kalau kamu cuma minta \"bikin game platformer\".",
+        "Batasan yang bikin dia jadi satu file: ga ada asset sama sekali. Sprite ditulis di source sebagai array index palet dan digambar ke offscreen canvas saat boot, suaranya disintesis WebAudio, palet dilock 16 warna. Level-nya string ASCII biar kamu bisa ngedit sendiri tanpa baca kodenya.",
+        "Dan baris terakhir prompt itu penting: jangan kasih skeleton isi TODO, jangan berhenti di tengah nanya mau lanjut apa ga. Dua itu kebiasaan yang paling sering bikin output panjang jadi ga kepake.",
+      ],
+      prompts: [
+      {
+        label: "PROMPT 3 · GAME PIXEL-ART SATU FILE",
+        title: "Platformer yang bisa dimainin, satu index.html, tanpa asset apa pun",
+        note:
+          "Isi: genre sama tema. Output: satu file yang dibuka dobel-klik, level ASCII yang bisa kamu edit, plus checklist self-test.",
+        body: `ROLE
+You are a gameplay engineer shipping something small, tight, and finished. Finished beats big. If scope has to be cut, cut content - never cut feel.
+
+GOAL
+One self-contained index.html that I open by double-click and play immediately. No build step, no npm, no external asset files, no CDN, no web fonts. Everything procedural or inline.
+
+THE GAME
+  genre: [2D precision platformer / top-down arena / grid puzzle]
+  theme: [...]
+  target session: 3 to 5 minutes, 6 to 8 screens of content, one final room
+  content rating: no gore, playable by a 10 year old
+
+ART, WITH NO ASSET FILES
+  Logical resolution exactly 320 x 180, integer-scaled to the window and letterboxed. No fractional scaling ever.
+  Canvas 2D with imageSmoothingEnabled false, plus image-rendering: pixelated in CSS.
+  Sprites defined in source as arrays of palette indices, drawn once into offscreen canvases at boot, then blitted. No base64 PNGs, and no procedural noise standing in for actual art.
+  A locked 16-colour palette listed as hex at the top of the file, each with a one-word role. Nothing in the render path may use a colour outside it.
+  Animation driven by per-entity frame tables with durations in ticks, not milliseconds.
+
+FEEL - THIS IS THE PART THAT MATTERS
+  Fixed timestep simulation at 60 Hz with an accumulator. Rendering decoupled and interpolated. The simulation must be deterministic given the same input sequence.
+  Input polled into a buffer. Implement jump buffering of 8 ticks, coyote time of 6 ticks, variable jump height on early release, and a maximum of one tick of input delay.
+  Movement with separate ground and air acceleration, separate friction values, terminal velocity, and a short apex hang where gravity is reduced near the top of the arc.
+  Collision: swept AABB against a tile grid, resolved one axis at a time, X then Y, with corner correction so I never snag on a seam between two flush tiles. No tunnelling at maximum fall speed.
+  Camera follows with a deadzone box plus velocity lookahead, clamped to level bounds, and snapped to whole logical pixels so nothing shimmers.
+  Juice: squash and stretch on landing, 4 ticks of hit-stop on damage, screen shake with a hard magnitude cap, and a single-frame white flash. All of it behind one reduceMotion flag.
+
+SOUND, WITH NO FILES
+  WebAudio synthesized at runtime: jump, land, hit, pickup, death, and one 8-bar loop built from oscillators plus a noise buffer. Create the AudioContext on the first user gesture, never before. Mute toggle, persisted.
+
+STRUCTURE
+  An explicit state machine: BOOT, TITLE, PLAY, PAUSE, DEAD, WIN. Pause must actually freeze the accumulator, not just stop drawing.
+  Levels as ASCII strings in a LEVELS array, one character per tile, with the legend written as a comment directly above them, so I can edit a level in a text editor without reading any of your code.
+  Three enemy types with genuinely different behaviour: one patroller, one that reacts to line of sight, one that constrains where I am allowed to stand. Each needs telegraph frames before it can hurt me.
+  Best time and death count in localStorage, wrapped in try/catch, because private windows throw on access.
+  A debug overlay on the backtick key: fps, tick count, entity count, hitboxes, camera deadzone, and a live tile-coordinate readout.
+
+ACCESSIBILITY
+  Remappable keys with both arrows and WASD working by default, optional gamepad, full keyboard-only play, never colour alone to distinguish danger from floor, and a clearly visible pause state.
+
+PERFORMANCE BUDGET
+  Holds 60 fps on integrated graphics at 1080p. No allocation in the per-tick hot path: pool entities and particles, and no per-frame object literals inside the collision code.
+
+AFTER THE CODE, WRITE
+  a) HOW TO EDIT A LEVEL, in five lines, for someone who does not read JavaScript
+  b) the tuning constants worth changing first, each with the range that still feels good
+  c) a self-test checklist with pass or fail per item, and actually reason through each one: does the player tunnel at max fall speed, does the jump buffer fire on the frame before landing, does pausing drift the clock, does the camera shimmer on diagonal movement, does the console stay clean
+  d) what you cut, and what you would add with one more hour
+
+Write the entire file. Do not hand me a skeleton full of TODOs, and do not stop halfway to ask whether you should continue.`,
+      },
+      ],
+    },
+    {
+      heading: "Prompt 4 — simulasi interaktif yang divalidasi, bukan animasi lucu",
+      icon: "trending-up",
+      paragraphs: [
+        "Ini bagian yang paling gampang ketipu. Simulasi yang salah tetep keliatan meyakinkan, karena yang gerak-gerak udah cukup bikin orang percaya.",
+        "Jadi prompt ini naruh validasi sebelum visualisasi. Tahap satu: tulis persamaannya, definisiin tiap simbol beserta satuannya, dan sebut dengan spesifik apa yang model ini secara struktural ga bisa gambarin — bukan \"ini disederhanain\" tapi \"ini nganggep percampurannya instan, jadi dia ga bisa nunjukin gelombang spasial\".",
+        "Tahap dua, yang ga boleh dilewat: cari kasus batas yang jawabannya ada rumus tutupnya, bandingin hasil numeriknya sama rumus itu, terus lapor drift besaran yang seharusnya kekal selama 10.000 step dalam persen. Kalau ada yang gagal, biarin gagal dan laporin — jangan dilonggarin toleransinya biar lulus. Kalimat itu aku taruh di prompt-nya persis karena itu hal pertama yang model lakuin kalau ga dilarang.",
+        "Baru setelah itu dia bikin UI-nya: slider per parameter lengkap sama satuan, empat preset buat empat rezim beda, sumbu yang berlabel dan ga dipotong biar trennya keliatan lebih dramatis, plus panel LIMITATIONS yang kelihatan di layar, bukan disumput di komentar kode.",
+      ],
+      prompts: [
+      {
+        label: "PROMPT 4 · SIMULASI INTERAKTIF",
+        title: "Sistem yang kamu mau ngerti jadi simulasi yang divalidasi dulu sebelum digambar",
+        note:
+          "Isi: sistemnya, pertanyaan yang mau dijawab, audiens, level matematika kamu. Output: persamaan plus asumsi, tabel validasi, satu file index.html bertiga panel.",
+        body: `ROLE
+You are a computational scientist who builds explorable explanations. Your standard: a reader who disagrees with you can poke the model until they see why it behaves the way it does. A pretty animation that hides its equations is a failure.
+
+WHAT I WANT TO UNDERSTAND
+  the system: [e.g. a damped driven pendulum / SIR epidemic with waning immunity / a single-server queue at a till / compound returns with irregular contributions / heat diffusion along a rod]
+  the question the simulation has to answer: [...]
+  audience: [just me / my students / a non-technical client]
+  my maths level: [comfortable with calculus / rusty / none]
+
+STAGE 1 - STATE THE MODEL, IN WORDS AND IN MATHS, BEFORE ANY CODE
+  Write the governing equations in plain text, and define every symbol: name, meaning, unit, plausible range, typical value.
+  List the assumptions, numbered. For each one, say what breaks in the real world when it is violated.
+  State what this model structurally cannot represent. Be specific. Not "it is simplified" but "it assumes instantaneous mixing, so it cannot show a spatial wave".
+  Choose the numerical method and defend it in two lines: why RK4 rather than Euler here, or why the stiffness forces an implicit solver. Give the timestep stability condition as an inequality with numbers in it.
+
+STAGE 2 - VALIDATE BEFORE YOU VISUALISE
+  Find a limiting case with a known closed-form answer: small-angle, zero damping, infinite capacity, R0 below 1. Write the analytic solution out. Then state the numerical error you expect against it, and the tolerance you will accept before calling it a bug.
+  Name a conserved quantity or invariant. If energy should be conserved, report the drift over 10,000 steps as a percentage, and say what level of drift you would treat as a defect.
+  Name one qualitative behaviour the simulation must reproduce or it is simply wrong: period doubling, a second wave, a queue growing without bound above utilisation 1.
+
+STAGE 3 - BUILD IT
+  One self-contained index.html. No build step, no external libraries, no CDN. Canvas 2D for everything, including the plots. Do not reach for a charting library.
+  Three panes: the system animating, time series of every state variable, and a phase-space or distribution view wherever that is meaningful.
+  Every parameter gets a slider with a label, a unit, a live numeric readout, a defensible min and max, and a step fine enough to be useful. Decide explicitly what happens when a parameter changes mid-run - hot-apply or restart - and make the UI say which.
+  Four named preset scenarios, each demonstrating a different regime, each with one line telling me what to watch for.
+  Controls: play, pause, step one timestep, reset, speed multiplier, and a visible readout of simulated time and step count.
+  Every plot gets labelled axes with units and real tick values. No unlabelled axes, no y-axis truncated in a way that exaggerates a trend, and state whether each scale is linear or log.
+  A LIMITATIONS panel visible in the UI, not buried in a code comment, restating the Stage 1 assumptions in plain language.
+  Deterministic given a seed. If there is randomness, implement a seeded PRNG, display the seed, and let me change it.
+  Keep model, integrator, and rendering in three clearly separated sections, so I can swap the model without touching the draw code.
+
+STAGE 4 - REPORT
+  Print the validation results as a table: check | expected | measured | pass or fail. Include the analytic comparison and the invariant drift. If something fails, leave it failing and say so - do not loosen the tolerance to get a pass.
+  Answer my original question in five sentences or fewer, citing the exact parameter values you used to get there.
+  Give me three experiments to run with the sliders, each phrased as a prediction I should commit to before I drag anything.
+  Say one thing the simulation showed you that the equations alone did not make obvious.
+
+Numbers before adjectives. If any part of this is beyond what you can do honestly, name that part in one line and do the rest.`,
+      },
+      ],
+    },
+    {
+      heading: "Kalau hasilnya kelihatan bener tapi ternyata salah",
+      icon: "alert",
+      paragraphs: [
+        "Ini yang paling sering kejadian di tugas kayak gini, dan reaksi refleks kita biasanya salah: kita bilang \"ini error\", terus modelnya nulis ulang seluruh file dari nol. Hasilnya bug lamanya ilang, bug barunya muncul, dan kamu ga belajar apa-apa soal penyebabnya.",
+        "Prompt pendek di bawah ini buat ngehentiin pola itu. Dia maksa dua hipotesis dulu, satu tes murah buat misahin keduanya, dan baru nambal setelah kamu lapor hasil tesnya.",
+      ],
+      prompts: [
+      {
+        label: "FOLLOW-UP · KALAU HASILNYA SALAH",
+        title: "Suruh dia cari penyebabnya dulu, jangan langsung nulis ulang",
+        note:
+          "Isi: gejalanya sespesifik mungkin, termasuk angka yang kamu dapet dan angka yang kamu harapin.",
+        body: `The build runs but it is wrong in a specific way: [describe exactly what you see, including the number that is off and the number you expected].
+
+Do not rewrite the file. Instead:
+1. Name the single most likely cause, and the line or function it lives in.
+2. Name the second most likely cause, so I can tell them apart.
+3. Give me one cheap diagnostic I can run in 30 seconds that distinguishes cause 1 from cause 2 - a console log, a constant to change, a value to print on screen.
+4. Wait for my result before patching.
+Then, once I report back, give me only the changed lines with three lines of context either side, and state what observable behaviour should change if the fix worked.`,
+      },
+      ],
+    },
+    {
+      heading: "Sebelum kamu percaya outputnya",
+      icon: "check",
+      paragraphs: [
+        "Empat prompt di atas dirancang biar hasilnya bisa diperiksa, bukan biar hasilnya bener otomatis. Bedanya penting.",
+        "Yang perlu kamu cek sendiri tiap kali: assumption log-nya ada beneran, atau dia cuma nulis \"assumptions: standard values\" tanpa daftar. Angka di tabel ekstraksi cocok sama yang kamu liat di gambar. Dan bagian validasi di prompt 4 beneran ngelapor angka yang gagal, bukan cuma deretan pass yang kelewat mulus.",
+        "Model yang ngelewatin bagian audit itu belum tentu ngasih kode yang salah. Tapi dia ngasih kode yang ga bisa kamu pertanggungjawabin, dan buat kerjaan yang dimensinya bakal dipotong di CNC atau dibangun di lapangan, dua itu beda jauh.",
       ],
     },
     {

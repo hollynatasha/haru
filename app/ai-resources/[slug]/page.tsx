@@ -4,6 +4,7 @@ import { GUIDES } from "@/lib/content";
 import { GUIDE_BODIES } from "@/lib/guide-content";
 import { BackToHome } from "@/components/BackToHome";
 import { GuideIconSvg } from "@/components/GuideIcon";
+import { PromptBlock } from "@/components/PromptBlock";
 
 export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
@@ -100,6 +101,13 @@ export default async function GuidePage({
                       >
                         {c}
                       </pre>
+                    ))}
+                  </div>
+                )}
+                {section.prompts && section.prompts.length > 0 && (
+                  <div className="mt-8 space-y-8">
+                    {section.prompts.map((prompt, k) => (
+                      <PromptBlock key={k} prompt={prompt} />
                     ))}
                   </div>
                 )}
