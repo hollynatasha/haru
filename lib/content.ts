@@ -111,8 +111,8 @@ export const GUIDES = [
     category: "NEW FEATURE",
     title: "GEMINI 4 ARGON: ANGKANYA, DAN YANG GA MASUK THREAD HYPE",
     description:
-      "Google rilis frontier model baru. Dia nomor satu di Vals Index dengan 68,9%, tapi kalah di FrontierSWE v2 sama Terminal-Bench. Ini dua-duanya, plus empat prompt panjang yang bisa kamu copy langsung buat demo 2D-ke-3D, desain hardware, game, dan simulasi.",
-    readMinutes: 16,
+      "Angkanya dulu sebentar, terus langsung ke bagian yang kepake: demo resmi Google satu-satu, plus empat prompt panjang yang bisa kamu copy langsung buat ngulangin sendiri — sketsa 2D jadi arsitektur 3D, sketsa tangan jadi desain hardware, game pixel-art, dan simulasi interaktif.",
+    readMinutes: 22,
     publishedAt: "2026-10-15",
   },
   {

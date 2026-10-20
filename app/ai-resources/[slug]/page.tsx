@@ -104,13 +104,6 @@ export default async function GuidePage({
                     ))}
                   </div>
                 )}
-                {section.prompts && section.prompts.length > 0 && (
-                  <div className="mt-8 space-y-8">
-                    {section.prompts.map((prompt, k) => (
-                      <PromptBlock key={k} prompt={prompt} />
-                    ))}
-                  </div>
-                )}
                 {section.images && section.images.length > 0 && (
                   <div className="mt-8 space-y-6">
                     {section.images.map((img, k) => (
@@ -128,6 +121,13 @@ export default async function GuidePage({
                           </figcaption>
                         )}
                       </figure>
+                    ))}
+                  </div>
+                )}
+                {section.prompts && section.prompts.length > 0 && (
+                  <div className="mt-8 space-y-8">
+                    {section.prompts.map((prompt, k) => (
+                      <PromptBlock key={k} prompt={prompt} />
                     ))}
                   </div>
                 )}
