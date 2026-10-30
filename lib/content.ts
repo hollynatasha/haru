@@ -107,6 +107,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "life-dashboard",
+    category: "COPY PASTE",
+    title: "LIFE DASHBOARD: SATU PROMPT, SEMUA HIDUP KAMU DI SATU HALAMAN",
+    description:
+      "Copy prompt-nya, isi [kurung siku], kirim. Dia baca kalender, email, Notion, atau data yang kamu tempel, terus ngasih satu file dashboard.html: prioritas hari ini, deadline, uang, target 7 hari. Versi Indonesia dan English, lengkap sama aturan baca-aja biar dia ga nyentuh apa pun.",
+    readMinutes: 14,
+    publishedAt: "2026-10-30",
+  },
+  {
     slug: "gemini-4-argon",
     category: "NEW FEATURE",
     title: "GEMINI 4 ARGON: ANGKANYA, DAN YANG GA MASUK THREAD HYPE",
