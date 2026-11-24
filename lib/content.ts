@@ -109,10 +109,10 @@ export const GUIDES = [
   {
     slug: "photobooth-natal",
     category: "COPY PASTE",
-    title: "PHOTOBOOTH NATAL: SATU PROMPT, JADI SENDIRI DI BROWSER KAMU",
+    title: "PHOTOBOOTH NATAL, TINGGAL COPY PROMPTNYA",
     description:
-      "Booth-nya digambar tangan, lagunya Last Christmas, tiap baris lirik satu pose. Yang keluar dua strip foto yang warnanya kayak cetakan booth beneran, bukan filter sepia. Halaman ini isinya satu prompt panjang — copy, kasih ke Claude Code atau Cursor, kelar.",
-    readMinutes: 16,
+      "Webcam kamu dipake jadi photobooth. Lagunya Last Christmas, tiap baris satu pose. Promptnya aku taro di bawah, tinggal copy terus kasih ke Claude Code atau Cursor.",
+    readMinutes: 12,
     publishedAt: "2026-11-24",
   },
   {

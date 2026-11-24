@@ -57,39 +57,39 @@ export const GUIDE_BODIES: Record<string, Section[]> = {
   "photobooth-natal": [
     {
       paragraphs: [
-        "Aku lagi iseng, terus kepikiran satu hal: photobooth Natal, tapi di tab browser. Webcam kamu jadi kameranya, lagunya Last Christmas, dan tiap baris lirik itu satu pose.",
-        "Hasilnya dua strip foto yang bisa kamu download. Warnanya bukan filter sepia bawaan Instagram — itu beda, dan bedanya kerasa. Yang ini duotone kayak cetakan booth beneran: bayangannya coklat abu anget, highlight-nya jebol ke warna kertas, bukan ke putih.",
-        "Dan ga ada satu frame pun yang keluar dari laptop kamu. Semuanya jalan lokal.",
+        "Aku bikin photobooth Natal yang jalan di browser. Webcam kamu jadi kameranya.",
+        "Dia ambil 8 foto, satu tiap baris lirik Last Christmas, terus dicetak jadi dua strip.",
+        "Fotonya ga diupload ke mana-mana. Semuanya diproses di laptop kamu sendiri.",
       ],
       images: [
         {
           src: "/blog/photobooth/hero.png",
           alt: "Booth photobooth Natal digambar tangan pakai tinta merah di atas kertas krem, lengkap sama tirai pink, garland, pohon natal kecil, dan candy cane, di sebelah judul Holly's Photo Club",
-          caption: "Semua linework-nya SVG yang dilewatin filter turbulence, makanya garisnya goyang dikit kayak gambar tangan.",
+          caption: "Booth-nya digambar pakai SVG. Garisnya sengaja dibikin goyang biar keliatan gambar tangan.",
         },
       ],
     },
     {
-      heading: "Yang perlu kamu siapin",
+      heading: "Yang perlu disiapin",
       icon: "check",
       paragraphs: [
-        "Folder kosong, Node 18 ke atas, sama webcam. Udah, itu doang.",
-        "Buka Claude Code (atau Cursor, atau coding agent apa pun) di folder kosong itu, terus paste semua blok di bawah sebagai satu pesan.",
-        "Biasanya sekali jalan udah kebentuk. Yang suka butuh dua tiga kali bolak-balik itu bagian gambar booth-nya, sampai keliatan kayak digambar tangan beneran dan bukan kayak clip art. Sabar dikit di situ, sisanya gampang.",
+        "Node 18 ke atas sama webcam. Udah itu aja.",
+        "Bikin folder kosong, buka Claude Code atau Cursor di situ, terus paste blok di bawah.",
+        "Bagian gambar booth-nya biasanya belum langsung bagus. Aku ngulang dua tiga kali sampe keliatan kayak gambar tangan.",
       ],
     },
     {
       heading: "Prompt lengkapnya, tinggal copy",
       icon: "file-text",
       paragraphs: [
-        "Sengaja aku biarin bahasa Inggris, karena yang baca ini agent-nya, bukan kamu.",
-        "Di dalemnya udah termasuk dua bug yang aku kena waktu bikin: jeda antar frame yang makin molor tiap foto, sama mask candy cane yang stripe-nya kabur ke pojok. Dua-duanya udah aku tulis di prompt, jadi kamu ga perlu kena yang sama.",
+        "Promptnya bahasa Inggris, soalnya yang baca agentnya.",
+        "Dua bug yang sempet aku kena udah aku tulis di dalemnya, jadi kamu ga usah ngulang.",
       ],
       prompts: [
         {
           label: "PROMPT BUILD · CHRISTMAS PHOTOBOOTH",
           title: "Photobooth Natal lengkap, satu pesan",
-          note: "Paste di folder kosong, ke Claude Code / Cursor / coding agent apa pun.",
+          note: "Paste di folder kosong, ke Claude Code, Cursor, atau coding agent apa pun.",
           body: `Build me a Christmas photobooth that runs in the browser. Plain HTML, CSS and ES
 modules — no React, no Tailwind, no bundler, no build step. The only dependency
 is \`puppeteer-core\` as a devDependency, for the tests.
@@ -412,9 +412,10 @@ rushed.`,
       heading: "Bikin jadi punya kamu",
       icon: "sparkles",
       paragraphs: [
-        "Nama club-nya ganti punya kamu. Ada di dua tempat: judul di halaman depan, sama kaki strip foto-nya.",
-        "Lagunya juga ganti. Jumlah baris lirik itu jumlah frame, dan strip-nya otomatis kebelah dua. Kalau mau kamu pasang di internet publik, pakai kata-kata kamu sendiri atau lagu Natal yang udah public domain — Last Christmas itu punya orang.",
-        "Warna tintanya satu nilai: #C8352B. Ganti itu doang dan dia langsung berenti jadi versi Natal.",
+        "Nama club-nya ada di dua tempat, judul depan sama bawah strip.",
+        "Lagunya bisa diganti. Berapa baris lirik, segitu jumlah fotonya.",
+        "Kalo mau kamu pasang di web publik jangan pake Last Christmas ya, itu lagu orang. Pake yang public domain.",
+        "Warna tintanya #C8352B. Ganti itu aja, dia udah ga keliatan Natal lagi.",
       ],
     },
   ],
