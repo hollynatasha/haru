@@ -107,6 +107,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "photobooth-natal",
+    category: "COPY PASTE",
+    title: "PHOTOBOOTH NATAL: SATU PROMPT, JADI SENDIRI DI BROWSER KAMU",
+    description:
+      "Booth-nya digambar tangan, lagunya Last Christmas, tiap baris lirik satu pose. Yang keluar dua strip foto yang warnanya kayak cetakan booth beneran, bukan filter sepia. Halaman ini isinya satu prompt panjang — copy, kasih ke Claude Code atau Cursor, kelar.",
+    readMinutes: 16,
+    publishedAt: "2026-11-24",
+  },
+  {
     slug: "sertifikat-ai",
     category: "SAVE THIS",
     title: "SERTIFIKAT AI: 5 LINK, DAN APA YANG BENERAN KAMU DAPET",

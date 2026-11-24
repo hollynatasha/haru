@@ -54,6 +54,370 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "photobooth-natal": [
+    {
+      paragraphs: [
+        "Aku lagi iseng, terus kepikiran satu hal: photobooth Natal, tapi di tab browser. Webcam kamu jadi kameranya, lagunya Last Christmas, dan tiap baris lirik itu satu pose.",
+        "Hasilnya dua strip foto yang bisa kamu download. Warnanya bukan filter sepia bawaan Instagram — itu beda, dan bedanya kerasa. Yang ini duotone kayak cetakan booth beneran: bayangannya coklat abu anget, highlight-nya jebol ke warna kertas, bukan ke putih.",
+        "Dan ga ada satu frame pun yang keluar dari laptop kamu. Semuanya jalan lokal.",
+      ],
+      images: [
+        {
+          src: "/blog/photobooth/hero.png",
+          alt: "Booth photobooth Natal digambar tangan pakai tinta merah di atas kertas krem, lengkap sama tirai pink, garland, pohon natal kecil, dan candy cane, di sebelah judul Holly's Photo Club",
+          caption: "Semua linework-nya SVG yang dilewatin filter turbulence, makanya garisnya goyang dikit kayak gambar tangan.",
+        },
+      ],
+    },
+    {
+      heading: "Yang perlu kamu siapin",
+      icon: "check",
+      paragraphs: [
+        "Folder kosong, Node 18 ke atas, sama webcam. Udah, itu doang.",
+        "Buka Claude Code (atau Cursor, atau coding agent apa pun) di folder kosong itu, terus paste semua blok di bawah sebagai satu pesan.",
+        "Biasanya sekali jalan udah kebentuk. Yang suka butuh dua tiga kali bolak-balik itu bagian gambar booth-nya, sampai keliatan kayak digambar tangan beneran dan bukan kayak clip art. Sabar dikit di situ, sisanya gampang.",
+      ],
+    },
+    {
+      heading: "Prompt lengkapnya, tinggal copy",
+      icon: "file-text",
+      paragraphs: [
+        "Sengaja aku biarin bahasa Inggris, karena yang baca ini agent-nya, bukan kamu.",
+        "Di dalemnya udah termasuk dua bug yang aku kena waktu bikin: jeda antar frame yang makin molor tiap foto, sama mask candy cane yang stripe-nya kabur ke pojok. Dua-duanya udah aku tulis di prompt, jadi kamu ga perlu kena yang sama.",
+      ],
+      prompts: [
+        {
+          label: "PROMPT BUILD · CHRISTMAS PHOTOBOOTH",
+          title: "Photobooth Natal lengkap, satu pesan",
+          note: "Paste di folder kosong, ke Claude Code / Cursor / coding agent apa pun.",
+          body: `Build me a Christmas photobooth that runs in the browser. Plain HTML, CSS and ES
+modules — no React, no Tailwind, no bundler, no build step. The only dependency
+is \`puppeteer-core\` as a devDependency, for the tests.
+
+## The feeling I'm after
+
+A hand-drawn paper-and-ink Christmas card that happens to take your photo. Warm
+cream paper, red felt-tip linework, one green accent. It should look like
+somebody drew it, not like a stock illustration. Nothing glossy, no gradients on
+buttons, no drop shadows on text, no emoji anywhere.
+
+The photos it prints must look like a real photobooth strip — warm neutral grey
+with grain and a vignette, not an Instagram sepia filter.
+
+## Files
+
+\`\`\`
+index.html
+serve.mjs          dev server
+src/app.js         scenes, the shoot, the strip, the sound
+src/booth.js       the booth drawing, as one inline SVG
+src/filter.js      the film look
+src/snow.js        falling snow
+src/ui.css
+test/shot.mjs      screenshots every scene
+test/fullrun.mjs   the whole shoot, over recorded footage
+test/cadence.mjs   times the gaps between frames
+\`\`\`
+
+## The flow — five scenes, one page
+
+Scenes are absolutely-positioned \`<section class="scene">\` siblings that
+cross-fade on an \`.on\` class. Set \`document.body.dataset.scene\` too, so the
+background colour can change with the scene.
+
+**1. Outside.** The booth, drawn, sitting beside the title *Holly's Photo Club*
+(swap the name for mine when you make it yours) set in a Didot-ish serif, with
+the second line in italic. One button: \`step inside →\`. Loose SVG snow drifting
+down the whole screen on a CSS \`translateY\` keyframe, each flake with a negative
+\`animation-delay\` so they don't all start together.
+
+Clicking the button scales the whole scene to 2.1× while fading it out, like
+you're walking into the booth, then cuts to inside.
+
+**2. Inside.** Cream room. A striped curtain covers the camera frame and parts —
+two halves sliding out on \`cubic-bezier(.6,0,.2,1)\` over 1.1s. Important: start
+the camera *before* opening the curtains, so there's something behind them when
+they part. Snow falls on a full-screen canvas behind the booth, not inside the
+photo frame.
+
+The frame itself is \`height: min(58vh, 540px); aspect-ratio: 3/4\`, rounded, with
+a thick dark \`box-shadow\` ring as a bezel. Then a dimmed overlay with one button:
+\`i'm ready\`.
+
+**3. The shoot.** Eight frames, one per line of a song.
+
+- \`3 · 2 · 1\` on the **first frame only**, each digit scaling down and fading on
+  a 1s animation, with a short 660 Hz sine beep.
+- After that, one frame every **two seconds** with no further counting. Just
+  flash, shutter click, next lyric.
+- The lyric for the pose sits *above* the frame in italic serif, so you know what
+  you're meant to be doing. A \`5 / 8\` counter sits bottom-right inside the frame.
+- Each captured frame flies into a row of small tilted thumbnails below the
+  frame, so you can see the strip filling up.
+
+**Lyrics — one line per frame.** I split *Last Christmas* at every full stop,
+comma and question mark, plus the beat in the middle of the first line, because
+"once bitten" and "and twice shy" are two different poses, not one:
+
+\`\`\`js
+const LYRICS = [
+  'Once bitten',
+  'and twice shy',
+  'I keep my distance',
+  'but you still catch my eye',
+  'Tell me baby',
+  'do you recognize me?',
+  "It's been a year",
+  "it doesn't surprise me",
+];
+\`\`\`
+
+(If you're putting this on the public internet, swap in your own words or a
+public-domain carol — these are someone's lyrics.)
+
+**The cadence bug, so you don't ship it.** Measure the next frame's deadline
+from the moment the shot is *taken*, not from when developing it finished.
+Developing a frame takes real time, and if you \`await develop()\` then
+\`await wait(2000)\`, the cost of every capture is added to the gap and the frames
+drift apart. The shape that works:
+
+\`\`\`js
+let due = 0;
+for (let i = 0; i < LYRICS.length; i++) {
+  if (i === 0) await this.countdown();
+  else await wait(Math.max(0, due - performance.now()));
+  const shotAt = performance.now();
+  await this.snap();
+  due = shotAt + GAP_MS;
+}
+\`\`\`
+
+In \`snap()\`: trigger the flash, play the shutter, wait ~60ms so you grab the
+*bright* frame — which is what a real booth catches — then capture, then ~130ms
+before returning.
+
+**4. Printing.** Background turns dark wood. A machine: two rollers, a dark
+slot, a tray. The strip crawls out of the slot on a 3.2s
+\`cubic-bezier(.35,.02,.3,1)\` translate, with a low filtered whirr underneath.
+Caption: \`developing…\`.
+
+**5. Done.** The two strips land side by side, each rotated slightly the other
+way (-2.2° and 1.8°) with a staggered drop-in animation. Two buttons:
+\`save them\` and \`go again\`.
+
+## The film look — this is the part that matters
+
+A photobooth print is **not** a greyscale photo and **not** \`filter: sepia()\`.
+It's a duotone: the shadows go a warm brown-grey rather than black, the
+highlights blow out to paper cream rather than white. Doing it as a luminance →
+colour ramp is what keeps skin looking like skin instead of toffee.
+
+In \`src/filter.js\`, build a 256-entry LUT once from these stops (close to
+neutral, warmth only creeping in at the top — this exact restraint is what makes
+it look real):
+
+\`\`\`js
+const STOPS = [
+  [0.00, [ 34,  31,  29]],
+  [0.22, [ 78,  73,  68]],
+  [0.52, [141, 133, 123]],
+  [0.80, [205, 197, 185]],
+  [1.00, [241, 236, 227]],
+];
+\`\`\`
+
+Then per pixel, in this order:
+
+1. Luminance: \`0.299r + 0.587g + 0.114b\`, normalised.
+2. **Lift the floor, crush the ceiling** — an old booth has no true black and
+   blows its highlights long before the paper does: \`lum = (lum - 0.04) / 0.86\`,
+   clamped.
+3. Smoothstep S-curve: \`lum * lum * (3 - 2 * lum)\`.
+4. **Vignette** falling off from the centre, flat until 42% of the radius:
+   \`lum *= 1 - 0.78 * Math.pow(Math.max(0, r - 0.42) / 0.58, 2.1)\`
+5. **Grain, heaviest in the shadows** where film actually shows it:
+   \`(Math.random() - 0.5) * 26 * (1.15 - 0.62 * lum)\`
+6. Look up the final value in the LUT.
+
+\`capture(video, w, h)\` centre-crops the video to 3:4 at **660 × 880**, draws it
+**mirrored** (\`translate(w,0); scale(-1,1)\` — that's the person you were looking
+at), then develops it and returns a canvas.
+
+Each frame is genuinely developed at the moment it's captured. The live preview
+only uses a cheap CSS approximation so it stays smooth:
+\`filter: grayscale(1) sepia(.42) contrast(1.22) brightness(1.06)\` — but what
+prints is the real thing, not the approximation. Don't be tempted to screenshot
+the CSS version.
+
+## The strip
+
+A real strip has **no side margins**. The frames run edge to edge and are
+separated by the black of the film backing. Only the foot is paper.
+
+\`\`\`
+W      = 320
+CELL_H = round(W / 0.75)   the 3:4 the camera is cropped to
+BAR    = 13                black between frames, and above the first
+FOOT   = 46                cream paper at the bottom
+\`\`\`
+
+Fill the whole canvas \`#17150F\`, then draw each shot clipped into its cell with
+cover-scaling. The foot is \`#EFE9DE\` with about 700 1px specks (\`W * FOOT * 0.05\`) of
+\`rgba(120,110,96, ~0.06)\` scattered over it so it reads as paper rather than a
+swatch, then two lines of type centred:
+
+- \`holly's photo club\` — italic 16px Didot/Bodoni/Baskerville serif, \`#8E8475\`
+- \`M E R R Y   C H R I S T M A S   2 0 2 6\` — 9px sans, letterspaced by hand
+  with real spaces
+
+Eight shots → two strips of four. \`save them\` composites both onto one canvas
+over \`#3A2A1E\` with 46px padding and a 40px gutter, and downloads it as
+\`photo-club.png\`.
+
+## The drawing
+
+\`src/booth.js\` exports one function returning an inline SVG string, viewBox
+\`0 0 420 560\`. **Every straight line goes through a turbulence displacement
+filter** — that one filter is the whole difference between "vector illustration"
+and "somebody drew this":
+
+\`\`\`xml
+<filter id="rough" x="-12%" y="-12%" width="124%" height="124%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="7" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4"
+                     xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+\`\`\`
+
+plus a second, gentler one (\`baseFrequency="0.035"\`, \`numOctaves="2"\`,
+\`seed="19"\`, \`scale="2.2"\`) for the decorations, so they don't wobble in lockstep
+with the cabinet.
+
+Palette: ink \`#C8352B\`, pine \`#2F6B43\`, paper \`#F7F1E6\`. Linework is
+\`stroke-width: 3.4\`, \`fill: none\`, round caps and joins.
+
+The cabinet, in one \`<g filter="url(#rough)">\`: body, a slanted cornice, a sign
+box on top with a little bracket, the curtain opening down the middle, a bench
+inside, a framed three-up strip on the left panel, a mirror on the right, a print
+slot, two short legs.
+
+Behind the ink, the curtain: a \`<pattern>\` of 9px pink stripes
+(\`#F6DCDC\` / \`#EFC3C3\`) with a few vertical \`#D9A3A3\` folds drawn as gentle
+quadratic curves over it.
+
+On top, Christmas: a garland swagging across the cabinet in pine with four small
+red baubles sitting on it, a sprig of holly with two berries on the sign box, a
+small zigzag fir tree with a red trunk and a hand-drawn star, and a candy cane.
+
+**The candy cane is the fiddly bit.** Don't fake it with a dashed stroke — do
+real diagonal stripes masked to the shape of the stick:
+
+1. The hook path (\`M0 76 V26 a13 13 0 0 1 26 0 V40\`) stroked at width 17 in red
+   as an outline, then at width 12.5 in cream on top.
+2. An \`18\`-line array of diagonal paths, drawn inside a \`<g>\` whose \`mask\`
+   references the same hook path stroked at 12.5 in white.
+3. The mask must be \`maskUnits="userSpaceOnUse"\` and must **not** repeat the
+   parent group's \`transform\` — a mask resolves in the user space of whatever
+   references it, and that group is already translated. Translating twice puts
+   the stripes somewhere off in the corner. This cost me a while.
+
+Lettering goes in a separate unfiltered \`<g>\` (displaced text is unreadable):
+\`PHOTOS\` letterspaced on the sign, \`Holly's\` italic over \`PHOTO CLUB\` small-caps
+on the left panel, \`merry christmas\` on the right.
+
+## Snow
+
+Two kinds. Outside: static SVG circles on a CSS fall keyframe. Inside: a small
+\`Snow\` class on a canvas — 150 flakes with position, radius, fall speed and a
+sine sway, each drawn as a radial gradient rather than a flat white dot. Pure
+white disappears against cream, so give every flake a cool edge:
+\`#fff\` → \`rgba(238,243,250,·)\` → \`rgba(188,201,219,·)\` → transparent.
+
+Respect devicePixelRatio when sizing the canvas, cap it at 2.
+
+## Sound, all synthesised with WebAudio — no audio files
+
+- **Countdown beep:** 660 Hz sine, 70ms, exponential ramp up then down.
+- **Shutter:** a 90ms noise buffer with a cubic decay envelope
+  \`(1 - i/len) ** 3\`.
+- **Printer whirr:** a 2.6s noise buffer through a 900 Hz lowpass, with a slow
+  sine wobble \`(0.6 + 0.4 * sin(i/220))\` so it sounds mechanical rather than
+  like static.
+
+Create the AudioContext lazily on first use, so it isn't blocked before a click.
+
+## Dev server
+
+Don't use \`python3 -m http.server\` — it sends \`Last-Modified\` and no cache
+directives, so Chrome happily reuses a stale stylesheet after an edit, which
+looks exactly like the edit never happened. Write a 30-line \`serve.mjs\` that
+sends \`cache-control: no-store, no-cache, must-revalidate\`, and also hang a
+\`?v=<timestamp>\` on the script and stylesheet links. Run on port 8830 via
+\`npm run serve\`.
+
+## Testing — and this bit is not optional
+
+The hard part is that the shoot needs a face in front of the machine, and tests
+don't have one. Solve it two ways:
+
+**1. \`?src=<file>\` drives the whole booth from a recording instead of the
+camera.** In \`startCamera()\`, if the query param is present, set \`video.src\` and
+loop it rather than calling \`getUserMedia\`. Now the real path — step inside,
+count in, eight frames, develop, print, lay out the strips — runs end to end
+against real footage of a real person. Record ten seconds of yourself on your
+phone and drop it in \`test/\`.
+
+**2. Expose a \`self.__booth\` handle** for the headless browser to drive:
+\`state()\` → \`{scene, shots, total}\`, \`gaps()\` → the measured seconds between
+frames, \`fake(n)\` to stuff in n placeholder shots so the print and done scenes
+can be screenshotted without a shoot, plus \`print()\` and \`go(scene)\`.
+
+Then write three \`puppeteer-core\` scripts (headless Chrome, \`--use-fake-device-for-media-stream\`,
+\`--autoplay-policy=no-user-gesture-required\`, each with its own
+\`--user-data-dir=/tmp/<unique>\` so it never touches my real browser profile):
+
+- \`test/shot.mjs\` — screenshots every scene into \`test/out/\`.
+- \`test/fullrun.mjs\` — the whole shoot over the recorded footage.
+- \`test/cadence.mjs\` — asserts the frames land 2s apart:
+
+\`\`\`
+gaps between frames (s): 2  2  2  2  2  2  2
+all within 180ms of 2.00s
+\`\`\`
+
+**Look at the screenshots.** Don't tell me it works because the tests passed —
+open the PNGs, check the booth drawing isn't clip art, check the strip has no
+side margins, check the faces aren't orange. Iterate on the drawing until it
+actually looks hand-drawn.
+
+## Don't
+
+- Don't reach for React, Tailwind, a bundler or a CSS framework.
+- Don't use \`filter: sepia()\` for the print look.
+- Don't put emoji in the UI.
+- Don't upload anything anywhere — camera frames never leave the machine.
+- Don't declare it done until you've screenshotted the finished strip and looked
+  at it.
+
+## Make it yours
+
+Obvious things to change: the club name and the strip footer, the song (and so
+the number of frames — the strip splits in half automatically), the ink colour
+for a non-Christmas version, and the gap between frames if two seconds feels
+rushed.`,
+        },
+      ],
+    },
+    {
+      heading: "Bikin jadi punya kamu",
+      icon: "sparkles",
+      paragraphs: [
+        "Nama club-nya ganti punya kamu. Ada di dua tempat: judul di halaman depan, sama kaki strip foto-nya.",
+        "Lagunya juga ganti. Jumlah baris lirik itu jumlah frame, dan strip-nya otomatis kebelah dua. Kalau mau kamu pasang di internet publik, pakai kata-kata kamu sendiri atau lagu Natal yang udah public domain — Last Christmas itu punya orang.",
+        "Warna tintanya satu nilai: #C8352B. Ganti itu doang dan dia langsung berenti jadi versi Natal.",
+      ],
+    },
+  ],
   "sertifikat-ai": [
     {
       paragraphs: [
