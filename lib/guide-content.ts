@@ -54,6 +54,96 @@ type Section = {
 };
 
 export const GUIDE_BODIES: Record<string, Section[]> = {
+  "sertifikat-ai": [
+    {
+      paragraphs: [
+        "Lima tempat belajar AI yang sering dibilang \"sertifikasi gratis\". Tiga emang gratis, satu belum aku verifikasi, satu berbayar.",
+      ],
+      images: [
+        {
+          src: "/blog/sertifikat-ai/tabel.png",
+          alt: "Tabel lima penyelenggara: Anthropic, OpenAI, Microsoft gratis, NVIDIA cek sendiri, Harvard berbayar, lengkap sama apa yang kamu dapet",
+          caption: "Syarat dan benefit-nya suka berubah. Cek halaman resminya sebelum kamu tulis di CV.",
+        },
+      ],
+    },
+    {
+      heading: "1. Anthropic — AI Fluency",
+      icon: "sparkles",
+      paragraphs: [
+        "Gratis. Kamu dapet completion badge setelah lolos assessment-nya.",
+      ],
+      cta: {
+        label: "Buka AI Fluency",
+        href: "https://academy.claude.com/courses/ai-fluency-framework-foundations",
+      },
+    },
+    {
+      heading: "2. OpenAI Academy",
+      icon: "book",
+      paragraphs: [
+        "Gratis. Ada badge, dan certificate of completion buat course yang eligible. Ini bukan sertifikasi profesional.",
+        "Detail kredensialnya dijelasin di halaman bantuan mereka:",
+      ],
+      code: [
+        `https://help.openai.com/en/articles/20001270-openai-academy-courses`,
+      ],
+      cta: {
+        label: "Buka OpenAI Academy",
+        href: "https://academy.openai.com/",
+      },
+    },
+    {
+      heading: "3. Microsoft Learn — AI Fluency + Copilot",
+      icon: "check",
+      paragraphs: [
+        "Gratis. Yang kamu dapet achievement di profil Learn kamu. Sertifikasi profesional Microsoft itu jalur yang beda dan terpisah.",
+      ],
+      cta: {
+        label: "Buka learning path-nya",
+        href: "https://learn.microsoft.com/training/paths/ai-fluency/",
+      },
+    },
+    {
+      heading: "4. NVIDIA — Generative AI & Agentic AI Explained",
+      icon: "alert",
+      paragraphs: [
+        "Dua course pendek. Aku belum verifikasi status sertifikatnya, jadi jangan dianggep dapet sertifikat gratis. Cek sendiri di halaman course-nya.",
+      ],
+      code: [
+        `Generative AI Explained
+https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1
+
+Agentic AI Explained
+https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-39+V1`,
+      ],
+    },
+    {
+      heading: "5. Harvard HKS — Generative AI (berbayar)",
+      icon: "alert",
+      paragraphs: [
+        "Program eksekutif, berbayar. Aku taruh di sini biar jelas: ini ga masuk daftar gratis.",
+      ],
+      cta: {
+        label: "Buka halaman programnya",
+        href: "https://www.hks.harvard.edu/educational-programs/executive-education/generative-ai-how-use-it-and-why-it-matters",
+      },
+    },
+    {
+      heading: "Badge, certificate, sertifikasi",
+      icon: "help",
+      paragraphs: [
+        "Tiga-tiganya sering disebut \"sertifikat AI\". Bobotnya beda jauh, dan yang gratis hampir selalu yang nomor 1 atau 2.",
+      ],
+      images: [
+        {
+          src: "/blog/sertifikat-ai/tingkat.png",
+          alt: "Tiga tingkat: badge, certificate of completion, dan sertifikasi profesional, beserta bedanya",
+          caption: "Boleh banget dipajang di LinkedIn. Cuma jangan ditulis seolah-olah sertifikasi profesional.",
+        },
+      ],
+    },
+  ],
   "life-dashboard": [
     {
       paragraphs: [

@@ -107,6 +107,15 @@ export const ABOUT_ME = {
 
 export const GUIDES = [
   {
+    slug: "sertifikat-ai",
+    category: "SAVE THIS",
+    title: "SERTIFIKAT AI: 5 LINK, DAN APA YANG BENERAN KAMU DAPET",
+    description:
+      "Anthropic, OpenAI, Microsoft, NVIDIA, Harvard. Tiga gratis, satu belum aku verifikasi, satu berbayar. Link resminya plus apa yang sebenernya kamu dapet: badge, certificate of completion, atau bukan dua-duanya.",
+    readMinutes: 5,
+    publishedAt: "2026-11-04",
+  },
+  {
     slug: "life-dashboard",
     category: "COPY PASTE",
     title: "LIFE DASHBOARD: SATU PROMPT, SEMUA HIDUP KAMU DI SATU HALAMAN",
